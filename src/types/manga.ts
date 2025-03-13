@@ -1,19 +1,19 @@
-type TMangaStatus = "ongoing" | "completed" | "hiatus" | "cancelled";
+type TMangaStatus = 'ongoing' | 'completed' | 'hiatus' | 'cancelled';
 
-type TMangaContentRating = "safe" | "suggestive" | "erotica" | "pornographic";
+type TMangaContentRating = 'safe' | 'suggestive' | 'erotica' | 'pornographic';
 
-type TMangaDemographic = "shounen" | "shoujo" | "josei" | "seinen" | "none";
+type TMangaDemographic = 'shounen' | 'shoujo' | 'josei' | 'seinen' | 'none';
 
 type TRelationshipType =
-  | "manga"
-  | "chapter"
-  | "cover_art"
-  | "author"
-  | "artist"
-  | "scanlation_group"
-  | "tag"
-  | "user"
-  | "custom_list";
+  | 'manga'
+  | 'chapter'
+  | 'cover_art'
+  | 'author'
+  | 'artist'
+  | 'scanlation_group'
+  | 'tag'
+  | 'user'
+  | 'custom_list';
 
 type TDescription =
   | {
@@ -66,7 +66,7 @@ type TMangaRelationship = {
 
 interface IMangaTag {
   id: string;
-  type: "tag";
+  type: 'tag';
   attributes: TMangaTagAttributes;
   relationships: TMangaTagRelationship[] | never[];
 }
@@ -98,7 +98,16 @@ interface IMangaAttributes {
 
 interface IManga {
   id: string;
-  type: "manga";
+  type: 'manga';
   attributes: IMangaAttributes;
   relationships: TMangaRelationship[] | never[];
+}
+
+export interface IGetMangaParams {
+  includes?: TRelationshipType[];
+  order?: Record<string, string>;
+  contentRating?: TMangaContentRating[];
+  hasAvailableChapters?: boolean;
+  limit?: number;
+  createdAtSince?: string;
 }
