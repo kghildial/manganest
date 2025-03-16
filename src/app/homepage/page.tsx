@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Button } from '@/components/ui/button';
+
 import { getMangas } from '@/lib/manga';
 
 const Homepage = async () => {
@@ -28,9 +30,11 @@ const Homepage = async () => {
 
   return (
     <div>
-      <h1>Homepage</h1>
-      <p>Paragraph</p>
-      <span>Span</span>
+      <h1>Trending Now</h1>
+      <Button>Read More</Button>
+      <Button variant="secondary">Read More</Button>
+      <Button variant="ghost">Read More</Button>
+      <Button variant="disabled">Read More</Button>
     </div>
   );
 };

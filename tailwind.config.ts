@@ -33,16 +33,24 @@ export default {
         // Common Sizes
         body: ['1rem', { lineHeight: '1.5rem' }], // 16px | 24px
       },
+      borderRadius: {
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 4px)',
+        sm: 'calc(var(--radius) - 6px)',
+        xs: 'calc(var(--radius) - 8px)',
+      },
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
         border: 'var(--border)',
-        borderRadius: {
-          lg: 'var(--radius)',
-          md: 'calc(var(--radius) - 4px)',
-          sm: 'calc(var(--radius) - 6px)',
-          xs: 'calc(var(--radius) - 8px)',
-        },
+        accent: 'var(--accent)',
+        secondary_bg1: 'var(--secondary-bg1)',
+        secondary_bg2: 'var(--secondary-bg2)',
+        secondary_bg2_50: 'var(--secondary-bg2_50)',
+        foreground_tint: 'var(--foreground-tint)',
+        foreground_tint_30: 'var(--foreground-tint_30)',
+        accent_tint: 'var(--accent-tint)',
+        accent_tint_20: 'var(--accent-tint_20)',
         // ShadCN config untouched
         card: {
           DEFAULT: 'hsl(var(--card))',
@@ -64,16 +72,12 @@ export default {
           DEFAULT: 'hsl(var(--muted))',
           foreground: 'hsl(var(--muted-foreground))',
         },
-        accent: {
-          DEFAULT: 'hsl(var(--accent))',
-          foreground: 'hsl(var(--accent-foreground))',
-        },
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))',
         },
         input: 'hsl(var(--input))',
-        ring: 'hsl(var(--ring))',
+        ring: 'var(--ring)',
         chart: {
           '1': 'hsl(var(--chart-1))',
           '2': 'hsl(var(--chart-2))',

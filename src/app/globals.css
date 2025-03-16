@@ -12,58 +12,56 @@ body {
       🎨 Primary Palette
       =========================== */
     --background: hsl(40 89% 97%); /* Softcream */
-    --foreground: hsl(206 91% 8%);/* Inkstone */
+    --foreground: hsl(206 91% 8%); /* Inkstone */
     --accent: hsl(14 68% 54%); /* Burnt Orange */
 
     /* ===========================
       🎨 Secondary Palette
       =========================== */
-    --secondary-bg-1: hsl(34 33% 86%); /* Sand */
-    --secondary-bg-2: hsl(30 15% 78%); /* Stone Gray */
-    --secondary-bg-2_50: hsla(30 15% 78% / 50%); /* Stone Gray 50% */
-    --secondary-forrground-tint: hsl(206 64% 16%); /* Inkstone Tint */
-    --secondary-foreground-tint_30: hsla(206 64% 16% / 30%); /* Inkstone Tint 30% */
+    --secondary-bg1: hsl(34 33% 86%); /* Sand */
+    --secondary-bg2: hsl(30 15% 78%); /* Stone Gray */
+    --secondary-bg2_50: hsla(30 15% 78% / 50%); /* Stone Gray 50% */
+    --foreground-tint: hsl(206 64% 16%); /* Inkstone Tint */
+    --foreground-tint_30: hsla(206 64% 16% / 30%); /* Inkstone Tint 30% */
     --accent-tint: hsl(12 68% 62%); /* Burnt Orange Tint */
     --accent-tint_20: hsla(12 68% 62% / 20%); /* Burnt Orange Tint 20% */
 
     /* ===========================
       🎨 Miscellaneous
       =========================== */
-      --border: var(--foreground);
-      --radius: 12px;
-
+    --border: var(--foreground);
+    --radius: 12px;
+    --ring: var(--accent);
 
     /* ===========================
       🎨 ShadCN config carried over
       =========================== */
-      --card: 0 0% 100%;
-      --card-foreground: 0 0% 3.9%;
-      --popover: 0 0% 100%;
-      --popover-foreground: 0 0% 3.9%;
-      --primary: 0 0% 9%;
-      --primary-foreground: 0 0% 98%;
-      --secondary: 0 0% 96.1%;
-      --secondary-foreground: 0 0% 9%;
-      --muted: 0 0% 96.1%;
-      --muted-foreground: 0 0% 45.1%;
-      --accent: 0 0% 96.1%;
-      --accent-foreground: 0 0% 9%;
-      --destructive: 0 84.2% 60.2%;
-      --destructive-foreground: 0 0% 98%;
-      --input: 0 0% 89.8%;
-      --ring: 0 0% 3.9%;
-      --chart-1: 12 76% 61%;
-      --chart-2: 173 58% 39%;
-      --chart-3: 197 37% 24%;
-      --chart-4: 43 74% 66%;
-      --chart-5: 27 87% 67%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --input: 0 0% 89.8%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
   }
   .dark {
     /* ===========================
     🎨 Primary Palette
     =========================== */
     --background: hsl(40 89% 97%); /* Softcream */
-    --foreground: hsl(206 91% 8%);/* Inkstone */
+    --foreground: hsl(206 91% 8%); /* Inkstone */
     --accent: hsl(14 68% 54%); /* Burnt Orange */
 
     /* ===========================
@@ -84,41 +82,56 @@ body {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-body;
+    @apply bg-background font-body text-foreground;
   }
-  h1, h2, h3, h4, h5, h6, p, a, li, span {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  a,
+  li,
+  span {
     @apply text-foreground;
   }
 
-  h1, h2, h3, h4, h5, h6 {  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-heading;
   }
 
   h1 {
     @apply text-h1 lg:text-h1-lg;
   }
-  
+
   h2 {
-    @apply text-h2 lg:text-h2-lg; 
+    @apply text-h2 lg:text-h2-lg;
   }
 
   h3 {
-    @apply text-h3 lg:text-h3-lg; 
+    @apply text-h3 lg:text-h3-lg;
   }
 
   h4 {
-    @apply text-h4 lg:text-h4-lg; 
+    @apply text-h4 lg:text-h4-lg;
   }
 
   h5 {
-    @apply text-h5 lg:text-h5-lg; 
+    @apply text-h5 lg:text-h5-lg;
   }
 
   h6 {
-    @apply text-h6 lg:text-h6-lg; 
+    @apply text-h6 lg:text-h6-lg;
   }
 
-  p, span {
+  p,
+  span {
     @apply text-body;
   }
 }
