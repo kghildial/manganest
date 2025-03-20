@@ -1,22 +1,17 @@
 import React from 'react';
 import Image from 'next/image';
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+
+import { cn } from '@/lib/utils';
+import { IMangaCard } from '../MangaCard.types';
 
 import MangaCoverSample from '@/assets/images/Solo_Leveling_312.jpg';
-import { cn } from '@/lib/utils';
 
-const Compact = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => {
+const Compact = React.forwardRef<HTMLDivElement, IMangaCard>(
+  ({ className, title, description, chapter, timestamp }, ref) => {
     return (
-      <Card ref={ref} className={cn('flex p-2.5', className)} {...props}>
+      <Card ref={ref} className={cn('flex p-2.5', className)}>
         <Image
           src={MangaCoverSample}
           alt="Manga Cover"
@@ -26,13 +21,12 @@ const Compact = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEle
         />
         <div className="ml-2.5 flex flex-1 flex-col justify-between">
           <CardHeader className="">
-            <CardTitle className="font-3.25 font-title text-sm/5">Solo Leveling</CardTitle>
-            <CardDescription>Card Description</CardDescription>
+            <CardTitle className="font-3.25 font-title text-sm/5">{title}</CardTitle>
+            {description && <CardDescription>{description}</CardDescription>}
           </CardHeader>
-          {/* <CardContent>Card Content</CardContent> */}
           <CardFooter className="flex justify-between font-ui">
-            <p className="font-3.25 text-xs/4 font-medium">Chapter 125</p>
-            <p className="font-3.25 text-[0.625rem]/4 font-medium">25 minutes ago</p>
+            <p className="font-3.25 text-xs/4 font-medium">Chapter {chapter}</p>
+            <p className="font-3.25 text-[0.625rem]/4 font-medium">{timestamp}</p>
           </CardFooter>
         </div>
       </Card>
