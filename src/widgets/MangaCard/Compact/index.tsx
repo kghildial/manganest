@@ -11,13 +11,12 @@ import {
 } from '@/components/ui/card';
 
 import MangaCoverSample from '@/assets/images/Solo_Leveling_312.jpg';
-import CustomCard from './CustomCard';
 import { cn } from '@/lib/utils';
 
 const Compact = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => {
     return (
-      <CustomCard ref={ref} className={cn('flex p-2.5', className)} {...props}>
+      <Card ref={ref} className={cn('flex p-2.5', className)} {...props}>
         <Image
           src={MangaCoverSample}
           alt="Manga Cover"
@@ -25,7 +24,7 @@ const Compact = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEle
           height={80}
           className="rounded-xs border border-foreground"
         />
-        <div className="ml-2.5 flex flex-1 flex-col justify-between border border-red-500">
+        <div className="ml-2.5 flex flex-1 flex-col justify-between">
           <CardHeader className="">
             <CardTitle className="font-3.25 font-title text-sm/5">Solo Leveling</CardTitle>
             <CardDescription>Card Description</CardDescription>
@@ -36,7 +35,7 @@ const Compact = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEle
             <p className="font-3.25 text-[0.625rem]/4 font-medium">25 minutes ago</p>
           </CardFooter>
         </div>
-      </CustomCard>
+      </Card>
     );
   },
 );

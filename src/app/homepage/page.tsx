@@ -37,7 +37,7 @@ const Homepage = async () => {
       <Button variant="secondary">Read More</Button>
       <Button variant="ghost">Read More</Button>
       <Button variant="disabled">Read More</Button>
-      <MangaCard.Compact />
+      <MangaCard.Compact className="w-1/3" />
     </div>
   );
 };
