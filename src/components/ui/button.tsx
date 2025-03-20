@@ -10,13 +10,13 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          'bg-accent_tint border-accent_tint text-foreground hover:border-accent hover:bg-accent hover:text-background',
+          'border-accent_tint bg-accent_tint text-foreground hover:border-accent hover:bg-accent hover:text-background',
         secondary:
-          'bg-accent_tint_20 hover:border-accent_tint text-foreground_tint border-transparent',
+          'border-transparent bg-accent_tint_20 text-foreground_tint hover:border-accent_tint',
         ghost:
-          'hover:border-accent_tint border-secondary_bg1 text-foreground_tint bg-background hover:text-accent',
+          'border-secondary_bg1 bg-background text-foreground_tint hover:border-accent_tint hover:text-accent',
         disabled:
-          'bg-secondary_bg2_50 border-secondary_bg2 text-foreground_tint_30 pointer-events-none',
+          'pointer-events-none border-secondary_bg2 bg-secondary_bg2_50 text-foreground_tint_30',
       },
       size: {
         default: 'h-9 px-4 py-2',

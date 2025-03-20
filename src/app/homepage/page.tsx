@@ -1,8 +1,10 @@
 import React from 'react';
 
 import { Button } from '@/components/ui/button';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 
 import { getMangas } from '@/lib/manga';
+import MangaCard from '@/widgets/MangaCard';
 
 const Homepage = async () => {
   const getTrendingNowMangas = async () => {
@@ -35,6 +37,7 @@ const Homepage = async () => {
       <Button variant="secondary">Read More</Button>
       <Button variant="ghost">Read More</Button>
       <Button variant="disabled">Read More</Button>
+      <MangaCard.Compact />
     </div>
   );
 };
