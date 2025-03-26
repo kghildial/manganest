@@ -133,3 +133,19 @@ body {
     @apply text-body;
   }
 }
+
+@keyframes progress_bar {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.progress_bar {
+  animation-name: progress_bar;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}

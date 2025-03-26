@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { Button } from '@/components/ui/button';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 
 import { getMangas } from '@/lib/manga';
 import MangaCard from '@/widgets/MangaCard';
+import Carousel from '@/widgets/Carousel';
 
 const Homepage = async () => {
   const getTrendingNowMangas = async () => {
@@ -31,7 +31,7 @@ const Homepage = async () => {
   const trending2Hrs = await getTrendingNowMangas();
 
   return (
-    <div>
+    <div className="flex flex-col items-center">
       <h1>Trending Now</h1>
       <Button>Read More</Button>
       <Button variant="secondary">Read More</Button>
@@ -43,6 +43,7 @@ const Homepage = async () => {
         chapter={25}
         timestamp="30 minutes ago"
       />
+      <Carousel />
     </div>
   );
 };
