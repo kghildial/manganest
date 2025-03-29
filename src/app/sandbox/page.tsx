@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { getMangas } from '@/lib/manga';
 import MangaCard from '@/widgets/MangaCard';
 import Carousel from '@/widgets/Carousel';
+import Tag from '@/components/Tag';
 
 const Homepage = async () => {
   const getTrendingNowMangas = async () => {
@@ -44,6 +45,7 @@ const Homepage = async () => {
         timestamp="30 minutes ago"
       />
       <Carousel />
+      <Tag text="Action" />
     </div>
   );
 };
