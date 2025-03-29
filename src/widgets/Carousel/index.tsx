@@ -13,10 +13,11 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
+import CarouselControls from './CarouselControls';
 
 const Carousel = () => {
   const autoplayRef = useRef<AutoplayType>(
-    Autoplay({ delay: 2000, stopOnInteraction: true, playOnInit: false }),
+    Autoplay({ delay: 4000, stopOnInteraction: true, playOnInit: false }),
   );
   const progressNode = useRef<HTMLDivElement>(null);
   const animFrameId = useRef(0);
@@ -60,24 +61,21 @@ const Carousel = () => {
   }, [api]);
 
   return (
-    <CNCarousel
-      plugins={[autoplayRef.current]}
-      className="w-full max-w-xs"
-      onMouseEnter={() => {
-        const node = progressNode.current;
-        if (!node) return;
-        autoplayRef.current.stop();
-        node.style.animationPlayState = 'paused';
-      }}
-      onMouseLeave={() => {
-        const node = progressNode.current;
-        if (!node) return;
-        autoplayRef.current.play();
-        node.style.animationPlayState = 'running';
-      }}
-      setApi={setApi}
-    >
-      <CarouselContent>
+    <CNCarousel plugins={[autoplayRef.current]} className="w-full max-w-xs" setApi={setApi}>
+      <CarouselContent
+        onMouseEnter={() => {
+          const node = progressNode.current;
+          if (!node) return;
+          autoplayRef.current.stop();
+          node.style.animationPlayState = 'paused';
+        }}
+        onMouseLeave={() => {
+          const node = progressNode.current;
+          if (!node) return;
+          autoplayRef.current.play();
+          node.style.animationPlayState = 'running';
+        }}
+      >
         {Array.from({ length: 5 }).map((_, index) => (
           <CarouselItem key={index}>
             <div className="p-1">
@@ -90,11 +88,7 @@ const Carousel = () => {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
-      <div className="w-md relative flex h-1 bg-gray-400">
-        <div ref={progressNode} className="left-0 top-0 h-1 w-0 bg-orange-400"></div>
-      </div>
+      <CarouselControls ref={progressNode} />
     </CNCarousel>
   );
 };
