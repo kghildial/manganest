@@ -96,7 +96,7 @@ interface IMangaAttributes {
   latestUploadedChapter: string;
 }
 
-interface IManga {
+export interface IManga {
   id: string;
   type: 'manga';
   attributes: IMangaAttributes;

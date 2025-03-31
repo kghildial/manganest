@@ -1,29 +1,39 @@
 'use client';
 
-import React, { useEffect, useState, useRef } from 'react';
-import Autoplay, { AutoplayType } from 'embla-carousel-autoplay';
+import React, { useEffect, useState, useRef, type FC as ReactFC } from 'react';
+import Autoplay, { type AutoplayType } from 'embla-carousel-autoplay';
+import Fade, { type FadeType } from 'embla-carousel-fade';
 
 import type { CarouselApi } from '@/components/ui/carousel';
+import { ICarousel } from './Carousel.types';
 
-import { Card, CardContent } from '@/components/ui/card';
-import {
-  Carousel as CNCarousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/components/ui/carousel';
+import { Carousel as CNCarousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import CarouselControls from './CarouselControls';
 
-const Carousel = () => {
+const Carousel: ReactFC<ICarousel> = ({ template, data, controlsClassName }) => {
   const autoplayRef = useRef<AutoplayType>(
     Autoplay({ delay: 4000, stopOnInteraction: true, playOnInit: false }),
   );
+  const fadeRef = useRef<FadeType>(Fade());
   const progressNode = useRef<HTMLDivElement>(null);
   const animFrameId = useRef(0);
   const timeoutId = useRef(0);
 
   const [api, setApi] = useState<CarouselApi>();
+
+  const handleMouseEnter = () => {
+    const node = progressNode.current;
+    if (!node) return;
+    autoplayRef.current.stop();
+    node.style.animationPlayState = 'paused';
+  };
+
+  const handleMouseLeave = () => {
+    const node = progressNode.current;
+    if (!node) return;
+    autoplayRef.current.play();
+    node.style.animationPlayState = 'running';
+  };
 
   const startProgress = (timeUntilNext: number | null) => {
     const node = progressNode.current;
@@ -43,7 +53,7 @@ const Carousel = () => {
 
   // Carousel API listeners go here
   useEffect(() => {
-    if (!api) {
+    if (!api || !autoplayRef) {
       return;
     }
 
@@ -61,34 +71,18 @@ const Carousel = () => {
   }, [api]);
 
   return (
-    <CNCarousel plugins={[autoplayRef.current]} className="w-full max-w-xs" setApi={setApi}>
-      <CarouselContent
-        onMouseEnter={() => {
-          const node = progressNode.current;
-          if (!node) return;
-          autoplayRef.current.stop();
-          node.style.animationPlayState = 'paused';
-        }}
-        onMouseLeave={() => {
-          const node = progressNode.current;
-          if (!node) return;
-          autoplayRef.current.play();
-          node.style.animationPlayState = 'running';
-        }}
-      >
-        {Array.from({ length: 5 }).map((_, index) => (
-          <CarouselItem key={index}>
-            <div className="p-1">
-              <Card>
-                <CardContent className="flex aspect-square items-center justify-center p-6">
-                  <span className="text-4xl font-semibold">{index + 1}</span>
-                </CardContent>
-              </Card>
-            </div>
-          </CarouselItem>
+    <CNCarousel plugins={[autoplayRef.current, fadeRef.current]} className="w-full" setApi={setApi}>
+      <CarouselContent onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        {data.map((entry, index) => (
+          <CarouselItem key={index}>{template(entry, index)}</CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselControls ref={progressNode} />
+      <CarouselControls
+        ref={progressNode}
+        className={controlsClassName}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      />
     </CNCarousel>
   );
 };

@@ -4,7 +4,7 @@
  * This file contains APIs that fetch the manga & chapter data from the server
  */
 
-import type { IGetMangaParams } from '@/types/manga';
+import type { IGetMangaParams, IManga } from '@/types/manga';
 
 function createMangaQueryParams(params: IGetMangaParams) {
   let parsedQueryString = '?';
@@ -36,7 +36,7 @@ export async function getMangas(params: IGetMangaParams) {
 
   const response = await fetch(url, {
     next: {
-      revalidate: 12 * 60 * 60, // 12 hours
+      revalidate: 1 * 60 * 60, // 1 hour
     },
   });
 
