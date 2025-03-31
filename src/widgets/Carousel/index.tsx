@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState, useRef, type FC as ReactFC } from 'react';
+import type { CreatePluginType } from 'embla-carousel';
 import Autoplay, { type AutoplayType } from 'embla-carousel-autoplay';
 import Fade, { type FadeType } from 'embla-carousel-fade';
 
@@ -10,7 +11,15 @@ import { ICarousel } from './Carousel.types';
 import { Carousel as CNCarousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import CarouselControls from './CarouselControls';
 
-const Carousel: ReactFC<ICarousel> = ({ template, data, controlsClassName }) => {
+const Carousel: ReactFC<ICarousel> = ({
+  template,
+  data,
+  fade = false,
+  showControls = true,
+  pauseOnHover = false,
+  pauseOnControlsHover = true,
+  controlsClassName,
+}) => {
   const autoplayRef = useRef<AutoplayType>(
     Autoplay({ delay: 4000, stopOnInteraction: true, playOnInit: false }),
   );
@@ -70,19 +79,30 @@ const Carousel: ReactFC<ICarousel> = ({ template, data, controlsClassName }) => 
     };
   }, [api]);
 
+  const plugins: Array<AutoplayType | FadeType> = [autoplayRef.current];
+
+  if (fade) {
+    plugins.push(fadeRef.current);
+  }
+
   return (
-    <CNCarousel plugins={[autoplayRef.current, fadeRef.current]} className="w-full" setApi={setApi}>
-      <CarouselContent onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <CNCarousel plugins={plugins} className="w-full" setApi={setApi}>
+      <CarouselContent
+        onMouseEnter={pauseOnHover ? handleMouseEnter : () => {}}
+        onMouseLeave={pauseOnHover ? handleMouseLeave : () => {}}
+      >
         {data.map((entry, index) => (
           <CarouselItem key={index}>{template(entry, index)}</CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselControls
-        ref={progressNode}
-        className={controlsClassName}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      />
+      {showControls && (
+        <CarouselControls
+          ref={progressNode}
+          className={controlsClassName}
+          onMouseEnter={pauseOnControlsHover ? handleMouseEnter : () => {}}
+          onMouseLeave={pauseOnControlsHover ? handleMouseLeave : () => {}}
+        />
+      )}
     </CNCarousel>
   );
 };

@@ -1,6 +1,5 @@
 import LayoutWrapper from '@/components/LayoutWrapper';
-
-import TrendingMangaDetails from './TrendingManga/Details';
+import TrendingManga from './TrendingManga';
 
 import { getMangas } from '@/lib/manga';
 import { IManga } from '@/types/manga';
@@ -8,8 +7,8 @@ import { IManga } from '@/types/manga';
 const Home = async () => {
   const getTrendingNowMangas = async () => {
     const now = new Date();
-    const dayAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
-    const dayAgoISO = dayAgo.toISOString().split('.')[0];
+    const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+    const weekAgoISO = weekAgo.toISOString().split('.')[0];
 
     const trending24Hrs = getMangas({
       includes: ['cover_art', 'author', 'artist'],
@@ -19,7 +18,7 @@ const Home = async () => {
       contentRating: ['safe', 'suggestive'],
       limit: 5,
       hasAvailableChapters: true,
-      createdAtSince: dayAgoISO,
+      createdAtSince: weekAgoISO,
     });
 
     const result = await trending24Hrs;
@@ -30,13 +29,11 @@ const Home = async () => {
   const trending2Hrs: IManga[] = await getTrendingNowMangas();
 
   return (
-    <div className="flex justify-center">
-      <LayoutWrapper className="flex">
-        <div className="flex h-[80vh] w-[50%] items-center justify-center">
-          Manga stacks come here
-        </div>
-        <div className="relative flex h-[80vh] w-[50%] items-center justify-center">
-          <TrendingMangaDetails data={trending2Hrs} />
+    <div className="mt-14 flex justify-center">
+      <LayoutWrapper className="flex flex-col">
+        <h1>Trending</h1>
+        <div className="relative flex h-[70vh] items-center justify-center">
+          <TrendingManga data={trending2Hrs} />
         </div>
       </LayoutWrapper>
     </div>

@@ -12,4 +12,8 @@ export interface ICarousel {
   template: (data: IManga, index: number) => ReactNode;
   data: IManga[];
   controlsClassName?: string;
+  fade?: boolean;
+  showControls?: boolean;
+  pauseOnHover?: boolean;
+  pauseOnControlsHover?: boolean;
 }
