@@ -1,8 +1,11 @@
+import React from 'react';
+
 import LayoutWrapper from '@/components/LayoutWrapper';
 import TrendingManga from './TrendingManga';
 
 import { getMangas } from '@/lib/manga';
 import { IManga } from '@/types/manga';
+import { LucideChevronsDown } from 'lucide-react';
 
 const Home = async () => {
   const getTrendingNowMangas = async () => {
@@ -30,10 +33,14 @@ const Home = async () => {
 
   return (
     <div className="mt-14 flex justify-center">
-      <LayoutWrapper className="flex flex-col">
+      <LayoutWrapper className="flex h-[85vh] flex-col justify-between">
         <h1>Trending</h1>
-        <div className="relative flex h-[70vh] items-center justify-center">
+        <div className="relative flex h-[60vh] items-center justify-center">
           <TrendingManga data={trending2Hrs} />
+        </div>
+        <div className="flex animate-bounce cursor-pointer flex-col items-center">
+          <h6>Explore</h6>
+          <LucideChevronsDown size={24} />
         </div>
       </LayoutWrapper>
     </div>
