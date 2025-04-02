@@ -9,9 +9,9 @@ import { LucideChevronsDown } from 'lucide-react';
 
 const Home = async () => {
   const getTrendingNowMangas = async () => {
-    const now = new Date();
-    const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-    const weekAgoISO = weekAgo.toISOString().split('.')[0];
+    // const now = new Date();
+    // const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+    // const weekAgoISO = weekAgo.toISOString().split('.')[0];
 
     const trending24Hrs = getMangas({
       includes: ['cover_art', 'author', 'artist'],
@@ -19,7 +19,7 @@ const Home = async () => {
         followedCount: 'desc',
       },
       contentRating: ['safe', 'suggestive'],
-      limit: 5,
+      limit: 10,
       hasAvailableChapters: true,
       // createdAtSince: weekAgoISO,
     });
