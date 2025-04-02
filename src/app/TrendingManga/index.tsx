@@ -13,7 +13,7 @@ import { cn } from '@/lib/utils';
 import useResponsive from '@/hooks/useResponsive';
 
 const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
-  const { isMobile } = useResponsive();
+  const { isMobile, isTablet } = useResponsive();
 
   return (
     <Carousel
@@ -35,7 +35,9 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
         const isNextSlide =
           index === activeSlide + 1 || (activeSlide === data.length - 1 && index === 0);
 
-        const descWordLimit = isMobile ? 30 : 50;
+        let descWordLimit = 100;
+        if (isMobile) descWordLimit = 30;
+        else if (isTablet) descWordLimit = 50;
 
         return (
           <div className="flex flex-col justify-center md:flex-row">
