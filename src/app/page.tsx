@@ -21,7 +21,7 @@ const Home = async () => {
       contentRating: ['safe', 'suggestive'],
       limit: 5,
       hasAvailableChapters: true,
-      createdAtSince: weekAgoISO,
+      // createdAtSince: weekAgoISO,
     });
 
     const result = await trending24Hrs;
@@ -33,12 +33,12 @@ const Home = async () => {
 
   return (
     <div className="mt-14 flex justify-center">
-      <LayoutWrapper className="flex h-[85vh] flex-col justify-between">
-        <h1>Trending</h1>
-        <div className="relative flex h-[60vh] items-center justify-center">
+      <LayoutWrapper className="flex flex-col justify-between lg:h-[85vh]">
+        <h1 className="mb-5 lg:mb-0">Top Trending</h1>
+        <div className="relative flex items-center justify-center lg:h-[60vh]">
           <TrendingManga data={trending2Hrs} />
         </div>
-        <div className="flex animate-bounce cursor-pointer flex-col items-center">
+        <div className="hidden animate-bounce cursor-pointer flex-col items-center lg:flex">
           <h6>Explore</h6>
           <LucideChevronsDown size={24} />
         </div>
