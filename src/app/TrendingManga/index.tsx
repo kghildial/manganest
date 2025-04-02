@@ -24,6 +24,9 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
         if (!title) {
           title = entry.attributes.altTitles.find(entry => entry.hasOwnProperty('en'))!.en;
         }
+
+        const tags = entry.attributes.tags;
+
         const description = entry.attributes.description.en;
         const descriptionWords = description.split(' ');
 
@@ -53,8 +56,14 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
               <h2 className="mb-5 font-title text-2xl/8">
                 {index + 1}. {title}
               </h2>
-              <div className="mb-5 flex flex-wrap gap-3">
-                {entry.attributes.tags.map(tag => (
+              <div className="mb-5 flex flex-wrap gap-3 lg:hidden">
+                {(tags.length > 5 ? tags.slice(0, 6) : tags).map(tag => (
+                  <Tag key={tag.id} text={tag.attributes.name.en} />
+                ))}
+                {isMobile && tags.length > 5 && <Tag key="..." text="..." />}
+              </div>
+              <div className="mb-5 hidden flex-wrap gap-3 lg:flex">
+                {tags.map(tag => (
                   <Tag key={tag.id} text={tag.attributes.name.en} />
                 ))}
               </div>
