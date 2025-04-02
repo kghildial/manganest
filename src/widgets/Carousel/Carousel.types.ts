@@ -9,8 +9,14 @@ export interface ICarouselControls extends HTMLAttributes<HTMLDivElement> {
   onClick?: () => void;
 }
 
+interface ITemplate {
+  entry: IManga;
+  index: number;
+  activeSlide: number;
+}
+
 export interface ICarousel {
-  template: (data: IManga, index: number) => ReactNode;
+  template: (args: ITemplate) => ReactNode;
   data: IManga[];
   controlsClassName?: string;
   fade?: boolean;

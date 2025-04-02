@@ -30,6 +30,7 @@ const Carousel: ReactFC<ICarousel> = ({
   const timeoutId = useRef(0);
 
   const [api, setApi] = useState<CarouselApi>();
+  const [activeSlide, setActiveSlide] = useState(0);
 
   const replayCarousel = () => autoplayRef.current.play();
 
@@ -81,7 +82,8 @@ const Carousel: ReactFC<ICarousel> = ({
 
     // Reset autplay once slide is changed manually
     api.on('select', () => {
-      replayCarousel();
+      // replayCarousel();
+      setActiveSlide(api.selectedScrollSnap());
     });
 
     replayCarousel();
@@ -99,13 +101,19 @@ const Carousel: ReactFC<ICarousel> = ({
   }
 
   return (
-    <CNCarousel ref={carouselNode} plugins={plugins} className="w-full" setApi={setApi}>
+    <CNCarousel
+      ref={carouselNode}
+      plugins={plugins}
+      className="w-full"
+      setApi={setApi}
+      opts={{ loop: true }}
+    >
       <CarouselContent
         onMouseEnter={pauseOnHover ? handleMouseEnter : () => {}}
         onMouseLeave={pauseOnHover ? handleMouseLeave : () => {}}
       >
         {data.map((entry, index) => (
-          <CarouselItem key={index}>{template(entry, index)}</CarouselItem>
+          <CarouselItem key={index}>{template({ entry, index, activeSlide })}</CarouselItem>
         ))}
       </CarouselContent>
       {showControls && (
