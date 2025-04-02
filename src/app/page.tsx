@@ -32,7 +32,7 @@ const Home = async () => {
   const trending2Hrs: IManga[] = await getTrendingNowMangas();
 
   return (
-    <div className="mt-14 flex justify-center">
+    <div className="mt-8 flex justify-center lg:mt-14">
       <LayoutWrapper className="flex flex-col justify-between lg:h-[85vh]">
         <h1 className="mb-5 lg:mb-0">Top Trending</h1>
         <div className="relative flex items-center justify-center lg:h-[60vh]">

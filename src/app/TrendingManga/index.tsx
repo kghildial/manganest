@@ -10,8 +10,11 @@ import { Button } from '@/components/ui/button';
 import { ITrendingMangaDetails } from './TrendingManga.types';
 
 import { cn } from '@/lib/utils';
+import useResponsive from '@/hooks/useResponsive';
 
 const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
+  const { isMobile } = useResponsive();
+
   return (
     <Carousel
       controlsClassName="absolute lg:bottom-0 lg:top-auto top-[-55px] right-0 lg:w-[200px] w-[150px]"
@@ -27,6 +30,8 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
         const isNextSlide =
           index === activeSlide + 1 || (activeSlide === data.length - 1 && index === 0);
 
+        const descWordLimit = isMobile ? 30 : 50;
+
         return (
           <div className="flex flex-col justify-center lg:flex-row">
             <div className="flex items-center lg:w-[30%]">
@@ -37,8 +42,10 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
                 height="351"
                 alt={title}
                 className={cn(
-                  'lh:h-[569px] transition-translate h-[350px] rounded-lg border-2 border-foreground ease-linear lg:w-[400px]',
-                  isNextSlide ? '-translate-x-24 opacity-50' : '',
+                  'h-[350px] rounded-lg border-2 border-foreground transition-opacity ease-linear lg:h-[500px] lg:w-[350px]',
+                  isNextSlide
+                    ? '-translate-x-24 opacity-50 lg:translate-x-0 lg:opacity-100'
+                    : 'opacity-100',
                 )}
               />
             </div>
@@ -52,8 +59,8 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
                 ))}
               </div>
               <p className="mb-5 font-body text-base">
-                {descriptionWords.length > 50
-                  ? `${descriptionWords.slice(0, 51).join(' ')}...`
+                {descriptionWords.length > descWordLimit
+                  ? `${descriptionWords.slice(0, descWordLimit + 1).join(' ')}...`
                   : description}
               </p>
               <Button className="w-fit" onClick={() => {}}>
