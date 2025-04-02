@@ -1,18 +1,21 @@
 'use client';
 
 import React, { type FC as ReactFC } from 'react';
+import Image from 'next/image';
 
 import Carousel from '@/widgets/Carousel';
 import Tag from '@/components/Tag';
 import { Button } from '@/components/ui/button';
+
 import { ITrendingMangaDetails } from './TrendingManga.types';
-import Image from 'next/image';
+
+import { cn } from '@/lib/utils';
 
 const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
   return (
     <Carousel
       controlsClassName="absolute lg:bottom-0 lg:top-auto top-[-55px] right-0 lg:w-[200px] w-[150px]"
-      template={(entry, index) => {
+      template={({ entry, index, activeSlide }) => {
         const coverArt = entry.relationships.find(rel => rel.type === 'cover_art');
         let title = entry.attributes.title.en;
         if (!title) {
@@ -20,6 +23,9 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
         }
         const description = entry.attributes.description.en;
         const descriptionWords = description.split(' ');
+
+        const isNextSlide =
+          index === activeSlide + 1 || (activeSlide === data.length - 1 && index === 0);
 
         return (
           <div className="flex flex-col justify-center lg:flex-row">
@@ -30,7 +36,10 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
                 width="247"
                 height="351"
                 alt={title}
-                className="lh:h-[569px] rounded-lg border-2 border-foreground lg:w-[400px]"
+                className={cn(
+                  'lh:h-[569px] transition-translate h-[350px] rounded-lg border-2 border-foreground ease-linear lg:w-[400px]',
+                  isNextSlide ? '-translate-x-24 opacity-50' : '',
+                )}
               />
             </div>
             <div className="mt-5 flex flex-col lg:ml-10 lg:mt-0 lg:w-[70%]">
