@@ -7,6 +7,7 @@ export interface ICarouselControls extends HTMLAttributes<HTMLDivElement> {
   onMouseEnter: () => void;
   onMouseLeave: () => void;
   onClick?: () => void;
+  showOnlyProgress: boolean;
 }
 
 interface ITemplate {
@@ -23,4 +24,5 @@ export interface ICarousel {
   showControls?: boolean;
   pauseOnHover?: boolean;
   pauseOnControlsHover?: boolean;
+  showOnlyProgress?: boolean;
 }

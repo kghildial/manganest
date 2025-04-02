@@ -17,9 +17,11 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
 
   return (
     <Carousel
-      controlsClassName="absolute lg:bottom-0 lg:top-auto top-[-55px] right-0 lg:w-[200px] w-[150px]"
+      showOnlyProgress={isMobile}
+      controlsClassName="absolute lg:bottom-0 lg:top-auto top-[-55px] right-0 lg:w-[200px] w-[calc(100%-160px)] md:w-[150px]"
       template={({ entry, index, activeSlide }) => {
         const coverArt = entry.relationships.find(rel => rel.type === 'cover_art');
+
         let title = entry.attributes.title.en;
         if (!title) {
           title = entry.attributes.altTitles.find(entry => entry.hasOwnProperty('en'))!.en;
@@ -36,8 +38,8 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
         const descWordLimit = isMobile ? 30 : 50;
 
         return (
-          <div className="flex flex-col justify-center lg:flex-row">
-            <div className="flex items-center lg:w-[30%]">
+          <div className="flex flex-col justify-center md:flex-row">
+            <div className="flex items-center md:w-[35%] lg:w-[30%]">
               <Image
                 priority
                 src={`https://uploads.mangadex.org/covers/${entry.id}/${coverArt?.attributes?.fileName}.512.jpg`}
@@ -46,13 +48,13 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
                 alt={title}
                 className={cn(
                   'h-[350px] rounded-lg border-2 border-foreground transition-opacity ease-linear lg:h-[500px] lg:w-[350px]',
-                  isNextSlide
+                  isMobile && isNextSlide
                     ? '-translate-x-24 opacity-50 lg:translate-x-0 lg:opacity-100'
                     : 'opacity-100',
                 )}
               />
             </div>
-            <div className="mt-5 flex flex-col lg:ml-10 lg:mt-0 lg:w-[70%]">
+            <div className="mt-5 flex flex-col md:w-[65%] lg:ml-10 lg:mt-0 lg:w-[70%]">
               <h2 className="mb-5 font-title text-2xl/8">
                 {index + 1}. {title}
               </h2>

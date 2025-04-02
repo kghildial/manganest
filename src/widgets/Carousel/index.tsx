@@ -18,6 +18,7 @@ const Carousel: ReactFC<ICarousel> = ({
   showControls = true,
   pauseOnHover = false,
   pauseOnControlsHover = true,
+  showOnlyProgress = false,
   controlsClassName,
 }) => {
   const autoplayRef = useRef<AutoplayType>(
@@ -82,7 +83,7 @@ const Carousel: ReactFC<ICarousel> = ({
 
     // Reset autplay once slide is changed manually
     api.on('select', () => {
-      // replayCarousel();
+      replayCarousel();
       setActiveSlide(api.selectedScrollSnap());
     });
 
@@ -121,6 +122,7 @@ const Carousel: ReactFC<ICarousel> = ({
           ref={progressNode}
           onClick={clickToBlur}
           className={controlsClassName}
+          showOnlyProgress={showOnlyProgress}
           onMouseEnter={pauseOnControlsHover ? handleMouseEnter : () => {}}
           onMouseLeave={pauseOnControlsHover ? handleMouseLeave : () => {}}
         />
