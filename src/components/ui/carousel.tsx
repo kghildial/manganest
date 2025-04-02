@@ -5,7 +5,7 @@ import useEmblaCarousel, { type UseEmblaCarouselType } from 'embla-carousel-reac
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
+import { Button, ButtonProps } from '@/components/ui/button';
 
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
@@ -22,8 +22,8 @@ type CarouselProps = {
 type CarouselContextProps = {
   carouselRef: ReturnType<typeof useEmblaCarousel>[0];
   api: ReturnType<typeof useEmblaCarousel>[1];
-  scrollPrev: () => void;
-  scrollNext: () => void;
+  scrollPrev: (cb?: () => void) => void;
+  scrollNext: (cb?: () => void) => void;
   canScrollPrev: boolean;
   canScrollNext: boolean;
 } & CarouselProps;
@@ -44,6 +44,9 @@ const Carousel = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & CarouselProps
 >(({ orientation = 'horizontal', opts, setApi, plugins, className, children, ...props }, ref) => {
+  const animFrameId = React.useRef(0);
+  const timeoutId = React.useRef(0);
+
   const [carouselRef, api] = useEmblaCarousel(
     {
       ...opts,
@@ -63,13 +66,35 @@ const Carousel = React.forwardRef<
     setCanScrollNext(api.canScrollNext());
   }, []);
 
-  const scrollPrev = React.useCallback(() => {
-    api?.scrollPrev();
-  }, [api]);
+  const scrollPrev = React.useCallback(
+    (cb?: () => void) => {
+      api?.scrollPrev();
 
-  const scrollNext = React.useCallback(() => {
-    api?.scrollNext();
-  }, [api]);
+      if (cb) {
+        animFrameId.current = window.requestAnimationFrame(() => {
+          timeoutId.current = window.setTimeout(() => {
+            cb();
+          }, 0);
+        });
+      }
+    },
+    [api],
+  );
+
+  const scrollNext = React.useCallback(
+    (cb?: () => void) => {
+      api?.scrollNext();
+
+      if (cb) {
+        animFrameId.current = window.requestAnimationFrame(() => {
+          timeoutId.current = window.setTimeout(() => {
+            cb();
+          }, 0);
+        });
+      }
+    },
+    [api],
+  );
 
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -83,6 +108,13 @@ const Carousel = React.forwardRef<
     },
     [scrollPrev, scrollNext],
   );
+
+  React.useEffect(() => {
+    () => {
+      window.cancelAnimationFrame(animFrameId.current);
+      window.clearTimeout(timeoutId.current);
+    };
+  }, []);
 
   React.useEffect(() => {
     if (!api || !setApi) {
@@ -176,8 +208,13 @@ const CarouselItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLD
 );
 CarouselItem.displayName = 'CarouselItem';
 
-const CarouselPrevious = React.forwardRef<HTMLButtonElement, React.ComponentProps<typeof Button>>(
-  ({ className, variant = 'ghost', size = 'icon', ...props }, ref) => {
+export interface ICarouselControl extends ButtonProps {
+  iconClassName?: string;
+  onClick?: () => void;
+}
+
+const CarouselPrevious = React.forwardRef<HTMLButtonElement, ICarouselControl>(
+  ({ className, iconClassName, onClick, variant = 'ghost', size = 'icon', ...props }, ref) => {
     const { orientation, scrollPrev, canScrollPrev } = useCarousel();
 
     return (
@@ -193,10 +230,10 @@ const CarouselPrevious = React.forwardRef<HTMLButtonElement, React.ComponentProp
           className,
         )}
         disabled={!canScrollPrev}
-        onClick={scrollPrev}
+        onClick={() => scrollPrev(onClick)}
         {...props}
       >
-        <ArrowLeft className="h-4 w-4" />
+        <ArrowLeft size={24} className={iconClassName} />
         <span className="sr-only">Previous slide</span>
       </Button>
     );
@@ -204,8 +241,8 @@ const CarouselPrevious = React.forwardRef<HTMLButtonElement, React.ComponentProp
 );
 CarouselPrevious.displayName = 'CarouselPrevious';
 
-const CarouselNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<typeof Button>>(
-  ({ className, variant = 'ghost', size = 'icon', ...props }, ref) => {
+const CarouselNext = React.forwardRef<HTMLButtonElement, ICarouselControl>(
+  ({ className, iconClassName, onClick, variant = 'ghost', size = 'icon', ...props }, ref) => {
     const { orientation, scrollNext, canScrollNext } = useCarousel();
 
     return (
@@ -221,10 +258,10 @@ const CarouselNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<ty
           className,
         )}
         disabled={!canScrollNext}
-        onClick={scrollNext}
+        onClick={() => scrollNext(onClick)}
         {...props}
       >
-        <ArrowRight className="h-4 w-4" />
+        <ArrowRight size={24} className={iconClassName} />
         <span className="sr-only">Next slide</span>
       </Button>
     );

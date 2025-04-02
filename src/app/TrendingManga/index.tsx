@@ -11,32 +11,42 @@ import Image from 'next/image';
 const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
   return (
     <Carousel
-      // fade
-      controlsClassName="absolute bottom-0 right-0"
+      controlsClassName="absolute lg:bottom-0 lg:top-auto top-[-55px] right-0 lg:w-[200px] w-[150px]"
       template={(entry, index) => {
         const coverArt = entry.relationships.find(rel => rel.type === 'cover_art');
+        let title = entry.attributes.title.en;
+        if (!title) {
+          title = entry.attributes.altTitles.find(entry => entry.hasOwnProperty('en'))!.en;
+        }
+        const description = entry.attributes.description.en;
+        const descriptionWords = description.split(' ');
 
         return (
-          <div className="flex justify-center">
-            <div className="flex w-[50%] items-center justify-center">
+          <div className="flex flex-col justify-center lg:flex-row">
+            <div className="flex items-center lg:w-[30%]">
               <Image
+                priority
                 src={`https://uploads.mangadex.org/covers/${entry.id}/${coverArt?.attributes?.fileName}.512.jpg`}
-                width="400"
-                height="569"
-                alt={entry.attributes.title.en}
-                className="rounded-lg border-2 border-foreground"
+                width="247"
+                height="351"
+                alt={title}
+                className="lh:h-[569px] rounded-lg border-2 border-foreground lg:w-[400px]"
               />
             </div>
-            <div className="flex w-[50%] flex-col">
+            <div className="mt-5 flex flex-col lg:ml-10 lg:mt-0 lg:w-[70%]">
               <h2 className="mb-5 font-title text-2xl/8">
-                {index + 1}. {entry.attributes.title.en}
+                {index + 1}. {title}
               </h2>
               <div className="mb-5 flex flex-wrap gap-3">
                 {entry.attributes.tags.map(tag => (
                   <Tag key={tag.id} text={tag.attributes.name.en} />
                 ))}
               </div>
-              <p className="mb-5 font-body text-base">{entry.attributes.description.en}</p>
+              <p className="mb-5 font-body text-base">
+                {descriptionWords.length > 50
+                  ? `${descriptionWords.slice(0, 51).join(' ')}...`
+                  : description}
+              </p>
               <Button className="w-fit" onClick={() => {}}>
                 Read{entry.attributes.description.hasOwnProperty('en') ? ' More' : ''}
               </Button>

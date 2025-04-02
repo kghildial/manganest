@@ -6,6 +6,7 @@ import { AutoplayType } from 'embla-carousel-autoplay';
 export interface ICarouselControls extends HTMLAttributes<HTMLDivElement> {
   onMouseEnter: () => void;
   onMouseLeave: () => void;
+  onClick?: () => void;
 }
 
 export interface ICarousel {

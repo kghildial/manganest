@@ -24,11 +24,14 @@ const Carousel: ReactFC<ICarousel> = ({
     Autoplay({ delay: 4000, stopOnInteraction: true, playOnInit: false }),
   );
   const fadeRef = useRef<FadeType>(Fade());
+  const carouselNode = useRef<HTMLDivElement>(null);
   const progressNode = useRef<HTMLDivElement>(null);
   const animFrameId = useRef(0);
   const timeoutId = useRef(0);
 
   const [api, setApi] = useState<CarouselApi>();
+
+  const replayCarousel = () => autoplayRef.current.play();
 
   const handleMouseEnter = () => {
     const node = progressNode.current;
@@ -40,8 +43,13 @@ const Carousel: ReactFC<ICarousel> = ({
   const handleMouseLeave = () => {
     const node = progressNode.current;
     if (!node) return;
-    autoplayRef.current.play();
+    replayCarousel();
     node.style.animationPlayState = 'running';
+  };
+
+  const clickToBlur = () => {
+    console.log('Inslide clickToBlur!');
+    carouselNode.current?.click();
   };
 
   const startProgress = (timeUntilNext: number | null) => {
@@ -71,7 +79,12 @@ const Carousel: ReactFC<ICarousel> = ({
     });
     api.on('autoplay:timerstopped', () => {});
 
-    autoplayRef.current.play();
+    // Reset autplay once slide is changed manually
+    api.on('select', () => {
+      replayCarousel();
+    });
+
+    replayCarousel();
 
     () => {
       window.cancelAnimationFrame(animFrameId.current);
@@ -86,7 +99,7 @@ const Carousel: ReactFC<ICarousel> = ({
   }
 
   return (
-    <CNCarousel plugins={plugins} className="w-full" setApi={setApi}>
+    <CNCarousel ref={carouselNode} plugins={plugins} className="w-full" setApi={setApi}>
       <CarouselContent
         onMouseEnter={pauseOnHover ? handleMouseEnter : () => {}}
         onMouseLeave={pauseOnHover ? handleMouseLeave : () => {}}
@@ -98,6 +111,7 @@ const Carousel: ReactFC<ICarousel> = ({
       {showControls && (
         <CarouselControls
           ref={progressNode}
+          onClick={clickToBlur}
           className={controlsClassName}
           onMouseEnter={pauseOnControlsHover ? handleMouseEnter : () => {}}
           onMouseLeave={pauseOnControlsHover ? handleMouseLeave : () => {}}
