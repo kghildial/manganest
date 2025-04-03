@@ -4,9 +4,9 @@
  * This file contains APIs that fetch the manga & chapter data from the server
  */
 
-import type { IGetMangaParams, IManga } from '@/types/manga';
+import type { IGetMangaParams, IGetMangaResponse } from '@/types/manga';
 
-function createMangaQueryParams(params: IGetMangaParams) {
+export function createMangaQueryParams(params: IGetMangaParams) {
   let parsedQueryString = '?';
 
   Object.entries(params).map(([key, value]) => {
@@ -28,17 +28,30 @@ function createMangaQueryParams(params: IGetMangaParams) {
 }
 
 // Server only function to fetch mangas in React server components
-export async function getMangas(params: IGetMangaParams) {
+export async function getManga(params: IGetMangaParams): Promise<IGetMangaResponse> {
   'use server';
 
-  const queryString = createMangaQueryParams(params);
-  const url = `${process.env.MANGADEX_BASE_API_URL}/manga${queryString}`;
+  if (!process.env.MANGADEX_BASE_API_URL) {
+    throw new Error('MANGADEX_BASE_API_URL is not defined in the environment variables.');
+  }
 
-  const response = await fetch(url, {
-    next: {
-      revalidate: 1 * 60 * 60, // 1 hour
-    },
-  });
+  try {
+    const queryString = createMangaQueryParams(params);
+    const url = `${process.env.MANGADEX_BASE_API_URL}/manga${queryString}`;
 
-  return response.json();
+    const response = await fetch(url, {
+      next: {
+        revalidate: 1 * 60 * 60, // 1 hour
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch manga: ${response.status} ${response.statusText}`);
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error('Error fetching manga:', error);
+    throw new Error('Failed to fetch manga data.');
+  }
 }
