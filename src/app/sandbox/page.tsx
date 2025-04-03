@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Button } from '@/components/ui/button';
 
-import { getMangas } from '@/lib/manga';
+import { getManga } from '@/lib/manga';
 import MangaCard from '@/widgets/MangaCard';
 import Carousel from '@/widgets/Carousel';
 import Tag from '@/components/Tag';

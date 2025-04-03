@@ -109,5 +109,15 @@ export interface IGetMangaParams {
   contentRating?: TMangaContentRating[];
   hasAvailableChapters?: boolean;
   limit?: number;
+  offset?: number;
   createdAtSince?: string;
+}
+
+export interface IGetMangaResponse {
+  result: 'ok' | 'error';
+  response: 'collection' | 'entity';
+  data: IManga[];
+  limit: number;
+  offset: number;
+  total: number;
 }
