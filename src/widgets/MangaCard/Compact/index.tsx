@@ -6,22 +6,27 @@ import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/comp
 import { cn } from '@/lib/utils';
 import { IMangaCard } from '../MangaCard.types';
 
-import MangaCoverSample from '@/assets/images/Solo_Leveling_312.jpg';
-
 const Compact = React.forwardRef<HTMLDivElement, IMangaCard>(
-  ({ className, title, description, chapter, timestamp }, ref) => {
+  ({ className, title, description, chapter, timestamp, id, coverArtFileName }, ref) => {
+    let filteredTitle = title;
+
+    const titleWords = title.split(' ');
+    if (titleWords.length > 10) {
+      filteredTitle = titleWords.slice(0, 11).join(' ') + '...';
+    }
+
     return (
       <Card ref={ref} className={cn('flex p-2.5', className)}>
         <Image
-          src={MangaCoverSample}
-          alt="Manga Cover"
+          src={`https://uploads.mangadex.org/covers/${id}/${coverArtFileName}.256.jpg`}
+          alt={title}
           width={60}
           height={80}
-          className="rounded-xs border border-foreground"
+          className="h-[80px] rounded-xs border border-foreground"
         />
         <div className="ml-2.5 flex flex-1 flex-col justify-between">
           <CardHeader className="">
-            <CardTitle className="font-3.25 font-title text-sm/5">{title}</CardTitle>
+            <CardTitle className="font-3.25 font-title text-sm/5">{filteredTitle}</CardTitle>
             {description && <CardDescription>{description}</CardDescription>}
           </CardHeader>
           <CardFooter className="flex justify-between font-ui">
