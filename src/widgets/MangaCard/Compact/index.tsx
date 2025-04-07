@@ -10,7 +10,7 @@ const Compact = React.forwardRef<HTMLDivElement, IMangaCard>(
   ({ className, title, description, chapter, timestamp, id, coverArtFileName }, ref) => {
     let filteredTitle = title;
 
-    const titleWords = title.split(' ');
+    const titleWords = title?.split(' ') ?? [];
     if (titleWords.length > 10) {
       filteredTitle = titleWords.slice(0, 11).join(' ') + '...';
     }
@@ -19,7 +19,7 @@ const Compact = React.forwardRef<HTMLDivElement, IMangaCard>(
       <Card ref={ref} className={cn('flex p-2.5', className)}>
         <Image
           src={`https://uploads.mangadex.org/covers/${id}/${coverArtFileName}.256.jpg`}
-          alt={title}
+          alt={title ?? 'No Title'}
           width={60}
           height={80}
           className="h-[80px] rounded-xs border border-foreground"

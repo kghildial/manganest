@@ -20,17 +20,19 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
       showOnlyProgress={isMobile}
       controlsClassName="absolute lg:bottom-0 lg:top-auto top-[-55px] right-0 lg:w-[200px] w-[calc(100%-160px)] md:w-[150px]"
       template={({ entry, index, activeSlide }) => {
-        const coverArt = entry.relationships.find(rel => rel.type === 'cover_art');
+        const coverArt = entry?.relationships?.find(rel => rel.type === 'cover_art');
 
-        let title = entry.attributes.title.en;
+        let title = entry?.attributes?.title?.en ?? null;
         if (!title) {
-          title = entry.attributes.altTitles.find(entry => entry.hasOwnProperty('en'))!.en;
+          title =
+            entry?.attributes?.altTitles?.find(entry => entry.hasOwnProperty('en'))?.en ?? null;
         }
 
-        const tags = entry.attributes.tags;
+        const tags = entry?.attributes?.tags;
 
-        const description = entry.attributes.description.en;
-        const descriptionWords = description.split(' ');
+        const description = entry?.attributes?.description?.en;
+
+        const descriptionWords = !description ? [] : description.split(' ');
 
         const isNextSlide =
           index === activeSlide + 1 || (activeSlide === data.length - 1 && index === 0);
@@ -47,7 +49,7 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
                 src={`https://uploads.mangadex.org/covers/${entry.id}/${coverArt?.attributes?.fileName}.512.jpg`}
                 width="247"
                 height="351"
-                alt={title}
+                alt={!title ? 'No Title' : title}
                 className={cn(
                   'h-[350px] rounded-lg border-2 border-foreground transition-opacity ease-linear lg:h-[500px] lg:w-[350px]',
                   isMobile && isNextSlide
@@ -60,24 +62,28 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
               <h2 className="mb-5 font-title text-2xl/8">
                 {index + 1}. {title}
               </h2>
-              <div className="mb-5 flex flex-wrap gap-3 lg:hidden">
-                {(tags.length > 5 ? tags.slice(0, 6) : tags).map(tag => (
-                  <Tag key={tag.id} text={tag.attributes.name.en} />
-                ))}
-                {isMobile && tags.length > 5 && <Tag key="..." text="..." />}
-              </div>
-              <div className="mb-5 hidden flex-wrap gap-3 lg:flex">
-                {tags.map(tag => (
-                  <Tag key={tag.id} text={tag.attributes.name.en} />
-                ))}
-              </div>
+              {tags && (
+                <>
+                  <div className="mb-5 flex flex-wrap gap-3 lg:hidden">
+                    {(tags.length > 5 ? tags.slice(0, 6) : tags).map(tag => (
+                      <Tag key={tag.id} text={tag?.attributes?.name?.en ?? null} />
+                    ))}
+                    {isMobile && tags.length > 5 && <Tag key="..." text="..." />}
+                  </div>
+                  <div className="mb-5 hidden flex-wrap gap-3 lg:flex">
+                    {tags.map(tag => (
+                      <Tag key={tag.id} text={tag?.attributes?.name?.en ?? null} />
+                    ))}
+                  </div>
+                </>
+              )}
               <p className="mb-5 font-body text-base">
                 {descriptionWords.length > descWordLimit
                   ? `${descriptionWords.slice(0, descWordLimit + 1).join(' ')}...`
                   : description}
               </p>
               <Button className="w-fit" onClick={() => {}}>
-                Read{entry.attributes.description.hasOwnProperty('en') ? ' More' : ''}
+                Read{entry?.attributes?.description?.hasOwnProperty('en') ? ' More' : ''}
               </Button>
             </div>
           </div>
