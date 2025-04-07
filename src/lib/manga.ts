@@ -4,7 +4,7 @@
  * This file contains APIs that fetch the manga & chapter data from the server
  */
 
-import type { IGetMangaParams, IGetMangaResponse } from '@/types/manga';
+import type { IGetMangaParams, IGetMangaResponse } from '@/types/manga.types';
 
 export function createMangaQueryParams(params: IGetMangaParams) {
   let parsedQueryString = '?';

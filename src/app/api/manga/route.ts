@@ -1,9 +1,11 @@
 import { getManga } from '@/lib/manga';
+import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
+import { IGetMangaParams, IGetMangaResponse } from '@/types/manga.types';
 
 export async function POST(req: Request) {
   try {
-    const payload = await req.json();
+    const payload: IGetMangaParams = await req.json();
     if (!payload || typeof payload !== 'object') {
       return NextResponse.json({ error: 'Invalid request payload' }, { status: 400 });
     }
@@ -11,7 +13,7 @@ export async function POST(req: Request) {
     const response = await getManga(payload);
 
     if (response.result === 'ok') {
-      return NextResponse.json(response.data);
+      return NextResponse.json(response);
     } else {
       return NextResponse.json({ error: 'Failed to fetch manga' }, { status: 400 });
     }

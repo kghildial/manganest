@@ -4,16 +4,12 @@ import LayoutWrapper from '@/components/LayoutWrapper';
 import TrendingManga from './TrendingManga';
 
 import { getManga } from '@/lib/manga';
-import { IManga } from '@/types/manga';
+import { IManga } from '@/types/manga.types';
 import { LucideChevronsDown } from 'lucide-react';
 import LatestUpdated from './Latest Updated';
 
 const Home = async () => {
   const getTrendingNowMangas = async () => {
-    // const now = new Date();
-    // const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-    // const weekAgoISO = weekAgo.toISOString().split('.')[0];
-
     const topTrendingMangas = getManga({
       includes: ['cover_art', 'author', 'artist'],
       order: {
@@ -22,7 +18,6 @@ const Home = async () => {
       contentRating: ['safe', 'suggestive'],
       limit: 10,
       hasAvailableChapters: true,
-      // createdAtSince: weekAgoISO,
     });
 
     const result = await topTrendingMangas;

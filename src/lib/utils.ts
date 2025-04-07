@@ -1,3 +1,4 @@
+import { EPaginationEllipses, TPaginationPageNumber } from '@/types/utils.types';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -15,4 +16,41 @@ export function timeAgo(from: Date, to: Date = new Date()): string {
   if (diffMinutes < 60) return `${diffMinutes} minute${diffMinutes > 1 ? 's' : ''} ago`;
   if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
   return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+}
+
+export function getVisiblePages(current: number, total: number): TPaginationPageNumber[] {
+  const pages: TPaginationPageNumber[] = [];
+
+  // Always show first 3 pages
+  for (let i = 1; i <= Math.min(3, total); i++) {
+    pages.push(i);
+  }
+
+  // Show start ellipsis if current - 1 is beyond page 4
+  if (current - 1 > 4) {
+    pages.push(EPaginationEllipses.Start);
+  }
+
+  // Add current -1, current, current +1 if in valid range
+  const midStart = Math.max(4, current - 1);
+  const midEnd = Math.min(total - 3, current + 1);
+  for (let i = midStart; i <= midEnd; i++) {
+    if (!pages.includes(i)) {
+      pages.push(i);
+    }
+  }
+
+  // Show end ellipsis if current + 1 is before total - 3
+  if (current + 1 < total - 3) {
+    pages.push(EPaginationEllipses.End);
+  }
+
+  // Always show last 3 pages
+  for (let i = Math.max(total - 2, 4); i <= total; i++) {
+    if (!pages.includes(i)) {
+      pages.push(i);
+    }
+  }
+
+  return pages;
 }
