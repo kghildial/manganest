@@ -1,10 +1,10 @@
 import type { HTMLAttributes } from 'react';
 
-export interface IMangaCard extends HTMLAttributes<HTMLDivElement> {
+export interface IMangaCard extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
   id: string;
   coverArtFileName: string | undefined;
-  title: string;
+  title: string | null;
   description?: string;
-  chapter: string;
-  timestamp: string;
+  chapter: string | undefined;
+  timestamp: string | null;
 }

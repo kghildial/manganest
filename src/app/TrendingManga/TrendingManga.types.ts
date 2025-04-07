@@ -1,4 +1,4 @@
-import { IManga } from '@/types/manga';
+import { IManga } from '@/types/manga.types';
 
 export interface ITerndingMangaCovers {
   data: IManga[];
