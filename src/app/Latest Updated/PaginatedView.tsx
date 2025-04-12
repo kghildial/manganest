@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useState, type FC as ReactFC } from 'react';
+import React, { useCallback, useEffect, useMemo, useState, type FC as ReactFC } from 'react';
 
 import MangaCard from '@/widgets/MangaCard';
 import Pagination from '@/widgets/Pagination';
@@ -9,8 +9,13 @@ import { IPagiantedView } from './LatestUpdated.types';
 import { IGetMangaResponse, IManga } from '@/types/manga.types';
 
 import { timeAgo } from '@/lib/utils';
+import useResponsive from '@/hooks/useResponsive';
 
-const PagiantedView: ReactFC<IPagiantedView> = ({ initialData, totalResults }) => {
+const PagiantedView: ReactFC<IPagiantedView> = ({
+  initialData,
+  totalResults,
+  paginationLimit: serverPaginationLimit,
+}) => {
   const [data, setData] = useState(initialData);
 
   const onPageChange = useCallback(async (page: number) => {
@@ -23,7 +28,7 @@ const PagiantedView: ReactFC<IPagiantedView> = ({ initialData, totalResults }) =
         },
         contentRating: ['safe', 'suggestive'],
         hasAvailableChapters: true,
-        limit: 15,
+        limit: serverPaginationLimit,
         offset: page - 1,
       }),
       cache: 'force-cache',
@@ -35,7 +40,7 @@ const PagiantedView: ReactFC<IPagiantedView> = ({ initialData, totalResults }) =
 
   return (
     <>
-      <div className="my-8 flex flex-wrap justify-between gap-y-4">
+      <div className="mb-8 mt-0 flex flex-wrap justify-between gap-y-4 md:mt-8">
         {data.map(entry => {
           let title = entry?.attributes?.title?.en ?? null;
 
@@ -65,8 +70,8 @@ const PagiantedView: ReactFC<IPagiantedView> = ({ initialData, totalResults }) =
         })}
       </div>
       <Pagination
-        totalPages={Math.ceil(totalResults / 15)}
-        className="mb-8 transition-all"
+        totalPages={Math.ceil(totalResults / serverPaginationLimit)}
+        className="mb-8 hidden transition-all md:flex"
         onChange={onPageChange}
       />
     </>
