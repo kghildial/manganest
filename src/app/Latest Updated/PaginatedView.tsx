@@ -1,21 +1,30 @@
 'use client';
 
-import React, { useCallback, useEffect, useMemo, useState, type FC as ReactFC } from 'react';
+import React, { useCallback, useMemo, useState, type FC as ReactFC } from 'react';
 
 import MangaCard from '@/widgets/MangaCard';
 import Pagination from '@/widgets/Pagination';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 import { IPagiantedView } from './LatestUpdated.types';
 import { IGetMangaResponse, IManga } from '@/types/manga.types';
 
 import { timeAgo } from '@/lib/utils';
-import useResponsive from '@/hooks/useResponsive';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const PagiantedView: ReactFC<IPagiantedView> = ({
   initialData,
   totalResults,
   paginationLimit: serverPaginationLimit,
 }) => {
+  const totalPages = useMemo(() => Math.ceil(totalResults / serverPaginationLimit), [totalResults]);
+
   const [data, setData] = useState(initialData);
 
   const onPageChange = useCallback(async (page: number) => {
@@ -69,9 +78,14 @@ const PagiantedView: ReactFC<IPagiantedView> = ({
           );
         })}
       </div>
-      <Pagination
-        totalPages={Math.ceil(totalResults / serverPaginationLimit)}
+      <Pagination.Full
+        totalPages={totalPages}
         className="mb-8 hidden transition-all md:flex"
+        onChange={onPageChange}
+      />
+      <Pagination.Compact
+        totalPages={totalPages}
+        className="absolute right-0 top-2 md:hidden"
         onChange={onPageChange}
       />
     </>
