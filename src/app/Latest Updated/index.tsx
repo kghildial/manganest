@@ -26,7 +26,7 @@ const LatestUpdated = async () => {
   });
 
   return (
-    <div className="flex flex-col md:mt-24">
+    <div className="relative flex flex-col md:mt-24">
       <h1 className="mb-5 lg:mb-0">Latest Updated</h1>
       <PagiantedView
         initialData={latestUpdatedMangas}
