@@ -22,6 +22,7 @@ body {
     --secondary-bg2: hsl(30 15% 78%); /* Stone Gray */
     --secondary-bg2_50: hsla(30 15% 78% / 50%); /* Stone Gray 50% */
     --foreground-tint: hsl(206 64% 16%); /* Inkstone Tint */
+    --foreground-tint_60: hsla(206 64% 16% / 60%); /* Inkstone Tint 30% */
     --foreground-tint_30: hsla(206 64% 16% / 30%); /* Inkstone Tint 30% */
     --accent-tint: hsl(12 68% 62%); /* Burnt Orange Tint */
     --accent-tint_20: hsla(12 68% 62% / 20%); /* Burnt Orange Tint 20% */

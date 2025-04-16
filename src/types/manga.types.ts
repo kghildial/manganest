@@ -137,3 +137,20 @@ export interface IGetMangaStatsResponse {
     };
   };
 }
+
+export interface IGetMangaFeedResponse {
+  result: 'ok' | 'error';
+  response: 'collection' | 'entity';
+  data: {
+    id: string;
+    type: 'chapter';
+    attributes: {
+      chapter: string;
+      title: string | null;
+      updatedAt: string;
+    } & { [key: string]: string };
+  }[];
+  limit: number;
+  offset: number;
+  total: number;
+}

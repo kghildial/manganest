@@ -17,3 +17,8 @@ export interface IMetaCardLayout extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
   children: ReactNode;
 }
+
+export interface IChapterListing extends React.HTMLAttributes<HTMLDivElement> {
+  chapter: string;
+  timestamp: string;
+}
