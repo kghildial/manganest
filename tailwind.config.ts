@@ -49,6 +49,7 @@ export default {
         secondary_bg2: 'var(--secondary-bg2)',
         secondary_bg2_50: 'var(--secondary-bg2_50)',
         foreground_tint: 'var(--foreground-tint)',
+        foreground_tint_60: 'var(--foreground-tint_60)',
         foreground_tint_30: 'var(--foreground-tint_30)',
         accent_tint: 'var(--accent-tint)',
         accent_tint_20: 'var(--accent-tint_20)',
