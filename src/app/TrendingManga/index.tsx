@@ -49,7 +49,7 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
                 src={`https://uploads.mangadex.org/covers/${entry.id}/${coverArt?.attributes?.fileName}.512.jpg`}
                 width="247"
                 height="351"
-                alt={!title ? 'No Title' : title}
+                alt={!title ? 'N/A' : title}
                 className={cn(
                   'h-[350px] rounded-lg border-2 border-foreground transition-opacity ease-linear lg:h-[500px] lg:w-[350px]',
                   isMobile && isNextSlide
