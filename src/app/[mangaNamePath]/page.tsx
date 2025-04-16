@@ -1,17 +1,19 @@
 import { type FC as ReactFC } from 'react';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
+import { StarIcon } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import LayoutWrapper from '@/components/LayoutWrapper';
 import Tag from '@/components/Tag';
 import MetaCardLayout from './MetaCardLayout';
+import ChapterListing from './ChapterListing';
 
-import { getManga, getMangaStats } from '@/lib/manga.server';
+import { getManga, getMangaFeed, getMangaStats } from '@/lib/manga.server';
 import { getMangaDetails } from '@/lib/manga';
 
 import { IMangaDetails } from './MangaDetails.types';
-import { StarIcon } from 'lucide-react';
+import { timeAgo } from '@/lib/utils';
 
 const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) => {
   const { mangaNamePath } = await params;
@@ -33,6 +35,8 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
   const { title, description, coverArt, authors, artists, tags } = await getMangaDetails(manga);
 
   const stats = (await getMangaStats(id)).statistics[id];
+
+  const mangaFeed = (await getMangaFeed(id)).data;
 
   return (
     <div className="mt-8 flex justify-center lg:mt-14">
@@ -117,6 +121,14 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
         <p className="block font-body text-sm font-medium md:hidden">{description}</p>
         <div className="mt-12 flex flex-col md:mt-24">
           <h2 className="mb-5 md:mb-8">Chapters</h2>
+          <div className="flex flex-col gap-2"></div>
+          {mangaFeed.map(({ id, attributes: { chapter, updatedAt } }) => (
+            <ChapterListing
+              key={id}
+              chapter={chapter}
+              timestamp={timeAgo(new Date(updatedAt), new Date())}
+            />
+          ))}
         </div>
       </LayoutWrapper>
     </div>

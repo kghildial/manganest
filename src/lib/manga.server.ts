@@ -4,7 +4,12 @@
  * Server utils for manga
  */
 
-import { IGetMangaParams, IGetMangaResponse, IGetMangaStatsResponse } from '@/types/manga.types';
+import {
+  IGetMangaFeedResponse,
+  IGetMangaParams,
+  IGetMangaResponse,
+  IGetMangaStatsResponse,
+} from '@/types/manga.types';
 import { createMangaQueryParams } from './manga';
 import { notFound } from 'next/navigation';
 
@@ -53,7 +58,29 @@ export async function getMangaStats(id: string): Promise<IGetMangaStatsResponse>
 
     return response.json();
   } catch (err) {
-    console.error('Error fetching manga:', err);
+    console.error('Error fetching manga stats:', err);
     throw new Error('Failed to fetch manga stats!');
+  }
+}
+
+export async function getMangaFeed(id: string): Promise<IGetMangaFeedResponse> {
+  if (!process.env.MANGADEX_BASE_API_URL) {
+    throw new Error('MANGADEX_BASE_API_URL is not defined in the environment variables.');
+  }
+
+  try {
+    const url = `${process.env.MANGADEX_BASE_API_URL}/manga/${id}/feed?order[chapter]=desc&translatedLanguage[]=en&limit=500`;
+
+    const response = await fetch(url, { next: { revalidate: 1 * 60 * 60 } });
+
+    if (!response.ok) {
+      console.error(`Failed to fetch manga chapters: ${response.status} ${response.statusText}`);
+      throw new Error('Failed to fetch manga chapters!');
+    }
+
+    return response.json();
+  } catch (err) {
+    console.error('Error fetching manga chapters:', err);
+    throw new Error('Failed to fetch manga chapters!');
   }
 }
