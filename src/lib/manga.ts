@@ -2,9 +2,9 @@
  * Client utils for manga
  */
 
-import type { IGetMangaParams, IGetMangaResponse, IManga } from '@/types/manga.types';
+import type { IGetMangaFeedParams, IGetMangaParams, IManga } from '@/types/manga.types';
 
-export function createMangaQueryParams(params: IGetMangaParams) {
+export function createMangaQueryParams(params: IGetMangaParams | IGetMangaFeedParams) {
   let parsedQueryString = '?';
 
   Object.entries(params).map(([key, value]) => {

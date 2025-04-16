@@ -4,13 +4,6 @@ import React, { useCallback, useMemo, useState, type FC as ReactFC } from 'react
 
 import MangaCard from '@/widgets/MangaCard';
 import Pagination from '@/widgets/Pagination';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 
 import { IPagiantedView } from './LatestUpdated.types';
 import { IGetMangaResponse, IManga } from '@/types/manga.types';
@@ -39,7 +32,7 @@ const PagiantedView: ReactFC<IPagiantedView> = ({
         contentRating: ['safe', 'suggestive'],
         hasAvailableChapters: true,
         limit: serverPaginationLimit,
-        offset: page - 1,
+        offset: (page - 1) * serverPaginationLimit,
       }),
       cache: 'force-cache',
     });

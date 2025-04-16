@@ -6,8 +6,9 @@ import { Clock } from 'lucide-react';
 
 import { IChapterListing } from './MangaDetails.types';
 import { timeAgo } from '@/lib/utils';
+import { IGetMangaFeedResponse } from '@/types/manga.types';
 
-const ChapterListing: ReactFC<IChapterListing> = ({ initialList }) => {
+const ChapterListing: ReactFC<IChapterListing> = ({ mangaId, initialList }) => {
   const [list, setList] = useState(initialList);
   const [hasMore, sethasMore] = useState(true);
   const [page, setPage] = useState(1);
@@ -27,7 +28,34 @@ const ChapterListing: ReactFC<IChapterListing> = ({ initialList }) => {
     observer.observe(loader.current);
 
     return () => observer.disconnect();
-  }, []);
+  }, [hasMore]);
+
+  useEffect(() => {
+    // Skip first fetch since data is already available from server
+    if (page !== 1) {
+      const fetchMoreData = async () => {
+        const nextFeed = await fetch('/api/feed', {
+          method: 'POST',
+          body: JSON.stringify({
+            id: mangaId,
+            limit: 20,
+            offset: (page - 1) * 20,
+            translatedLanguage: ['en'],
+            order: {
+              chapter: 'desc',
+            },
+          }),
+          cache: 'force-cache',
+        });
+
+        const { data }: IGetMangaFeedResponse = await nextFeed.json();
+
+        setList(prev => [...prev, ...data]);
+      };
+
+      fetchMoreData();
+    }
+  }, [page]);
 
   return (
     <>
@@ -39,8 +67,8 @@ const ChapterListing: ReactFC<IChapterListing> = ({ initialList }) => {
           <p className="flex-1 font-body text-sm font-medium group-hover:text-background">
             Chapter {chapter}
           </p>
-          <Clock size={18} className="text-foreground_tint_60 mr-2 group-hover:text-background" />
-          <p className="text-foreground_tint_60 mr-2 font-body text-sm font-medium group-hover:text-background">
+          <Clock size={18} className="mr-2 text-foreground_tint_60 group-hover:text-background" />
+          <p className="mr-2 font-body text-sm font-medium text-foreground_tint_60 group-hover:text-background">
             {timeAgo(new Date(updatedAt), now)}
           </p>
         </div>

@@ -21,5 +21,6 @@ export interface IMetaCardLayout extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export interface IChapterListing extends React.HTMLAttributes<HTMLDivElement> {
+  mangaId: string;
   initialList: IMangaFeed[];
 }

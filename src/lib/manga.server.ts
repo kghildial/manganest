@@ -5,6 +5,7 @@
  */
 
 import {
+  IGetMangaFeedParams,
   IGetMangaFeedResponse,
   IGetMangaParams,
   IGetMangaResponse,
@@ -63,13 +64,21 @@ export async function getMangaStats(id: string): Promise<IGetMangaStatsResponse>
   }
 }
 
-export async function getMangaFeed(id: string): Promise<IGetMangaFeedResponse> {
+export async function getMangaFeed({
+  id,
+  limit,
+  offset,
+  translatedLanguage,
+  order,
+}: IGetMangaFeedParams): Promise<IGetMangaFeedResponse> {
   if (!process.env.MANGADEX_BASE_API_URL) {
     throw new Error('MANGADEX_BASE_API_URL is not defined in the environment variables.');
   }
 
   try {
-    const url = `${process.env.MANGADEX_BASE_API_URL}/manga/${id}/feed?order[chapter]=desc&translatedLanguage[]=en&limit=500`;
+    const queryString = createMangaQueryParams({ limit, offset, translatedLanguage, order });
+
+    const url = `${process.env.MANGADEX_BASE_API_URL}/manga/${id}/feed${queryString}`;
 
     const response = await fetch(url, { next: { revalidate: 1 * 60 * 60 } });
 
