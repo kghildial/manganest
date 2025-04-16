@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 import { IMangaCard } from '../MangaCard.types';
 
 const Compact = React.forwardRef<HTMLDivElement, IMangaCard>(
-  ({ className, title, description, chapter, timestamp, id, coverArtFileName }, ref) => {
+  ({ className, title, description, chapter, timestamp, id, coverArtFileName, onClick }, ref) => {
     let filteredTitle = title;
 
     const titleWords = title?.split(' ') ?? [];
@@ -22,6 +22,7 @@ const Compact = React.forwardRef<HTMLDivElement, IMangaCard>(
           'group flex p-2.5 transition-all hover:bg-accent_tint hover:text-background',
           className,
         )}
+        onClick={onClick}
       >
         <Image
           src={`https://uploads.mangadex.org/covers/${id}/${coverArtFileName}.256.jpg`}

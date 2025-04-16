@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useCallback, useMemo, useState, type FC as ReactFC } from 'react';
+import { useRouter } from 'next/navigation';
 
 import MangaCard from '@/widgets/MangaCard';
 import Pagination from '@/widgets/Pagination';
@@ -9,7 +10,6 @@ import { IPagiantedView } from './LatestUpdated.types';
 import { IGetMangaResponse, IManga } from '@/types/manga.types';
 
 import { timeAgo } from '@/lib/utils';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { getMangaDetails } from '@/lib/manga';
 
 const PagiantedView: ReactFC<IPagiantedView> = ({
@@ -17,6 +17,8 @@ const PagiantedView: ReactFC<IPagiantedView> = ({
   totalResults,
   paginationLimit: serverPaginationLimit,
 }) => {
+  const router = useRouter();
+
   const totalPages = useMemo(() => Math.ceil(totalResults / serverPaginationLimit), [totalResults]);
 
   const [data, setData] = useState(initialData);
@@ -59,6 +61,9 @@ const PagiantedView: ReactFC<IPagiantedView> = ({
               title={title ?? 'N/A'}
               chapter={chapter}
               timestamp={!timestamp ? null : timeAgo(new Date(timestamp), new Date())}
+              onClick={() => {
+                router.push(`/${title?.split(' ').join('-').toLowerCase()}?id=${entry.id}`);
+              }}
             />
           );
         })}

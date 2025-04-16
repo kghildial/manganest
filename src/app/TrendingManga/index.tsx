@@ -1,6 +1,7 @@
 'use client';
 
 import React, { type FC as ReactFC } from 'react';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
 import Carousel from '@/widgets/Carousel';
@@ -15,6 +16,7 @@ import { getMangaDetails } from '@/lib/manga';
 
 const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
   const { isMobile, isTablet } = useResponsive();
+  const router = useRouter();
 
   return (
     <Carousel
@@ -73,7 +75,12 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
                   ? `${descriptionWords.slice(0, descWordLimit + 1).join(' ')}...`
                   : description}
               </p>
-              <Button className="w-fit" onClick={() => {}}>
+              <Button
+                className="w-fit"
+                onClick={() => {
+                  router.push(`/${title?.split(' ').join('-').toLowerCase()}?id=${entry.id}`);
+                }}
+              >
                 Read{entry?.attributes?.description?.hasOwnProperty('en') ? ' More' : ''}
               </Button>
             </div>

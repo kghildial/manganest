@@ -64,10 +64,11 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
             <h1 className="mb-3 hidden font-title text-5xl leading-[54px] md:block">{title}</h1>
             <div className="mb-2 flex items-center gap-x-2 md:mb-5 md:gap-x-10">
               <Tag
-                className="w-fit gap-1 rounded-md md:px-4 md:py-1.5"
+                className="w-fit gap-1 rounded-sm py-2 md:rounded-md md:px-4 md:py-1.5"
                 text={
                   <>
-                    <StarIcon size={24} className="text-accent" />
+                    <StarIcon size={24} className="hidden text-accent md:block" />
+                    <StarIcon size={18} className="text-accent md:hidden" />
                     <p className="mt-1 text-xs font-medium md:text-base">
                       {Math.round(stats.rating.average * 10) / 10}
                     </p>
@@ -77,13 +78,13 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
               <Button size="lg" className="hidden w-fit py-4 md:flex">
                 Start Reading
               </Button>
-              <Button size="sm" className="flex w-fit py-4 md:hidden">
+              <Button size="sm" className="flex w-fit rounded-sm py-4 md:hidden">
                 Start Reading
               </Button>
             </div>
             <p className="mb-5 hidden font-body font-medium md:block">{description}</p>
-            <div className="mb-3 flex flex-col flex-wrap gap-x-0 gap-y-2 md:mb-8 md:flex-row md:gap-x-5 md:gap-y-0">
-              <MetaCardLayout title="Authors" className="">
+            <div className="mb-3 flex flex-col flex-wrap gap-x-0 gap-y-2 md:mb-8 md:flex-row md:gap-x-5 md:gap-y-3">
+              <MetaCardLayout title="Authors">
                 {authors?.map(
                   author =>
                     author?.attributes?.name && (
