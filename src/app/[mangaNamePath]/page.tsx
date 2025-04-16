@@ -41,13 +41,13 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
             width="247"
             height="351"
             alt={!title ? 'N/A' : title}
-            className="h-[350px] rounded-lg border-2 border-foreground transition-opacity ease-linear lg:h-[500px] lg:w-[350px]"
+            className="h-[285px] w-[200px] rounded-lg border-2 border-foreground transition-opacity ease-linear lg:h-[500px] lg:w-[350px]"
           />
-          <div className="ml-8 flex flex-col">
-            <h1 className="mb-3 font-title text-5xl leading-[54px]">{title}</h1>
-            <p className="mb-5 font-body font-medium">{description}</p>
-            <div className="mb-8 flex flex-wrap gap-x-5">
-              <MetaCardLayout title="Authors">
+          <div className="ml-2 flex flex-col md:ml-8">
+            <h1 className="mb-3 hidden font-title text-5xl leading-[54px] md:block">{title}</h1>
+            <p className="mb-5 hidden font-body font-medium md:block">{description}</p>
+            <div className="mb-3 flex flex-col flex-wrap gap-x-0 gap-y-3 md:mb-8 md:flex-row md:gap-x-5 md:gap-y-0">
+              <MetaCardLayout title="Authors" className="">
                 {authors?.map(
                   author =>
                     author?.attributes?.name && (
@@ -71,7 +71,7 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
                     ),
                 )}
               </MetaCardLayout>
-              <MetaCardLayout title="Genres">
+              <MetaCardLayout title="Genres" className="hidden md:block">
                 {tags?.map(
                   tag =>
                     tag?.attributes?.name?.en && (
@@ -88,6 +88,16 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
               Start Reading
             </Button>
           </div>
+        </div>
+        <h1 className="my-3 block font-title text-2xl/7 md:hidden">{title}</h1>
+        <div className="mb-5 flex flex-wrap gap-1 md:hidden">
+          {tags?.map(
+            tag => tag?.attributes?.name?.en && <Tag key={tag.id} text={tag.attributes.name.en} />,
+          )}
+        </div>
+        <p className="block font-body text-sm font-medium md:hidden">{description}</p>
+        <div className="flex flex-col">
+          <h2 className="mt-12 md:mt-24">Chapters</h2>
         </div>
       </LayoutWrapper>
     </div>
