@@ -6,7 +6,7 @@ import TrendingManga from './TrendingManga';
 import { getManga } from '@/lib/manga';
 import { IManga } from '@/types/manga.types';
 import { LucideChevronsDown } from 'lucide-react';
-import LatestUpdated from './Latest Updated';
+import LatestUpdated from './LatestUpdated';
 
 const Home = async () => {
   const getTrendingNowMangas = async () => {
