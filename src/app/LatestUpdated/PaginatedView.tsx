@@ -17,6 +17,7 @@ import { IGetMangaResponse, IManga } from '@/types/manga.types';
 
 import { timeAgo } from '@/lib/utils';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { getMangaDetails } from '@/lib/manga';
 
 const PagiantedView: ReactFC<IPagiantedView> = ({
   initialData,
@@ -50,20 +51,11 @@ const PagiantedView: ReactFC<IPagiantedView> = ({
   return (
     <>
       <div className="mb-8 mt-0 flex flex-wrap justify-between gap-y-4 md:mt-8">
-        {data.map(entry => {
-          let title = entry?.attributes?.title?.en ?? null;
-
-          if (!title) {
-            title =
-              entry?.attributes?.altTitles?.find(entry => entry.hasOwnProperty('en'))?.en ??
-              entry?.attributes?.altTitles?.find(entry => entry.hasOwnProperty('ja'))?.ja ??
-              'N/A';
-          }
+        {data.map(async entry => {
+          const { title, coverArt } = await getMangaDetails(entry);
 
           const chapter = entry?.attributes?.lastChapter;
           const timestamp = entry?.attributes?.updatedAt;
-
-          const coverArt = entry?.relationships?.find(rel => rel.type === 'cover_art');
 
           return (
             <MangaCard.Compact
@@ -71,7 +63,7 @@ const PagiantedView: ReactFC<IPagiantedView> = ({
               id={entry.id}
               coverArtFileName={coverArt?.attributes?.fileName}
               className="w-full cursor-pointer md:w-[calc(50%-5px)] lg:w-[calc(33%-5px)]"
-              title={title}
+              title={title ?? 'N/A'}
               chapter={chapter}
               timestamp={!timestamp ? null : timeAgo(new Date(timestamp), new Date())}
             />

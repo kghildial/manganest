@@ -2,18 +2,19 @@ import { type FC as ReactFC } from 'react';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
+import { Button } from '@/components/ui/button';
 import LayoutWrapper from '@/components/LayoutWrapper';
-
-import { IMangaDetails } from './MangaDetails.types';
-import { getManga } from '@/lib/manga';
 import Tag from '@/components/Tag';
 import MetaCardLayout from './MetaCardLayout';
-import { Button } from '@/components/ui/button';
+
+import { getManga } from '@/lib/manga.server';
+import { getMangaDetails } from '@/lib/manga';
+
+import { IMangaDetails } from './MangaDetails.types';
 
 const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) => {
   const { mangaNamePath } = await params;
   const { id } = await searchParams;
-
   const mangaName = mangaNamePath.split('-').join(' ');
 
   const searchResp = await getManga({
@@ -28,14 +29,7 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
     notFound();
   }
 
-  const coverArt = manga?.relationships?.find(rel => rel.type === 'cover_art');
-
-  let title = manga?.attributes?.title?.en ?? null;
-  if (!title) {
-    title = manga?.attributes?.altTitles?.find(entry => entry.hasOwnProperty('en'))?.en ?? null;
-  }
-
-  const description = manga?.attributes?.description?.en?.split('---')[0];
+  const { title, description, coverArt, authors, artists, tags } = await getMangaDetails(manga);
 
   return (
     <div className="mt-8 flex justify-center lg:mt-14">
@@ -43,7 +37,7 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
         <div className="flex">
           <Image
             priority
-            src={`https://uploads.mangadex.org/covers/${manga.id}/${coverArt?.attributes?.fileName}.512.jpg`}
+            src={`https://uploads.mangadex.org/covers/${id}/${coverArt?.attributes?.fileName}.512.jpg`}
             width="247"
             height="351"
             alt={!title ? 'N/A' : title}
@@ -54,16 +48,40 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
             <p className="mb-5 font-body font-medium">{description}</p>
             <div className="mb-8 flex flex-wrap gap-x-5">
               <MetaCardLayout title="Authors">
-                <Tag text="Someone" className="bg-secondary_bg2" />
+                {authors?.map(
+                  author =>
+                    author?.attributes?.name && (
+                      <Tag
+                        key={author.id}
+                        text={author.attributes.name}
+                        className="bg-secondary_bg2"
+                      />
+                    ),
+                )}
               </MetaCardLayout>
               <MetaCardLayout title="Artists">
-                <Tag text="Someone" className="bg-secondary_bg2" />
+                {artists?.map(
+                  artist =>
+                    artist?.attributes?.name && (
+                      <Tag
+                        key={artist.id}
+                        text={artist.attributes.name}
+                        className="bg-secondary_bg2"
+                      />
+                    ),
+                )}
               </MetaCardLayout>
               <MetaCardLayout title="Genres">
-                <Tag text="Action" className="bg-secondary_bg2" />
-                <Tag text="Adventure" className="bg-secondary_bg2" />
-                <Tag text="Drama" className="bg-secondary_bg2" />
-                <Tag text="Fantasy" className="bg-secondary_bg2" />
+                {tags?.map(
+                  tag =>
+                    tag?.attributes?.name?.en && (
+                      <Tag
+                        key={tag.id}
+                        text={tag.attributes.name.en}
+                        className="bg-secondary_bg2"
+                      />
+                    ),
+                )}
               </MetaCardLayout>
             </div>
             <Button size="lg" className="w-fit py-4">

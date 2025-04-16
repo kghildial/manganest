@@ -1,10 +1,8 @@
-'server-only';
-
 /**
- * This file contains APIs that fetch the manga & chapter data from the server
+ * Client utils for manga
  */
 
-import type { IGetMangaParams, IGetMangaResponse } from '@/types/manga.types';
+import type { IGetMangaParams, IGetMangaResponse, IManga } from '@/types/manga.types';
 
 export function createMangaQueryParams(params: IGetMangaParams) {
   let parsedQueryString = '?';
@@ -27,31 +25,24 @@ export function createMangaQueryParams(params: IGetMangaParams) {
   return parsedQueryString.slice(0, -1);
 }
 
-// Server only function to fetch mangas in React server components
-export async function getManga(params: IGetMangaParams): Promise<IGetMangaResponse> {
-  'use server';
+export async function getMangaDetails(manga: IManga) {
+  const coverArt = manga?.relationships?.find(rel => rel.type === 'cover_art');
 
-  if (!process.env.MANGADEX_BASE_API_URL) {
-    throw new Error('MANGADEX_BASE_API_URL is not defined in the environment variables.');
+  let title = manga?.attributes?.title?.en ?? null;
+  if (!title) {
+    title =
+      manga?.attributes?.altTitles?.find(entry => entry.hasOwnProperty('en'))?.en ??
+      manga?.attributes?.altTitles?.find(entry => entry.hasOwnProperty('ja'))?.ja ??
+      null;
   }
 
-  try {
-    const queryString = createMangaQueryParams(params);
-    const url = `${process.env.MANGADEX_BASE_API_URL}/manga${queryString}`;
+  const description = manga?.attributes?.description?.en?.split('---')[0];
 
-    const response = await fetch(url, {
-      next: {
-        revalidate: 1 * 60 * 60, // 1 hour
-      },
-    });
+  const authors = manga?.relationships?.filter(rel => rel.type === 'author');
 
-    if (!response.ok) {
-      throw new Error(`Failed to fetch manga: ${response.status} ${response.statusText}`);
-    }
+  const artists = manga?.relationships?.filter(rel => rel.type === 'artist');
 
-    return response.json();
-  } catch (error) {
-    console.error('Error fetching manga:', error);
-    throw new Error('Failed to fetch manga data.');
-  }
+  const tags = manga?.attributes?.tags;
+
+  return { title, description, coverArt, authors, artists, tags };
 }

@@ -11,6 +11,7 @@ import { ITrendingMangaDetails } from './TrendingManga.types';
 
 import { cn } from '@/lib/utils';
 import useResponsive from '@/hooks/useResponsive';
+import { getMangaDetails } from '@/lib/manga';
 
 const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
   const { isMobile, isTablet } = useResponsive();
@@ -19,18 +20,8 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
     <Carousel
       showOnlyProgress={isMobile}
       controlsClassName="absolute lg:bottom-0 lg:top-auto top-[-55px] right-0 lg:w-[200px] w-[calc(100%-160px)] md:w-[150px]"
-      template={({ entry, index, activeSlide }) => {
-        const coverArt = entry?.relationships?.find(rel => rel.type === 'cover_art');
-
-        let title = entry?.attributes?.title?.en ?? null;
-        if (!title) {
-          title =
-            entry?.attributes?.altTitles?.find(entry => entry.hasOwnProperty('en'))?.en ?? null;
-        }
-
-        const tags = entry?.attributes?.tags;
-
-        const description = entry?.attributes?.description?.en;
+      template={async ({ entry, index, activeSlide }) => {
+        const { coverArt, title, tags, description } = await getMangaDetails(entry);
 
         const descriptionWords = !description ? [] : description.split(' ');
 
@@ -49,7 +40,7 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
                 src={`https://uploads.mangadex.org/covers/${entry.id}/${coverArt?.attributes?.fileName}.512.jpg`}
                 width="247"
                 height="351"
-                alt={!title ? 'N/A' : title}
+                alt={title ?? 'N/A'}
                 className={cn(
                   'h-[350px] rounded-lg border-2 border-foreground transition-opacity ease-linear lg:h-[500px] lg:w-[350px]',
                   isMobile && isNextSlide
