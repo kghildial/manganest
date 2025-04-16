@@ -2,7 +2,7 @@ import React from 'react';
 
 import PagiantedView from './PaginatedView';
 
-import { getManga } from '@/lib/manga';
+import { getManga } from '@/lib/manga.server';
 import { getDeviceTypeFromUA } from '../api/utils';
 
 const LatestUpdated = async () => {

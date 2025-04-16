@@ -1,4 +1,4 @@
-import { getManga } from '@/lib/manga';
+import { getManga } from '@/lib/manga.server';
 import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { IGetMangaParams, IGetMangaResponse } from '@/types/manga.types';
