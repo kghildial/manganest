@@ -51,8 +51,8 @@ const PagiantedView: ReactFC<IPagiantedView> = ({
   return (
     <>
       <div className="mb-8 mt-0 flex flex-wrap justify-between gap-y-4 md:mt-8">
-        {data.map(async entry => {
-          const { title, coverArt } = await getMangaDetails(entry);
+        {data.map(entry => {
+          const { title, coverArt } = getMangaDetails(entry);
 
           const chapter = entry?.attributes?.lastChapter;
           const timestamp = entry?.attributes?.updatedAt;

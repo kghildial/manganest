@@ -20,8 +20,8 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
     <Carousel
       showOnlyProgress={isMobile}
       controlsClassName="absolute lg:bottom-0 lg:top-auto top-[-55px] right-0 lg:w-[200px] w-[calc(100%-160px)] md:w-[150px]"
-      template={async ({ entry, index, activeSlide }) => {
-        const { coverArt, title, tags, description } = await getMangaDetails(entry);
+      template={({ entry, index, activeSlide }) => {
+        const { coverArt, title, tags, description } = getMangaDetails(entry);
 
         const descriptionWords = !description ? [] : description.split(' ');
 

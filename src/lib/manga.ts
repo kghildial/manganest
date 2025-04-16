@@ -25,7 +25,7 @@ export function createMangaQueryParams(params: IGetMangaParams) {
   return parsedQueryString.slice(0, -1);
 }
 
-export async function getMangaDetails(manga: IManga) {
+export function getMangaDetails(manga: IManga) {
   const coverArt = manga?.relationships?.find(rel => rel.type === 'cover_art');
 
   let title = manga?.attributes?.title?.en ?? null;
