@@ -36,7 +36,17 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
 
   const stats = (await getMangaStats(id)).statistics[id];
 
-  const mangaFeed = (await getMangaFeed(id)).data;
+  const mangaFeed = (
+    await getMangaFeed({
+      id,
+      limit: 20,
+      offset: 0,
+      translatedLanguage: ['en'],
+      order: {
+        chapter: 'desc',
+      },
+    })
+  ).data;
 
   return (
     <div className="mt-8 flex justify-center lg:mt-14">
@@ -122,7 +132,7 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
         <div className="mt-12 flex flex-col md:mt-24">
           <h2 className="mb-5 md:mb-8">Chapters</h2>
           <div className="flex flex-col gap-2"></div>
-          <ChapterListing initialList={mangaFeed} />
+          <ChapterListing mangaId={id} initialList={mangaFeed} />
         </div>
       </LayoutWrapper>
     </div>
