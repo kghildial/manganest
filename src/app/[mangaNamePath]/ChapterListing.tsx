@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useRef, useState, type FC as ReactFC } from 'react';
+import { useEffect, useMemo, useRef, useState, type FC as ReactFC } from 'react';
 
 import { Clock } from 'lucide-react';
 
@@ -11,9 +11,23 @@ const ChapterListing: ReactFC<IChapterListing> = ({ initialList }) => {
   const [list, setList] = useState(initialList);
   const [hasMore, sethasMore] = useState(true);
   const [page, setPage] = useState(1);
-  const loader = useRef<HTMLDivElement>(null);
+  const loader = useRef<HTMLDivElement | null>(null);
 
   const now = useMemo(() => new Date(), []);
+
+  useEffect(() => {
+    if (!loader.current || !hasMore) return;
+
+    const observer = new IntersectionObserver(entry => {
+      if (entry[0].isIntersecting) {
+        setPage(prev => prev + 1);
+      }
+    });
+
+    observer.observe(loader.current);
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <>
@@ -31,6 +45,7 @@ const ChapterListing: ReactFC<IChapterListing> = ({ initialList }) => {
           </p>
         </div>
       ))}
+      <div ref={loader} className="h-10" />
     </>
   );
 };
