@@ -7,10 +7,11 @@ import LayoutWrapper from '@/components/LayoutWrapper';
 import Tag from '@/components/Tag';
 import MetaCardLayout from './MetaCardLayout';
 
-import { getManga } from '@/lib/manga.server';
+import { getManga, getMangaStats } from '@/lib/manga.server';
 import { getMangaDetails } from '@/lib/manga';
 
 import { IMangaDetails } from './MangaDetails.types';
+import { StarIcon } from 'lucide-react';
 
 const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) => {
   const { mangaNamePath } = await params;
@@ -31,6 +32,8 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
 
   const { title, description, coverArt, authors, artists, tags } = await getMangaDetails(manga);
 
+  const stats = (await getMangaStats(id)).statistics[id];
+
   return (
     <div className="mt-8 flex justify-center lg:mt-14">
       <LayoutWrapper className="flex flex-col">
@@ -45,8 +48,27 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
           />
           <div className="ml-2 flex flex-col md:ml-8">
             <h1 className="mb-3 hidden font-title text-5xl leading-[54px] md:block">{title}</h1>
+            <div className="mb-2 flex items-center gap-x-2 md:mb-5 md:gap-x-10">
+              <Tag
+                className="w-fit gap-1 rounded-md md:px-4 md:py-1.5"
+                text={
+                  <>
+                    <StarIcon size={24} className="text-accent" />
+                    <p className="mt-1 text-xs font-medium md:text-base">
+                      {Math.round(stats.rating.average * 10) / 10}
+                    </p>
+                  </>
+                }
+              />
+              <Button size="lg" className="hidden w-fit py-4 md:flex">
+                Start Reading
+              </Button>
+              <Button size="sm" className="flex w-fit py-4 md:hidden">
+                Start Reading
+              </Button>
+            </div>
             <p className="mb-5 hidden font-body font-medium md:block">{description}</p>
-            <div className="mb-3 flex flex-col flex-wrap gap-x-0 gap-y-3 md:mb-8 md:flex-row md:gap-x-5 md:gap-y-0">
+            <div className="mb-3 flex flex-col flex-wrap gap-x-0 gap-y-2 md:mb-8 md:flex-row md:gap-x-5 md:gap-y-0">
               <MetaCardLayout title="Authors" className="">
                 {authors?.map(
                   author =>
@@ -84,9 +106,6 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
                 )}
               </MetaCardLayout>
             </div>
-            <Button size="lg" className="w-fit py-4">
-              Start Reading
-            </Button>
           </div>
         </div>
         <h1 className="my-3 block font-title text-2xl/7 md:hidden">{title}</h1>
@@ -96,8 +115,8 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
           )}
         </div>
         <p className="block font-body text-sm font-medium md:hidden">{description}</p>
-        <div className="flex flex-col">
-          <h2 className="mt-12 md:mt-24">Chapters</h2>
+        <div className="mt-12 flex flex-col md:mt-24">
+          <h2 className="mb-5 md:mb-8">Chapters</h2>
         </div>
       </LayoutWrapper>
     </div>

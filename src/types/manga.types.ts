@@ -120,3 +120,20 @@ export interface IGetMangaResponse {
   offset: number;
   total: number;
 }
+
+export interface IGetMangaStatsResponse {
+  result: 'ok' | 'error';
+  statistics: {
+    [key: string]: {
+      comments: {
+        threadId: number;
+        repliedCount: number;
+      };
+      rating: {
+        [key: string]: Record<string, number> | number;
+        average: number;
+      };
+      follows: number;
+    };
+  };
+}

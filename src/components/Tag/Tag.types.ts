@@ -1,5 +1,5 @@
-import type { HTMLAttributes } from 'react';
+import type { HTMLAttributes, ReactNode } from 'react';
 
 export interface ITag extends HTMLAttributes<HTMLDivElement> {
-  text: string | null;
+  text: string | ReactNode | null;
 }
