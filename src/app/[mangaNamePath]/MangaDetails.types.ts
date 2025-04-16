@@ -13,7 +13,7 @@ export interface IMangaDetails {
   searchParams: ISearchParams;
 }
 
-export interface IMetaCardLayout {
+export interface IMetaCardLayout extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
   children: ReactNode;
 }
