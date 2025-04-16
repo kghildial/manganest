@@ -109,6 +109,7 @@ export interface IGetMangaParams {
   offset?: number;
   createdAtSince?: string;
   updatedAtSince?: string;
+  title?: string;
 }
 
 export interface IGetMangaResponse {
