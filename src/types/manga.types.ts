@@ -102,7 +102,7 @@ export interface IManga {
 
 export interface IGetMangaParams {
   includes?: TRelationshipType[];
-  order?: Record<string, string>;
+  order?: Record<string, 'asc' | 'desc'>;
   contentRating?: TMangaContentRating[];
   hasAvailableChapters?: boolean;
   limit?: number;
@@ -138,18 +138,28 @@ export interface IGetMangaStatsResponse {
   };
 }
 
+export interface IMangaFeed {
+  id: string;
+  type: 'chapter';
+  attributes: {
+    chapter: string;
+    title: string | null;
+    updatedAt: string;
+  } & { [key: string]: string };
+}
+
+export interface IGetMangaFeedParams {
+  id: string;
+  limit?: number;
+  offset?: number;
+  translatedLanguage?: string[];
+  order?: Record<string, 'desc' | 'asc'>;
+}
+
 export interface IGetMangaFeedResponse {
   result: 'ok' | 'error';
   response: 'collection' | 'entity';
-  data: {
-    id: string;
-    type: 'chapter';
-    attributes: {
-      chapter: string;
-      title: string | null;
-      updatedAt: string;
-    } & { [key: string]: string };
-  }[];
+  data: IMangaFeed[];
   limit: number;
   offset: number;
   total: number;

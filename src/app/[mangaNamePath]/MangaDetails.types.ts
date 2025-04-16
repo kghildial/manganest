@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react';
 
+import { IMangaFeed } from '@/types/manga.types';
+
 export interface IParams {
   mangaNamePath: string;
 }
@@ -19,6 +21,5 @@ export interface IMetaCardLayout extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export interface IChapterListing extends React.HTMLAttributes<HTMLDivElement> {
-  chapter: string;
-  timestamp: string;
+  initialList: IMangaFeed[];
 }

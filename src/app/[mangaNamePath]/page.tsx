@@ -122,13 +122,7 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
         <div className="mt-12 flex flex-col md:mt-24">
           <h2 className="mb-5 md:mb-8">Chapters</h2>
           <div className="flex flex-col gap-2"></div>
-          {mangaFeed.map(({ id, attributes: { chapter, updatedAt } }) => (
-            <ChapterListing
-              key={id}
-              chapter={chapter}
-              timestamp={timeAgo(new Date(updatedAt), new Date())}
-            />
-          ))}
+          <ChapterListing initialList={mangaFeed} />
         </div>
       </LayoutWrapper>
     </div>
