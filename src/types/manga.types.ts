@@ -164,3 +164,15 @@ export interface IGetMangaFeedResponse {
   offset: number;
   total: number;
 }
+
+export interface IMangaChapter {
+  hash: string;
+  data: string[];
+  dataSaver: string[];
+}
+
+export interface IGetMangaChapterResponse {
+  result: 'ok' | 'error';
+  baseUrl: string;
+  chapter: IMangaChapter;
+}

@@ -5,6 +5,7 @@
  */
 
 import {
+  IGetMangaChapterResponse,
   IGetMangaFeedParams,
   IGetMangaFeedResponse,
   IGetMangaParams,
@@ -14,7 +15,6 @@ import {
 import { createMangaQueryParams } from './manga';
 import { notFound } from 'next/navigation';
 
-// Server only function to fetch mangas in React server components
 export async function getManga(params: IGetMangaParams): Promise<IGetMangaResponse> {
   if (!process.env.MANGADEX_BASE_API_URL) {
     throw new Error('MANGADEX_BASE_API_URL is not defined in the environment variables.');
@@ -91,5 +91,27 @@ export async function getMangaFeed({
   } catch (err) {
     console.error('Error fetching manga chapters:', err);
     throw new Error('Failed to fetch manga chapters!');
+  }
+}
+
+export async function getMangaChapter(id: string): Promise<IGetMangaChapterResponse> {
+  try {
+    if (!process.env.MANGADEX_BASE_API_URL) {
+      throw new Error('MANGADEX_BASE_API_URL is not defined in the environment variables.');
+    }
+
+    const url = `${process.env.MANGADEX_BASE_API_URL}/at-home/server/${id}`;
+
+    const response = await fetch(url, { next: { revalidate: 15 * 60 } }); // revalidate every 15 mins
+
+    if (!response.ok) {
+      console.error(`Failed to fetch manga chapter: ${response.status} ${response.statusText}`);
+      notFound();
+    }
+
+    return response.json();
+  } catch (err) {
+    console.error('Error fetching manga chapter:', err);
+    notFound();
   }
 }
