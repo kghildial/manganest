@@ -176,3 +176,11 @@ export interface IGetMangaChapterResponse {
   baseUrl: string;
   chapter: IMangaChapter;
 }
+
+export interface IFindInFeedParams {
+  mangaId: string;
+  chNum: number;
+  totalCh: number;
+  pagination?: number;
+  pgnMultiplier?: number;
+}

@@ -2,7 +2,12 @@
  * Client utils for manga
  */
 
-import type { IGetMangaFeedParams, IGetMangaParams, IManga } from '@/types/manga.types';
+import type {
+  IGetMangaChapterResponse,
+  IGetMangaFeedParams,
+  IGetMangaParams,
+  IManga,
+} from '@/types/manga.types';
 
 export function createMangaQueryParams(params: IGetMangaParams | IGetMangaFeedParams) {
   let parsedQueryString = '?';
@@ -45,4 +50,11 @@ export function getMangaDetails(manga: IManga) {
   const tags = manga?.attributes?.tags;
 
   return { title, description, coverArt, authors, artists, tags };
+}
+
+export function isChapterDataValid({
+  baseUrl,
+  chapter: { hash, data: pageData, dataSaver: pageDataSaver },
+}: IGetMangaChapterResponse) {
+  return !baseUrl || baseUrl === '' || !hash || hash === '' || !pageData || pageData.length === 0;
 }
