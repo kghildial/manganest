@@ -78,7 +78,7 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
               <Button
                 className="w-fit"
                 onClick={() => {
-                  router.push(`/${title?.split(' ').join('-').toLowerCase()}?id=${entry.id}`);
+                  router.push(`/${title?.toLowerCase()}?id=${entry.id}`);
                 }}
               >
                 Read{entry?.attributes?.description?.hasOwnProperty('en') ? ' More' : ''}

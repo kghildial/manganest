@@ -115,3 +115,15 @@ export async function getMangaChapter(id: string): Promise<IGetMangaChapterRespo
     notFound();
   }
 }
+
+export async function getLatestMangaChapter(id: string) {
+  const response = await getMangaFeed({
+    id,
+    translatedLanguage: ['en'],
+    order: { chapter: 'desc' },
+    limit: 1,
+    offset: 0,
+  });
+
+  return response.data[0];
+}

@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { HTMLAttributes, ReactNode } from 'react';
 
 import { IMangaFeed } from '@/types/manga.types';
 
@@ -15,12 +15,12 @@ export interface IMangaDetails {
   searchParams: ISearchParams;
 }
 
-export interface IMetaCardLayout extends React.HTMLAttributes<HTMLDivElement> {
+export interface IMetaCardLayout extends HTMLAttributes<HTMLDivElement> {
   title: string;
   children: ReactNode;
 }
 
-export interface IChapterListing extends React.HTMLAttributes<HTMLDivElement> {
+export interface IChapterListing extends HTMLAttributes<HTMLDivElement> {
   mangaId: string;
   initialList: IMangaFeed[];
 }

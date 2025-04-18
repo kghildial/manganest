@@ -18,12 +18,11 @@ import { timeAgo } from '@/lib/utils';
 const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) => {
   const { mangaNamePath } = await params;
   const { id } = await searchParams;
-  const mangaName = mangaNamePath.split('-').join(' ');
 
   const searchResp = await getManga({
     includes: ['cover_art', 'author', 'artist'],
     limit: 100,
-    title: mangaName,
+    title: mangaNamePath,
   });
 
   const manga = searchResp.data.filter(entry => entry.id === id)[0];

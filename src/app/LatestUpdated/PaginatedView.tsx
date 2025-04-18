@@ -62,7 +62,7 @@ const PagiantedView: ReactFC<IPagiantedView> = ({
               chapter={chapter}
               timestamp={!timestamp ? null : timeAgo(new Date(timestamp), new Date())}
               onClick={() => {
-                router.push(`/${title?.split(' ').join('-').toLowerCase()}?id=${entry.id}`);
+                router.push(`/${title?.toLowerCase()}?id=${entry.id}`);
               }}
             />
           );
