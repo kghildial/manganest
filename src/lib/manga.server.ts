@@ -5,12 +5,14 @@
  */
 
 import {
+  IFindInFeedParams,
   IGetMangaChapterResponse,
   IGetMangaFeedParams,
   IGetMangaFeedResponse,
   IGetMangaParams,
   IGetMangaResponse,
   IGetMangaStatsResponse,
+  IMangaFeed,
 } from '@/types/manga.types';
 import { createMangaQueryParams } from './manga';
 import { notFound } from 'next/navigation';
@@ -80,6 +82,9 @@ export async function getMangaFeed({
 
     const url = `${process.env.MANGADEX_BASE_API_URL}/manga/${id}/feed${queryString}`;
 
+    console.log('=============== : ID: ', id);
+    console.log('========= : URL: ', url);
+
     const response = await fetch(url, { next: { revalidate: 1 * 60 * 60 } });
 
     if (!response.ok) {
@@ -126,4 +131,57 @@ export async function getLatestMangaChapter(id: string) {
   });
 
   return response.data[0];
+}
+
+// Finds reference(s) of a chapter (by chapter number) in a manga's chapter feed
+export async function findInFeed({
+  mangaId,
+  chNum,
+  totalCh,
+  pagination = 20,
+  pgnMultiplier = 0,
+}: IFindInFeedParams) {
+  const feedSet = (
+    await getMangaFeed({
+      id: mangaId,
+      limit: pagination,
+      offset: pagination * pgnMultiplier,
+      translatedLanguage: ['en'],
+      order: { chapter: 'asc' },
+    })
+  ).data;
+
+  let results = feedSet.filter(({ attributes: { chapter } }) => chapter === String(chNum));
+
+  // If no results then search some more on next set
+  if (results.length === 0) {
+    results = await findInFeed({
+      mangaId,
+      chNum,
+      totalCh,
+      pagination: 50,
+      pgnMultiplier: pgnMultiplier + 1,
+    });
+  }
+
+  return results;
+}
+
+// Will return an entry in the mangaFeed which has non empty hash and chapter data
+export async function getValidChRef(feedList: IMangaFeed[]) {
+  let output = { chapterData: await getMangaChapter(feedList[0].id), listing: feedList[0] };
+
+  const {
+    chapterData: {
+      baseUrl,
+      chapter: { hash, data },
+    },
+  } = output;
+
+  if (!baseUrl || baseUrl === '' || !hash || hash === '' || !data || data.length === 0) {
+    const newFeedList = feedList.slice(1, feedList.length);
+    output = await getValidChRef(newFeedList);
+  }
+
+  return output;
 }

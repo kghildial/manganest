@@ -12,7 +12,14 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: '**.mangadex.network',
+        hostname: '*.mangadex.network',
+        port: '',
+        pathname: '/data-saver/**',
+        search: '',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.mangadex.network',
         port: '',
         pathname: '/data/**',
         search: '',

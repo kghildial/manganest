@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useState, type FC as ReactFC } from 'react';
+import { useState, type FC as ReactFC } from 'react';
+import { useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -14,37 +15,57 @@ import {
 import { cn } from '@/lib/utils';
 
 import { IControls } from './MangaReader.types';
+import { findInFeed, getValidChRef } from '@/lib/manga.server';
 
-const Controls: ReactFC<IControls> = ({ currentChapter, totalChapters, className }) => {
+const Controls: ReactFC<IControls> = ({
+  className,
+  totalCh,
+  mangaId,
+  currentChapter,
+  mangaNamePath,
+}) => {
+  const router = useRouter();
+
   const [activeChapter, setActiveChapter] = useState(currentChapter);
 
-  useEffect(() => {
-    console.log(activeChapter);
-  });
+  const changeChapter = async (chNum: number) => {
+    const listings = await findInFeed({ mangaId, chNum, totalCh, pagination: 50 });
+
+    const {
+      listing: { id },
+    } = await getValidChRef(listings);
+
+    router.push(`/${mangaNamePath}/${id}?id=${mangaId}&ch=${chNum}`);
+  };
 
   return (
     <div className={cn('flex w-full flex-col', className)}>
-      <div className="flex justify-end gap-5 md:justify-start">
-        <Button variant="secondary">Prev</Button>
-        <Button>Next</Button>
+      <div className="flex justify-end gap-5 lg:justify-start">
+        <Button variant="secondary" onClick={() => changeChapter(activeChapter - 1)}>
+          Prev
+        </Button>
+        <Button onClick={() => changeChapter(activeChapter + 1)}>Next</Button>
       </div>
 
-      <div className="mt-8 hidden flex-col gap-2 md:flex">
+      <div className="mt-8 hidden flex-col gap-2 lg:flex">
         <p className="font-body font-medium">Move to Chapter:</p>
         <Select
           value={String(activeChapter)}
-          onValueChange={chapter => setActiveChapter(Number(chapter))}
+          onValueChange={chapter => {
+            setActiveChapter(Number(chapter));
+            changeChapter(Number(chapter));
+          }}
         >
           <SelectTrigger className="h-[28px] w-32 gap-1 rounded-xs border-secondary_bg2 bg-secondary_bg2 py-0 pr-1 font-body [&_span]:text-xs">
             {activeChapter}
           </SelectTrigger>
           <SelectContent className="w-fit min-w-fit border-accent">
-            {Array.from({ length: totalChapters + 1 }).map((_, index) => (
+            {Array.from({ length: totalCh + 1 }).map((_, index) => (
               <SelectItem
                 key={index}
                 value={`${index}`}
                 className={cn(
-                  'px-3 py-3 font-body md:py-1 [&_span]:text-xs',
+                  'px-3 py-3 font-body lg:py-1 [&_span]:text-xs',
                   activeChapter === index ? 'bg-accent_tint [&_span]:text-background' : '',
                 )}
               >

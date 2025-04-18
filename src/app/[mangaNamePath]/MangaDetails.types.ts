@@ -24,3 +24,10 @@ export interface IChapterListing extends HTMLAttributes<HTMLDivElement> {
   mangaId: string;
   initialList: IMangaFeed[];
 }
+
+export interface IStartReading {
+  mangaNamePath: string;
+  firstChId: string;
+  mangaId: string;
+  firstChNum: string;
+}

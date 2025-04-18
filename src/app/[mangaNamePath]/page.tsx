@@ -3,7 +3,6 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { StarIcon } from 'lucide-react';
 
-import { Button } from '@/components/ui/button';
 import LayoutWrapper from '@/components/LayoutWrapper';
 import Tag from '@/components/Tag';
 import MetaCardLayout from './MetaCardLayout';
@@ -13,11 +12,11 @@ import { getManga, getMangaFeed, getMangaStats } from '@/lib/manga.server';
 import { getMangaDetails } from '@/lib/manga';
 
 import { IMangaDetails } from './MangaDetails.types';
-import { timeAgo } from '@/lib/utils';
+import StartReading from './StartReading';
 
 const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) => {
   const { mangaNamePath } = await params;
-  const { id } = await searchParams;
+  const { id: mangaId } = await searchParams;
 
   const searchResp = await getManga({
     includes: ['cover_art', 'author', 'artist'],
@@ -25,7 +24,7 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
     title: mangaNamePath,
   });
 
-  const manga = searchResp.data.filter(entry => entry.id === id)[0];
+  const manga = searchResp.data.filter(entry => entry.id === mangaId)[0];
 
   if (!manga) {
     notFound();
@@ -33,11 +32,11 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
 
   const { title, description, coverArt, authors, artists, tags } = await getMangaDetails(manga);
 
-  const stats = (await getMangaStats(id)).statistics[id];
+  const stats = (await getMangaStats(mangaId)).statistics[mangaId];
 
   const mangaFeed = (
     await getMangaFeed({
-      id,
+      id: mangaId,
       limit: 20,
       offset: 0,
       translatedLanguage: ['en'],
@@ -47,13 +46,28 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
     })
   ).data;
 
+  const {
+    id: firstChId,
+    attributes: { chapter: firstChNum },
+  } = (
+    await getMangaFeed({
+      id: mangaId,
+      limit: 1,
+      offset: 0,
+      translatedLanguage: ['en'],
+      order: {
+        chapter: 'asc',
+      },
+    })
+  ).data[0];
+
   return (
     <div className="mt-8 flex justify-center lg:mt-14">
       <LayoutWrapper className="flex flex-col">
         <div className="flex">
           <Image
             priority
-            src={`https://uploads.mangadex.org/covers/${id}/${coverArt?.attributes?.fileName}.512.jpg`}
+            src={`https://uploads.mangadex.org/covers/${mangaId}/${coverArt?.attributes?.fileName}.512.jpg`}
             width="247"
             height="351"
             alt={!title ? 'N/A' : title}
@@ -74,12 +88,12 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
                   </>
                 }
               />
-              <Button size="lg" className="hidden w-fit py-4 md:flex">
-                Start Reading
-              </Button>
-              <Button size="sm" className="flex w-fit rounded-sm py-4 md:hidden">
-                Start Reading
-              </Button>
+              <StartReading
+                mangaNamePath={mangaNamePath}
+                firstChId={firstChId}
+                mangaId={mangaId}
+                firstChNum={firstChNum}
+              />
             </div>
             <p className="mb-5 hidden font-body font-medium md:block">{description}</p>
             <div className="mb-3 flex flex-col flex-wrap gap-x-0 gap-y-2 md:mb-8 md:flex-row md:gap-x-5 md:gap-y-3">
@@ -132,7 +146,7 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
         <div className="mt-12 flex flex-col md:mt-24">
           <h2 className="mb-5 md:mb-8">Chapters</h2>
           <div className="flex flex-col gap-2"></div>
-          <ChapterListing mangaId={id} initialList={mangaFeed} />
+          <ChapterListing mangaId={mangaId} initialList={mangaFeed} />
         </div>
       </LayoutWrapper>
     </div>
