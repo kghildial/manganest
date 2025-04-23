@@ -12,6 +12,7 @@ import { findInFeed, getMangaFeed, getValidChRef } from '@/lib/manga.server';
 
 import { IControls, IDneModalState } from './MangaReader.types';
 import { changeChapter } from './utils';
+import ChapterDneModal from './ChapterDneModal';
 
 const Controls: ReactFC<IControls> = ({
   className,
@@ -94,29 +95,12 @@ const Controls: ReactFC<IControls> = ({
         </Select>
       </div>
 
-      <Modal
-        trigger={chapterDneModal.trigger}
-        title={{ text: 'Uh-oh!' }}
-        onClose={() => setChapterDneModal(prev => ({ ...prev, trigger: false }))}
-      >
-        <p className="font-body font-medium">
-          Chapter {chapterDneModal.unavailChNum} does not exist!
-        </p>
-        <p className="font-body font-medium">
-          The next available chapter is Chapter is #
-          {chapterDneModal.nextChapter?.attributes.chapter}
-        </p>
-        <Button
-          className="mt-5"
-          onClick={() => {
-            router.push(
-              `/${encodeURIComponent(mangaTitle)}/${chapterDneModal.nextChapter?.id}?id=${mangaId}&ch=${chapterDneModal.nextChapter?.attributes.chapter}`,
-            );
-          }}
-        >
-          Read Chapter {chapterDneModal.nextChapter?.attributes.chapter}
-        </Button>
-      </Modal>
+      <ChapterDneModal
+        mangaId={mangaId}
+        mangaTitle={mangaTitle}
+        state={chapterDneModal}
+        setState={setChapterDneModal}
+      />
     </div>
   );
 };

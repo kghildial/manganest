@@ -43,3 +43,10 @@ export interface IChangeChapter {
   setChapterDneModal: Dispatch<SetStateAction<IDneModalState>>;
   router: ReturnType<typeof useRouter>;
 }
+
+export interface IChapterDneModal {
+  mangaId: string;
+  mangaTitle: string;
+  state: IDneModalState;
+  setState: Dispatch<SetStateAction<IDneModalState>>;
+}
