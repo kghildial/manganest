@@ -18,6 +18,7 @@ body {
     /* ===========================
       🎨 Secondary Palette
       =========================== */
+    --background_50: hsl(40 89% 97% / 50%); /* Softcream 50% */
     --secondary-bg1: hsl(34 33% 86%); /* Sand */
     --secondary-bg2: hsl(30 15% 78%); /* Stone Gray */
     --secondary-bg2_50: hsla(30 15% 78% / 50%); /* Stone Gray 50% */

@@ -45,6 +45,7 @@ export default {
         foreground: 'var(--foreground)',
         border: 'var(--border)',
         accent: 'var(--accent)',
+        background_50: 'var(--background_50)',
         secondary_bg1: 'var(--secondary-bg1)',
         secondary_bg2: 'var(--secondary-bg2)',
         secondary_bg2_50: 'var(--secondary-bg2_50)',
