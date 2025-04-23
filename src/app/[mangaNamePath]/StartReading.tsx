@@ -7,16 +7,11 @@ import { Button } from '@/components/ui/button';
 
 import { IStartReading } from './MangaDetails.types';
 
-const StartReading: ReactFC<IStartReading> = ({
-  mangaNamePath,
-  firstChId,
-  mangaId,
-  firstChNum,
-}) => {
+const StartReading: ReactFC<IStartReading> = ({ mangaTitle, firstChId, mangaId, firstChNum }) => {
   const router = useRouter();
 
   const handleStartReading = () => {
-    router.push(`/${mangaNamePath}/${firstChId}?id=${mangaId}&ch=${firstChNum}`);
+    router.push(`/${encodeURIComponent(mangaTitle)}/${firstChId}?id=${mangaId}&ch=${firstChNum}`);
   };
   return (
     <>

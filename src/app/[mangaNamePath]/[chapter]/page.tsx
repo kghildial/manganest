@@ -15,13 +15,13 @@ import {
 import { IMangaReader } from './MangaReader.types';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { getMangaDetails, isChapterDataValid } from '@/lib/manga';
-import { Button } from '@/components/ui/button';
 import Controls from './Controls';
 import { LayoutGrid, Minimize2 } from 'lucide-react';
 
 const MangaReader: ReactFC<IMangaReader> = async ({ params, searchParams }) => {
   const { mangaNamePath, chapter: chId } = await params;
   const { id: mangaId, ch: currentChNum } = await searchParams;
+  const mangaTitle = decodeURIComponent(mangaNamePath);
 
   // Get the total chapters in this manga
   const totalCh = Number((await getLatestMangaChapter(mangaId)).attributes.chapter);
@@ -44,7 +44,7 @@ const MangaReader: ReactFC<IMangaReader> = async ({ params, searchParams }) => {
     chapter: { hash, data: pageData, dataSaver: pageDataSaver },
   } = chapterData;
 
-  const manga = (await getManga({ title: mangaNamePath, limit: 100 })).data.filter(
+  const manga = (await getManga({ title: mangaTitle, limit: 100 })).data.filter(
     entry => entry.id === mangaId,
   )[0];
 
@@ -94,7 +94,7 @@ const MangaReader: ReactFC<IMangaReader> = async ({ params, searchParams }) => {
 
               <CardContent className="flex w-full gap-6">
                 <Controls
-                  mangaNamePath={mangaNamePath}
+                  mangaTitle={mangaTitle}
                   currentChapter={Number(currentChNum)}
                   totalCh={totalCh}
                   mangaId={mangaId}

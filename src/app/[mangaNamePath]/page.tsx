@@ -3,25 +3,28 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { StarIcon } from 'lucide-react';
 
-import LayoutWrapper from '@/components/LayoutWrapper';
 import Tag from '@/components/Tag';
+import LayoutWrapper from '@/components/LayoutWrapper';
 import MetaCardLayout from './MetaCardLayout';
 import ChapterListing from './ChapterListing';
+import StartReading from './StartReading';
+import ChapterListingFallback from './ChapterListingFallback';
 
 import { getManga, getMangaFeed, getMangaStats } from '@/lib/manga.server';
 import { getMangaDetails } from '@/lib/manga';
 
 import { IMangaDetails } from './MangaDetails.types';
-import StartReading from './StartReading';
 
 const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) => {
   const { mangaNamePath } = await params;
   const { id: mangaId } = await searchParams;
+  let isChaptersDataAvail = true;
+  const mangaTitle = decodeURIComponent(mangaNamePath);
 
   const searchResp = await getManga({
     includes: ['cover_art', 'author', 'artist'],
     limit: 100,
-    title: mangaNamePath,
+    title: mangaTitle,
   });
 
   const manga = searchResp.data.filter(entry => entry.id === mangaId)[0];
@@ -46,6 +49,10 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
     })
   ).data;
 
+  if (mangaFeed.length === 0) {
+    isChaptersDataAvail = false;
+  }
+
   const {
     id: firstChId,
     attributes: { chapter: firstChNum },
@@ -59,7 +66,7 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
         chapter: 'asc',
       },
     })
-  ).data[0];
+  ).data[0] ?? { id: null, attributes: { chapter: null } };
 
   return (
     <div className="mt-8 flex justify-center lg:mt-14">
@@ -88,12 +95,14 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
                   </>
                 }
               />
-              <StartReading
-                mangaNamePath={mangaNamePath}
-                firstChId={firstChId}
-                mangaId={mangaId}
-                firstChNum={firstChNum}
-              />
+              {firstChId && firstChNum && (
+                <StartReading
+                  mangaTitle={mangaTitle}
+                  firstChId={firstChId}
+                  mangaId={mangaId}
+                  firstChNum={firstChNum}
+                />
+              )}
             </div>
             <p className="mb-5 hidden font-body font-medium md:block">{description}</p>
             <div className="mb-3 flex flex-col flex-wrap gap-x-0 gap-y-2 md:mb-8 md:flex-row md:gap-x-5 md:gap-y-3">
@@ -146,7 +155,11 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
         <div className="mt-12 flex flex-col md:mt-24">
           <h2 className="mb-5 md:mb-8">Chapters</h2>
           <div className="flex flex-col gap-2"></div>
-          <ChapterListing mangaId={mangaId} initialList={mangaFeed} />
+          {isChaptersDataAvail ? (
+            <ChapterListing mangaId={mangaId} initialList={mangaFeed} />
+          ) : (
+            <ChapterListingFallback mangaId={mangaId} mangaSearchResults={searchResp.data} />
+          )}
         </div>
       </LayoutWrapper>
     </div>

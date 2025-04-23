@@ -47,7 +47,7 @@ const PagiantedView: ReactFC<IPagiantedView> = ({
     <>
       <div className="mb-8 mt-0 flex flex-wrap justify-between gap-y-4 md:mt-8">
         {data.map(entry => {
-          const { title, coverArt } = getMangaDetails(entry);
+          const { mangaId, title, coverArt } = getMangaDetails(entry);
 
           const chapter = entry?.attributes?.lastChapter;
           const timestamp = entry?.attributes?.updatedAt;
@@ -62,7 +62,9 @@ const PagiantedView: ReactFC<IPagiantedView> = ({
               chapter={chapter}
               timestamp={!timestamp ? null : timeAgo(new Date(timestamp), new Date())}
               onClick={() => {
-                router.push(`/${title?.toLowerCase()}?id=${entry.id}`);
+                title !== null
+                  ? router.push(`/${encodeURIComponent(title)}?id=${mangaId}`)
+                  : router.push('/');
               }}
             />
           );

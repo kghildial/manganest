@@ -23,7 +23,7 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
       showOnlyProgress={isMobile}
       controlsClassName="absolute lg:bottom-0 lg:top-auto top-[-55px] right-0 lg:w-[200px] w-[calc(100%-160px)] md:w-[150px]"
       template={({ entry, index, activeSlide }) => {
-        const { coverArt, title, tags, description } = getMangaDetails(entry);
+        const { mangaId, coverArt, title, tags, description } = getMangaDetails(entry);
 
         const descriptionWords = !description ? [] : description.split(' ');
 
@@ -78,7 +78,11 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
               <Button
                 className="w-fit"
                 onClick={() => {
-                  router.push(`/${title?.toLowerCase()}?id=${entry.id}`);
+                  {
+                    title !== null
+                      ? router.push(`/${encodeURIComponent(title)}?id=${mangaId}`)
+                      : router.push('/');
+                  }
                 }}
               >
                 Read{entry?.attributes?.description?.hasOwnProperty('en') ? ' More' : ''}
