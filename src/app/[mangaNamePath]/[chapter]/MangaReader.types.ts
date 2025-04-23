@@ -30,9 +30,10 @@ export interface IDneModalState {
   nextChapter: IMangaFeed | null;
 }
 
-export interface IMobileControlsModal {
+export interface IMobileControlsPanel {
   mangaId: string;
   currentChapter: number;
+  totalChapters: number;
   mangaTitle: string;
 }
 

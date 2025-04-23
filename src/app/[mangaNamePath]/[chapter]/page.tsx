@@ -1,6 +1,5 @@
 import { type FC as ReactFC } from 'react';
 import Image from 'next/image';
-import { notFound } from 'next/navigation';
 
 import LayoutWrapper from '@/components/LayoutWrapper';
 
@@ -17,6 +16,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { getMangaDetails, isChapterDataValid } from '@/lib/manga';
 import Controls from './Controls';
 import { LayoutGrid, Minimize2 } from 'lucide-react';
+import MobileControlsPanel from './MobileControlsPanel';
 
 const MangaReader: ReactFC<IMangaReader> = async ({ params, searchParams }) => {
   const { mangaNamePath, chapter: chId } = await params;
@@ -84,10 +84,11 @@ const MangaReader: ReactFC<IMangaReader> = async ({ params, searchParams }) => {
                     Chapter {currentChNum}
                   </CardDescription>
                 </div>
-                <LayoutGrid size={18} className="block min-w-[18px] lg:hidden" />
-                <Minimize2
-                  size={18}
-                  className="absolute bottom-3 block text-foreground_tint_60 lg:hidden"
+                <MobileControlsPanel
+                  mangaId={mangaId}
+                  mangaTitle={mangaTitle}
+                  totalChapters={totalCh}
+                  currentChapter={Number(currentChNum)}
                 />
               </CardHeader>
 

@@ -31,13 +31,13 @@ const Modal: ReactFC<IModal> = ({
             <CardHeader className="mb-5 flex w-full flex-row justify-between">
               <div className="flex flex-col">
                 {title && (
-                  <CardTitle className={cn('', title?.className)}>
-                    <h2>{title.text}</h2>
+                  <CardTitle>
+                    <h2 className={title?.className}>{title.text}</h2>
                   </CardTitle>
                 )}
                 {description && (
-                  <CardDescription className={description?.className}>
-                    {description.text}
+                  <CardDescription>
+                    <p className={description?.className}>{description.text}</p>
                   </CardDescription>
                 )}
               </div>
