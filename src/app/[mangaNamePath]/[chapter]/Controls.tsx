@@ -2,13 +2,12 @@
 
 import { useState, type FC as ReactFC } from 'react';
 import { useRouter } from 'next/navigation';
+import { Minimize2 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/ui/select';
-import Modal from '@/components/Modal';
 
 import { cn } from '@/lib/utils';
-import { findInFeed, getMangaFeed, getValidChRef } from '@/lib/manga.server';
 
 import { IControls, IDneModalState } from './MangaReader.types';
 import { changeChapter } from './utils';
@@ -31,34 +30,37 @@ const Controls: ReactFC<IControls> = ({
 
   return (
     <div className={cn('flex w-full flex-col', className)}>
-      <div className="flex justify-end gap-5 lg:justify-start">
-        <Button
-          variant="secondary"
-          onClick={() =>
-            changeChapter({
-              targetChapter: currentChapter - 1,
-              mangaId,
-              mangaTitle,
-              setChapterDneModal,
-              router,
-            })
-          }
-        >
-          Prev
-        </Button>
-        <Button
-          onClick={() =>
-            changeChapter({
-              targetChapter: currentChapter + 1,
-              mangaId,
-              mangaTitle,
-              setChapterDneModal,
-              router,
-            })
-          }
-        >
-          Next
-        </Button>
+      <div className="flex items-end justify-between gap-5 lg:justify-start">
+        <Minimize2 size={18} className="block text-foreground_tint_60 lg:hidden" />
+        <div className="flex gap-5">
+          <Button
+            variant="secondary"
+            onClick={() =>
+              changeChapter({
+                targetChapter: currentChapter - 1,
+                mangaId,
+                mangaTitle,
+                setChapterDneModal,
+                router,
+              })
+            }
+          >
+            Prev
+          </Button>
+          <Button
+            onClick={() =>
+              changeChapter({
+                targetChapter: currentChapter + 1,
+                mangaId,
+                mangaTitle,
+                setChapterDneModal,
+                router,
+              })
+            }
+          >
+            Next
+          </Button>
+        </div>
       </div>
 
       <div className="mt-8 hidden flex-col gap-2 lg:flex">
