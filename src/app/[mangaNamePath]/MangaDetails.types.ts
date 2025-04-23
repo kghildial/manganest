@@ -1,6 +1,6 @@
 import type { HTMLAttributes, ReactNode } from 'react';
 
-import { IMangaFeed } from '@/types/manga.types';
+import { IManga, IMangaFeed } from '@/types/manga.types';
 
 export interface IParams {
   mangaNamePath: string;
@@ -26,8 +26,13 @@ export interface IChapterListing extends HTMLAttributes<HTMLDivElement> {
 }
 
 export interface IStartReading {
-  mangaNamePath: string;
+  mangaTitle: string;
   firstChId: string;
   mangaId: string;
   firstChNum: string;
+}
+
+export interface IChapterListingFallback {
+  mangaId: string;
+  mangaSearchResults: IManga[];
 }

@@ -17,7 +17,7 @@ export interface IMangaReader {
 }
 
 export interface IControls extends HTMLAttributes<HTMLDivElement> {
-  mangaNamePath: string;
+  mangaTitle: string;
   currentChapter: number;
   totalCh: number;
   mangaId: string;

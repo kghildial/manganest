@@ -49,7 +49,21 @@ export function getMangaDetails(manga: IManga) {
 
   const tags = manga?.attributes?.tags;
 
-  return { title, description, coverArt, authors, artists, tags };
+  const lastChapter = manga?.attributes?.lastChapter;
+
+  const updatedAt = manga?.attributes?.updatedAt;
+
+  return {
+    mangaId: manga.id,
+    title,
+    description,
+    coverArt,
+    authors,
+    artists,
+    tags,
+    lastChapter,
+    updatedAt,
+  };
 }
 
 export function isChapterDataValid({

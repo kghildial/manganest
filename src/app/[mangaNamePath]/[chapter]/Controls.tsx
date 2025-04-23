@@ -22,7 +22,7 @@ const Controls: ReactFC<IControls> = ({
   totalCh,
   mangaId,
   currentChapter,
-  mangaNamePath,
+  mangaTitle,
 }) => {
   const router = useRouter();
 
@@ -35,7 +35,7 @@ const Controls: ReactFC<IControls> = ({
       listing: { id },
     } = await getValidChRef(listings);
 
-    router.push(`/${mangaNamePath}/${id}?id=${mangaId}&ch=${chNum}`);
+    router.push(`/${encodeURIComponent(mangaTitle)}/${id}?id=${mangaId}&ch=${chNum}`);
   };
 
   return (
