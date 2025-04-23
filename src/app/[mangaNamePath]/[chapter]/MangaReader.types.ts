@@ -1,5 +1,6 @@
-import { IMangaChapter, IMangaFeed } from '@/types/manga.types';
-import type { HTMLAttributes } from 'react';
+import { IMangaFeed } from '@/types/manga.types';
+import { useRouter } from 'next/navigation';
+import type { Dispatch, HTMLAttributes, SetStateAction } from 'react';
 
 interface IParams {
   mangaNamePath: string;
@@ -29,7 +30,16 @@ export interface IDneModalState {
   nextChapter: IMangaFeed | null;
 }
 
-export interface IFindNearestChapter {
+export interface IMobileControlsModal {
+  mangaId: string;
+  currentChapter: number;
+  mangaTitle: string;
+}
+
+export interface IChangeChapter {
+  mangaId: string;
+  mangaTitle: string;
   targetChapter: number;
-  offsetMultiplier?: number;
+  setChapterDneModal: Dispatch<SetStateAction<IDneModalState>>;
+  router: ReturnType<typeof useRouter>;
 }
