@@ -4,18 +4,13 @@ import { useState, type FC as ReactFC } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/ui/select';
+import Modal from '@/components/Modal';
 
 import { cn } from '@/lib/utils';
+import { findInFeed, getMangaFeed, getValidChRef } from '@/lib/manga.server';
 
-import { IControls } from './MangaReader.types';
-import { findInFeed, getValidChRef } from '@/lib/manga.server';
+import { IControls, IDneModalState, IFindNearestChapter } from './MangaReader.types';
 
 const Controls: ReactFC<IControls> = ({
   className,
@@ -27,19 +22,49 @@ const Controls: ReactFC<IControls> = ({
   const router = useRouter();
 
   const [activeChapter, setActiveChapter] = useState(currentChapter);
+  const [chapterDneModal, setChapterDneModal] = useState<IDneModalState>({
+    trigger: false,
+    unavailChNum: null,
+    nextChapter: null,
+  });
+
+  const findNearestChapter = async ({
+    targetChapter,
+    offsetMultiplier = 0,
+  }: IFindNearestChapter) => {
+    const { data: chapters } = await getMangaFeed({
+      id: mangaId,
+      limit: 50,
+      offset: 50 * offsetMultiplier,
+      translatedLanguage: ['en'],
+      order: { chapter: 'asc' },
+    });
+
+    const chaptersAhead = chapters.filter(
+      chapter => Number(chapter.attributes.chapter) > targetChapter,
+    );
+
+    if (chaptersAhead.length === 0) {
+      findNearestChapter({ targetChapter, offsetMultiplier: offsetMultiplier + 1 });
+    }
+
+    return chaptersAhead[0];
+  };
 
   const changeChapter = async (chNum: number) => {
     const listings = await findInFeed({ mangaId, chNum, totalCh, pagination: 50 });
 
     if (listings.length === 0) {
-      router.push('/404');
+      const nextChapter = await findNearestChapter({ targetChapter: chNum });
+
+      setChapterDneModal({ trigger: true, nextChapter, unavailChNum: chNum });
+    } else {
+      const {
+        listing: { id },
+      } = await getValidChRef(listings);
+
+      router.push(`/${encodeURIComponent(mangaTitle)}/${id}?id=${mangaId}&ch=${chNum}`);
     }
-
-    const {
-      listing: { id },
-    } = await getValidChRef(listings);
-
-    router.push(`/${encodeURIComponent(mangaTitle)}/${id}?id=${mangaId}&ch=${chNum}`);
   };
 
   return (
@@ -56,7 +81,7 @@ const Controls: ReactFC<IControls> = ({
         <Select
           value={String(activeChapter)}
           onValueChange={chapter => {
-            setActiveChapter(Number(chapter));
+            // setActiveChapter(Number(chapter));
             changeChapter(Number(chapter));
           }}
         >
@@ -79,6 +104,30 @@ const Controls: ReactFC<IControls> = ({
           </SelectContent>
         </Select>
       </div>
+
+      <Modal
+        trigger={chapterDneModal.trigger}
+        title={{ text: 'Uh-oh!' }}
+        onClose={() => setChapterDneModal(prev => ({ ...prev, trigger: false }))}
+      >
+        <p className="font-body font-medium">
+          Chapter {chapterDneModal.unavailChNum} does not exist!
+        </p>
+        <p className="font-body font-medium">
+          The next available chapter is Chapter is #
+          {chapterDneModal.nextChapter?.attributes.chapter}
+        </p>
+        <Button
+          className="mt-5"
+          onClick={() => {
+            router.push(
+              `/${encodeURIComponent(mangaTitle)}/${chapterDneModal.nextChapter?.id}?id=${mangaId}&ch=${chapterDneModal.nextChapter?.attributes.chapter}`,
+            );
+          }}
+        >
+          Read Chapter {chapterDneModal.nextChapter?.attributes.chapter}
+        </Button>
+      </Modal>
     </div>
   );
 };

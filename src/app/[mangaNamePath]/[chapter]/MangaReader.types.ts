@@ -1,4 +1,4 @@
-import { IMangaFeed } from '@/types/manga.types';
+import { IMangaChapter, IMangaFeed } from '@/types/manga.types';
 import type { HTMLAttributes } from 'react';
 
 interface IParams {
@@ -21,4 +21,15 @@ export interface IControls extends HTMLAttributes<HTMLDivElement> {
   currentChapter: number;
   totalCh: number;
   mangaId: string;
+}
+
+export interface IDneModalState {
+  trigger: boolean;
+  unavailChNum: number | null;
+  nextChapter: IMangaFeed | null;
+}
+
+export interface IFindNearestChapter {
+  targetChapter: number;
+  offsetMultiplier?: number;
 }
