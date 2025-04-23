@@ -137,7 +137,6 @@ export async function getLatestMangaChapter(id: string) {
 export async function findInFeed({
   mangaId,
   chNum,
-  totalCh,
   pagination = 20,
   pgnMultiplier = 0,
 }: IFindInFeedParams) {
@@ -162,7 +161,6 @@ export async function findInFeed({
     results = await findInFeed({
       mangaId,
       chNum,
-      totalCh,
       pagination: 50,
       pgnMultiplier: pgnMultiplier + 1,
     });

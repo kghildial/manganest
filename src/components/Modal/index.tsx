@@ -7,6 +7,7 @@ import { X } from 'lucide-react';
 const Modal: ReactFC<IModal> = ({
   trigger,
   className,
+  backdropClassName = '',
   children,
   title = null,
   description = null,
@@ -15,7 +16,12 @@ const Modal: ReactFC<IModal> = ({
   return (
     <>
       {trigger && (
-        <div className="bg-background_50 fixed left-0 top-[68px] flex h-[calc(100vh-68px)] w-[100vw] items-center justify-center backdrop-blur-lg lg:top-[73px] lg:h-[calc(100vh-73px)]">
+        <div
+          className={cn(
+            'bg-background_50 fixed left-0 top-[68px] flex h-[calc(100vh-68px)] w-[100vw] items-center justify-center backdrop-blur-lg lg:top-[73px] lg:h-[calc(100vh-73px)]',
+            backdropClassName,
+          )}
+        >
           <Card
             className={cn(
               'z-99 mb-20 flex w-[90vw] flex-col border border-secondary_bg2 p-5 lg:w-[50%]',

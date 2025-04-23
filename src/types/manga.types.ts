@@ -180,7 +180,11 @@ export interface IGetMangaChapterResponse {
 export interface IFindInFeedParams {
   mangaId: string;
   chNum: number;
-  totalCh: number;
   pagination?: number;
   pgnMultiplier?: number;
+}
+export interface IFindNearestChapter {
+  mangaId: string;
+  targetChapter: number;
+  offsetMultiplier?: number;
 }

@@ -3,11 +3,13 @@
  */
 
 import type {
+  IFindNearestChapter,
   IGetMangaChapterResponse,
   IGetMangaFeedParams,
   IGetMangaParams,
   IManga,
 } from '@/types/manga.types';
+import { getMangaFeed } from './manga.server';
 
 export function createMangaQueryParams(params: IGetMangaParams | IGetMangaFeedParams) {
   let parsedQueryString = '?';
@@ -72,3 +74,28 @@ export function isChapterDataValid({
 }: IGetMangaChapterResponse) {
   return !baseUrl || baseUrl === '' || !hash || hash === '' || !pageData || pageData.length === 0;
 }
+
+// Recursive call to find nearest valid chapter if current chapter is not available
+export const findNearestChapter = async ({
+  mangaId,
+  targetChapter,
+  offsetMultiplier = 0,
+}: IFindNearestChapter) => {
+  const { data: chapters } = await getMangaFeed({
+    id: mangaId,
+    limit: 50,
+    offset: 50 * offsetMultiplier,
+    translatedLanguage: ['en'],
+    order: { chapter: 'asc' },
+  });
+
+  const chaptersAhead = chapters.filter(
+    chapter => Number(chapter.attributes.chapter) > targetChapter,
+  );
+
+  if (chaptersAhead.length === 0) {
+    findNearestChapter({ mangaId, targetChapter, offsetMultiplier: offsetMultiplier + 1 });
+  }
+
+  return chaptersAhead[0];
+};

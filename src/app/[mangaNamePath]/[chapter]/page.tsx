@@ -32,7 +32,6 @@ const MangaReader: ReactFC<IMangaReader> = async ({ params, searchParams }) => {
     const chRefsInFeed = await findInFeed({
       mangaId,
       chNum: Number(currentChNum),
-      totalCh,
       pagination: 50,
     });
 
