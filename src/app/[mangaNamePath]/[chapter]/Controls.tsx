@@ -31,6 +31,10 @@ const Controls: ReactFC<IControls> = ({
   const changeChapter = async (chNum: number) => {
     const listings = await findInFeed({ mangaId, chNum, totalCh, pagination: 50 });
 
+    if (listings.length === 0) {
+      router.push('/404');
+    }
+
     const {
       listing: { id },
     } = await getValidChRef(listings);

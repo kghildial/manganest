@@ -1,5 +1,6 @@
 import { type FC as ReactFC } from 'react';
 import Image from 'next/image';
+import { notFound } from 'next/navigation';
 
 import LayoutWrapper from '@/components/LayoutWrapper';
 
@@ -8,7 +9,6 @@ import {
   getLatestMangaChapter,
   getManga,
   getMangaChapter,
-  getMangaFeed,
   getValidChRef,
 } from '@/lib/manga.server';
 

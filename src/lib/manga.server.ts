@@ -151,6 +151,10 @@ export async function findInFeed({
     })
   ).data;
 
+  if (feedSet.length === 0) {
+    return [];
+  }
+
   let results = feedSet.filter(({ attributes: { chapter } }) => chapter === String(chNum));
 
   // If no results then search some more on next set
