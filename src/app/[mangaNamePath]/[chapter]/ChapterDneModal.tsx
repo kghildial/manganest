@@ -16,6 +16,7 @@ const ChapterDneModal: ReactFC<IChapterDneModal> = ({ mangaId, mangaTitle, state
       trigger={state.trigger}
       title={{ text: 'Uh-oh!' }}
       onClose={() => setState(prev => ({ ...prev, trigger: false }))}
+      className="mb-20"
     >
       <p className="font-body font-medium">Chapter {state.unavailChNum} does not exist!</p>
       <p className="font-body font-medium">
@@ -24,9 +25,14 @@ const ChapterDneModal: ReactFC<IChapterDneModal> = ({ mangaId, mangaTitle, state
       <Button
         className="mt-5"
         onClick={() => {
-          router.push(
-            `/${encodeURIComponent(mangaTitle)}/${state.nextChapter?.id}?id=${mangaId}&ch=${state.nextChapter?.attributes.chapter}`,
-          );
+          const redirectionPath = `/${encodeURIComponent(mangaTitle)}/${state.nextChapter?.id}?id=${mangaId}&ch=${state.nextChapter?.attributes.chapter}`;
+          const currentFullPath = window.location.pathname + window.location.search;
+
+          if (currentFullPath !== redirectionPath) {
+            router.push(redirectionPath);
+          } else {
+            setState(prev => ({ ...prev, trigger: false }));
+          }
         }}
       >
         Read Chapter {state.nextChapter?.attributes.chapter}

@@ -2,6 +2,9 @@ import { type FC as ReactFC } from 'react';
 import Image from 'next/image';
 
 import LayoutWrapper from '@/components/LayoutWrapper';
+import MobileControlsPanel from './MobileControlsPanel';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import Controls from './Controls';
 
 import {
   findInFeed,
@@ -10,13 +13,9 @@ import {
   getMangaChapter,
   getValidChRef,
 } from '@/lib/manga.server';
+import { getMangaDetails, isChapterDataValid } from '@/lib/manga';
 
 import { IMangaReader } from './MangaReader.types';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { getMangaDetails, isChapterDataValid } from '@/lib/manga';
-import Controls from './Controls';
-import { LayoutGrid, Minimize2 } from 'lucide-react';
-import MobileControlsPanel from './MobileControlsPanel';
 
 const MangaReader: ReactFC<IMangaReader> = async ({ params, searchParams }) => {
   const { mangaNamePath, chapter: chId } = await params;
@@ -43,11 +42,11 @@ const MangaReader: ReactFC<IMangaReader> = async ({ params, searchParams }) => {
     chapter: { hash, data: pageData, dataSaver: pageDataSaver },
   } = chapterData;
 
-  const manga = (await getManga({ title: mangaTitle, limit: 100 })).data.filter(
-    entry => entry.id === mangaId,
-  )[0];
+  const manga = (
+    await getManga({ title: mangaTitle, limit: 100, includes: ['artist', 'author'] })
+  ).data.filter(entry => entry.id === mangaId)[0];
 
-  const { title } = getMangaDetails(manga);
+  const { title, tags, artists, authors } = getMangaDetails(manga);
 
   return (
     <div className="mt-8 flex justify-center lg:mt-14">
@@ -89,6 +88,9 @@ const MangaReader: ReactFC<IMangaReader> = async ({ params, searchParams }) => {
                   mangaTitle={mangaTitle}
                   totalChapters={totalCh}
                   currentChapter={Number(currentChNum)}
+                  tags={tags}
+                  authors={authors}
+                  artists={artists}
                 />
               </CardHeader>
 

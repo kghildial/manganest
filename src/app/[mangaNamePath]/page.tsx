@@ -5,7 +5,7 @@ import { StarIcon } from 'lucide-react';
 
 import Tag from '@/components/Tag';
 import LayoutWrapper from '@/components/LayoutWrapper';
-import MetaCardLayout from './MetaCardLayout';
+import MetaCardLayout from '@/widgets/MetaCardLayout';
 import ChapterListing from './ChapterListing';
 import StartReading from './StartReading';
 import ChapterListingFallback from './ChapterListingFallback';

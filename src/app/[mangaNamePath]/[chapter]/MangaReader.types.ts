@@ -1,4 +1,4 @@
-import { IMangaFeed } from '@/types/manga.types';
+import { IMangaFeed, IMangaTag, TMangaRelationship } from '@/types/manga.types';
 import { useRouter } from 'next/navigation';
 import type { Dispatch, HTMLAttributes, SetStateAction } from 'react';
 
@@ -35,6 +35,9 @@ export interface IMobileControlsPanel {
   currentChapter: number;
   totalChapters: number;
   mangaTitle: string;
+  tags: IMangaTag[] | null;
+  authors: TMangaRelationship[] | null;
+  artists: TMangaRelationship[] | null;
 }
 
 export interface IChangeChapter {

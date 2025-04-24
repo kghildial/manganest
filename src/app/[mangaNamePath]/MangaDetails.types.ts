@@ -15,11 +15,6 @@ export interface IMangaDetails {
   searchParams: ISearchParams;
 }
 
-export interface IMetaCardLayout extends HTMLAttributes<HTMLDivElement> {
-  title: string;
-  children: ReactNode;
-}
-
 export interface IChapterListing extends HTMLAttributes<HTMLDivElement> {
   mangaId: string;
   initialList: IMangaFeed[];
