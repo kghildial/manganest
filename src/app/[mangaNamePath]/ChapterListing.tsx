@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState, type FC as ReactFC } from 'react';
+import { useRouter } from 'next/navigation';
 
 import { Clock } from 'lucide-react';
 
@@ -8,9 +9,11 @@ import { IChapterListing } from './MangaDetails.types';
 import { timeAgo } from '@/lib/utils';
 import { IGetMangaFeedResponse } from '@/types/manga.types';
 
-const ChapterListing: ReactFC<IChapterListing> = ({ mangaId, initialList }) => {
+const ChapterListing: ReactFC<IChapterListing> = ({ mangaId, mangaTitle, initialList }) => {
+  const router = useRouter();
+
   const [list, setList] = useState(initialList);
-  const [hasMore, sethasMore] = useState(true);
+  const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
   const loader = useRef<HTMLDivElement | null>(null);
 
@@ -50,7 +53,11 @@ const ChapterListing: ReactFC<IChapterListing> = ({ mangaId, initialList }) => {
 
         const { data }: IGetMangaFeedResponse = await nextFeed.json();
 
-        setList(prev => [...prev, ...data]);
+        if (data.length === 0) {
+          setHasMore(false);
+        } else {
+          setList(prev => [...prev, ...data]);
+        }
       };
 
       fetchMoreData();
@@ -63,6 +70,9 @@ const ChapterListing: ReactFC<IChapterListing> = ({ mangaId, initialList }) => {
         <div
           key={id}
           className="group mb-3 flex cursor-pointer items-center rounded-sm bg-secondary_bg1 px-5 py-3 hover:bg-accent_tint md:px-8 md:py-4"
+          onClick={() => {
+            router.push(`/${mangaTitle}/${id}?id=${mangaId}&ch=${chapter}`);
+          }}
         >
           <p className="flex-1 font-body text-sm font-medium group-hover:text-background">
             Chapter {chapter}

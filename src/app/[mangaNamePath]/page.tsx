@@ -156,7 +156,7 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
           <h2 className="mb-5 md:mb-8">Chapters</h2>
           <div className="flex flex-col gap-2"></div>
           {isChaptersDataAvail ? (
-            <ChapterListing mangaId={mangaId} initialList={mangaFeed} />
+            <ChapterListing mangaId={mangaId} initialList={mangaFeed} mangaTitle={mangaTitle} />
           ) : (
             <ChapterListingFallback mangaId={mangaId} mangaSearchResults={searchResp.data} />
           )}

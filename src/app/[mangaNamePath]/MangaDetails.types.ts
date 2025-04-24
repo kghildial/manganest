@@ -16,6 +16,7 @@ export interface IMangaDetails {
 }
 
 export interface IChapterListing extends HTMLAttributes<HTMLDivElement> {
+  mangaTitle: string;
   mangaId: string;
   initialList: IMangaFeed[];
 }
