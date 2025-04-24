@@ -9,7 +9,8 @@ import type {
   IGetMangaParams,
   IManga,
 } from '@/types/manga.types';
-import { getMangaFeed } from './manga.server';
+import { findInFeed, getMangaFeed, getValidChRef } from './manga.server';
+import { IChangeChapter } from '@/app/[mangaNamePath]/[chapter]/MangaReader.types';
 
 export function createMangaQueryParams(params: IGetMangaParams | IGetMangaFeedParams) {
   let parsedQueryString = '?';
@@ -45,11 +46,11 @@ export function getMangaDetails(manga: IManga) {
 
   const description = manga?.attributes?.description?.en?.split('---')[0];
 
-  const authors = manga?.relationships?.filter(rel => rel.type === 'author');
+  const authors = manga?.relationships?.filter(rel => rel.type === 'author') ?? null;
 
-  const artists = manga?.relationships?.filter(rel => rel.type === 'artist');
+  const artists = manga?.relationships?.filter(rel => rel.type === 'artist') ?? null;
 
-  const tags = manga?.attributes?.tags;
+  const tags = manga?.attributes?.tags ?? null;
 
   const lastChapter = manga?.attributes?.lastChapter;
 
@@ -98,4 +99,26 @@ export const findNearestChapter = async ({
   }
 
   return chaptersAhead[0];
+};
+
+export const changeChapter = async ({
+  router,
+  mangaId,
+  mangaTitle,
+  targetChapter,
+  setChapterDneModal,
+}: IChangeChapter) => {
+  const listings = await findInFeed({ mangaId, chNum: targetChapter, pagination: 50 });
+
+  if (listings.length === 0) {
+    const nextChapter = await findNearestChapter({ mangaId, targetChapter: targetChapter });
+
+    setChapterDneModal({ trigger: true, nextChapter, unavailChNum: targetChapter });
+  } else {
+    const {
+      listing: { id },
+    } = await getValidChRef(listings);
+
+    router.push(`/${encodeURIComponent(mangaTitle)}/${id}?id=${mangaId}&ch=${targetChapter}`);
+  }
 };

@@ -8,9 +8,9 @@ import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/ui/select';
 
 import { cn } from '@/lib/utils';
+import { changeChapter } from '@/lib/manga';
 
 import { IControls, IDneModalState } from './MangaReader.types';
-import { changeChapter } from './utils';
 import ChapterDneModal from './ChapterDneModal';
 
 const Controls: ReactFC<IControls> = ({

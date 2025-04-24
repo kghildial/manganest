@@ -4,7 +4,7 @@ import { Card, CardContent, CardTitle } from '@/components/ui/card';
 
 import { cn } from '@/lib/utils';
 
-import { IMetaCardLayout } from './MangaDetails.types';
+import { IMetaCardLayout } from './MetaCardLayout.types';
 
 const MetaCardLayout: ReactFC<IMetaCardLayout> = ({ title, children, className }) => (
   <Card className={cn('w-full px-3 pb-2 pt-1 md:w-fit md:px-5 md:py-2', className)}>

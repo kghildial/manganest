@@ -11,6 +11,7 @@ const Modal: ReactFC<IModal> = ({
   children,
   title = null,
   description = null,
+  closeIconClassName,
   onClose,
 }) => {
   return (
@@ -24,11 +25,11 @@ const Modal: ReactFC<IModal> = ({
         >
           <Card
             className={cn(
-              'z-99 mb-20 flex w-[90vw] flex-col border border-secondary_bg2 p-5 lg:w-[50%]',
+              'z-99 flex w-[90vw] flex-col border border-secondary_bg2 p-5 lg:w-[50%]',
               className,
             )}
           >
-            <CardHeader className="mb-5 flex w-full flex-row justify-between">
+            <CardHeader className="relative mb-5 flex w-full flex-row justify-between">
               <div className="flex flex-col">
                 {title && (
                   <CardTitle>
@@ -41,7 +42,11 @@ const Modal: ReactFC<IModal> = ({
                   </CardDescription>
                 )}
               </div>
-              <X size={24} className="cursor-pointer" onClick={() => onClose()} />
+              <X
+                size={24}
+                className={cn('absolute right-0 cursor-pointer', closeIconClassName)}
+                onClick={() => onClose()}
+              />
             </CardHeader>
             <CardContent>{children}</CardContent>
             <CardFooter></CardFooter>

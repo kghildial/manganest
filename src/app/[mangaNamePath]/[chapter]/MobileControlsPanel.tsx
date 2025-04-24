@@ -4,22 +4,27 @@ import { useEffect, useState, type FC as ReactFC } from 'react';
 import { useRouter } from 'next/navigation';
 import { LayoutGrid } from 'lucide-react';
 
+import Tag from '@/components/Tag';
 import Modal from '@/components/Modal';
+import ChapterDneModal from './ChapterDneModal';
 import { Button } from '@/components/ui/button';
+import MetaCardLayout from '@/widgets/MetaCardLayout';
 import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/ui/select';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
-import { changeChapter } from './utils';
 import { cn } from '@/lib/utils';
+import { changeChapter } from '@/lib/manga';
 
 import { IDneModalState, IMobileControlsPanel } from './MangaReader.types';
-import ChapterDneModal from './ChapterDneModal';
 
 const MobileControlsPanel: ReactFC<IMobileControlsPanel> = ({
   mangaId,
   mangaTitle,
   currentChapter,
   totalChapters,
+  tags,
+  authors,
+  artists,
 }) => {
   const router = useRouter();
 
@@ -46,15 +51,18 @@ const MobileControlsPanel: ReactFC<IMobileControlsPanel> = ({
       />
       <Modal
         trigger={trigger}
-        title={{ text: mangaTitle, className: 'font-normal text-4xl' }}
-        className="bg-background"
-        description={{ text: `Chapter ${currentChapter}`, className: 'font-heading text-2xl/7' }}
+        className="border-none bg-transparent p-0"
         backdropClassName="bg-accent_tint"
         onClose={() => setTrigger(false)}
+        closeIconClassName="-top-9 bg-background rounded-xs"
       >
-        <Card className="bg-background">
+        <Card className="relative -mt-6 bg-background p-5">
           <CardHeader>
-            <CardDescription></CardDescription>
+            <p className="absolute -top-6 left-1 font-heading text-body text-background">Details</p>
+            <CardTitle className="font-heading text-4xl font-normal">{mangaTitle}</CardTitle>
+            <CardDescription className="font-heading text-2xl/7">
+              Chapter {currentChapter}
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="flex gap-5">
@@ -121,6 +129,33 @@ const MobileControlsPanel: ReactFC<IMobileControlsPanel> = ({
             </div>
           </CardContent>
         </Card>
+
+        <MetaCardLayout title="Genres" className="mt-5 bg-background">
+          {tags?.map(
+            tag =>
+              tag?.attributes?.name?.en && (
+                <Tag key={tag.id} text={tag.attributes.name.en} className="bg-secondary_bg1" />
+              ),
+          )}
+        </MetaCardLayout>
+
+        <MetaCardLayout title="Authors" className="mt-5 bg-background">
+          {authors?.map(
+            author =>
+              author?.attributes?.name && (
+                <Tag key={author.id} text={author.attributes.name} className="bg-secondary_bg1" />
+              ),
+          )}
+        </MetaCardLayout>
+
+        <MetaCardLayout title="Artists" className="mt-5 bg-background">
+          {artists?.map(
+            artist =>
+              artist?.attributes?.name && (
+                <Tag key={artist.id} text={artist.attributes.name} className="bg-secondary_bg1" />
+              ),
+          )}
+        </MetaCardLayout>
       </Modal>
 
       <ChapterDneModal

@@ -55,13 +55,13 @@ type TMangaRelatiohsipAttributes = {
   [key: string]: string;
 };
 
-type TMangaRelationship = {
+export type TMangaRelationship = {
   id?: string;
   type?: TRelationshipType;
   attributes?: TMangaRelatiohsipAttributes;
 } & { [key: string]: string };
 
-interface IMangaTag {
+export interface IMangaTag {
   id?: string;
   type?: 'tag';
   attributes?: TMangaTagAttributes;

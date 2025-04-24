@@ -44,11 +44,16 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
                 height="351"
                 alt={title ?? 'N/A'}
                 className={cn(
-                  'h-[350px] rounded-lg border-2 border-foreground transition-opacity ease-linear lg:h-[500px] lg:w-[350px]',
+                  'h-[350px] cursor-pointer rounded-lg border-2 border-foreground transition-opacity ease-linear lg:h-[500px] lg:w-[350px]',
                   isMobile && isNextSlide
                     ? '-translate-x-24 opacity-50 lg:translate-x-0 lg:opacity-100'
                     : 'opacity-100',
                 )}
+                onClick={() => {
+                  title !== null
+                    ? router.push(`/${encodeURIComponent(title)}?id=${mangaId}`)
+                    : router.push('/');
+                }}
               />
             </div>
             <div className="mt-5 flex flex-col md:w-[65%] lg:ml-10 lg:mt-0 lg:w-[70%]">
@@ -78,11 +83,9 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
               <Button
                 className="w-fit"
                 onClick={() => {
-                  {
-                    title !== null
-                      ? router.push(`/${encodeURIComponent(title)}?id=${mangaId}`)
-                      : router.push('/');
-                  }
+                  title !== null
+                    ? router.push(`/${encodeURIComponent(title)}?id=${mangaId}`)
+                    : router.push('/');
                 }}
               >
                 Read{entry?.attributes?.description?.hasOwnProperty('en') ? ' More' : ''}

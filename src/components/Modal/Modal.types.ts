@@ -2,6 +2,7 @@ import type { HTMLAttributes, ReactNode } from 'react';
 
 export interface IModal extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
   backdropClassName?: string;
+  closeIconClassName?: string;
   trigger: boolean;
   children: ReactNode;
   title?: {
