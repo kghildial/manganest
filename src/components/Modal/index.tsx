@@ -6,6 +6,7 @@ import { X } from 'lucide-react';
 
 const Modal: ReactFC<IModal> = ({
   trigger,
+  modalTitle = '',
   className,
   backdropClassName = '',
   children,
@@ -14,26 +15,18 @@ const Modal: ReactFC<IModal> = ({
   closeIconClassName,
   onClose,
 }) => {
-  const preventScrollRef = useRef<(e: TouchEvent) => void>(() => {});
+  const modalRef = useRef<HTMLDivElement>(null);
 
+  // Enable scroll locking for all except modal
   useEffect(() => {
-    // Define the prevent scroll function once
-    preventScrollRef.current = (e: TouchEvent) => {
-      console.log('preventing scroll');
-      e.preventDefault(); // Prevents touch scrolling
-    };
-
     if (trigger === true) {
       document.body.style.overflow = 'hidden';
       // Disable touch scrolling
-      document.body.addEventListener('touchmove', preventScrollRef.current, { passive: false });
-    } else {
-      document.body.style.overflow = '';
-      document.body.removeEventListener('touchmove', preventScrollRef.current);
+      document.body.addEventListener('touchmove', () => {}, { passive: false });
     }
 
     return () => {
-      document.body.removeEventListener('touchmove', preventScrollRef.current);
+      document.body.removeEventListener('touchmove', () => {});
       document.body.style.overflow = '';
     };
   }, [trigger]);
@@ -42,39 +35,45 @@ const Modal: ReactFC<IModal> = ({
     <>
       {trigger && (
         <div
+          ref={modalRef}
           className={cn(
-            'bg-background_50 fixed left-0 top-[68px] flex h-[calc(100vh-68px)] w-[100vw] items-center justify-center backdrop-blur-lg lg:top-[73px] lg:h-[calc(100vh-73px)]',
+            'bg-background_50 fixed left-0 top-[68px] flex h-[calc(100vh-68px)] w-[100vw] items-start justify-center pt-14 backdrop-blur-lg md:items-center lg:top-[73px] lg:h-[calc(100vh-73px)]',
             backdropClassName,
           )}
         >
-          <Card
-            className={cn(
-              'z-99 flex w-[90vw] flex-col border border-secondary_bg2 p-5 lg:w-[50%]',
-              className,
-            )}
-          >
-            <CardHeader className="relative mb-5 flex w-full flex-row justify-between">
-              <div className="flex flex-col">
-                {title && (
-                  <CardTitle>
-                    <h2 className={title?.className}>{title.text}</h2>
-                  </CardTitle>
-                )}
-                {description && (
-                  <CardDescription>
-                    <p className={description?.className}>{description.text}</p>
-                  </CardDescription>
-                )}
-              </div>
-              <X
-                size={24}
-                className={cn('absolute right-0 cursor-pointer', closeIconClassName)}
-                onClick={() => onClose()}
-              />
-            </CardHeader>
-            <CardContent>{children}</CardContent>
-            <CardFooter></CardFooter>
-          </Card>
+          <div className="relative h-[84%]">
+            <p className="absolute -top-6 left-1 font-heading text-body text-background">
+              {modalTitle}
+            </p>
+            <X
+              size={24}
+              className={cn('absolute -top-8 right-0 cursor-pointer', closeIconClassName)}
+              onClick={() => onClose()}
+            />
+            <Card
+              className={cn(
+                'z-2 flex h-full w-[90vw] flex-col overflow-y-scroll p-5 lg:w-[50%]',
+                className,
+              )}
+            >
+              <CardHeader className="relative mb-5 flex w-full flex-row justify-between">
+                <div className="flex flex-col">
+                  {title && (
+                    <CardTitle>
+                      <h2 className={title?.className}>{title.text}</h2>
+                    </CardTitle>
+                  )}
+                  {description && (
+                    <CardDescription>
+                      <p className={description?.className}>{description.text}</p>
+                    </CardDescription>
+                  )}
+                </div>
+              </CardHeader>
+              <CardContent>{children}</CardContent>
+              <CardFooter></CardFooter>
+            </Card>
+          </div>
         </div>
       )}
     </>

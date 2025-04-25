@@ -65,3 +65,11 @@ export interface IMangaControlsBox {
   authors: TMangaRelationship[] | null;
   artists: TMangaRelationship[] | null;
 }
+
+export interface IMetaData extends HTMLAttributes<HTMLDivElement> {
+  tags: IMangaTag[] | null;
+  authors: TMangaRelationship[] | null;
+  artists: TMangaRelationship[] | null;
+  metaLayoutClass: string;
+  tagClass: string;
+}

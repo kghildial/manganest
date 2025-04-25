@@ -16,6 +16,7 @@ import { cn } from '@/lib/utils';
 import { changeChapter } from '@/lib/manga';
 
 import { IDneModalState, IMobileControlsPanel } from './MangaReader.types';
+import MetaData from './MetaData';
 
 const MobileControlsPanel: ReactFC<IMobileControlsPanel> = ({
   mangaId,
@@ -44,20 +45,20 @@ const MobileControlsPanel: ReactFC<IMobileControlsPanel> = ({
 
   return (
     <>
-      <div className="flex gap-1" onClick={() => setTrigger(true)}>
+      <div className="flex gap-1 lg:hidden" onClick={() => setTrigger(true)}>
         <p className="font-heading">Menu</p>
-        <LayoutGrid size={24} className="block min-w-[18px] lg:hidden" />
+        <LayoutGrid size={24} />
       </div>
       <Modal
         trigger={trigger}
+        modalTitle="Details"
         className="border-none bg-transparent p-0"
         backdropClassName="bg-accent_tint"
         onClose={() => setTrigger(false)}
-        closeIconClassName="-top-9 bg-background rounded-xs"
+        closeIconClassName="bg-background rounded-xs"
       >
-        <Card className="relative -mt-6 bg-background p-5">
+        <Card className="-mt-6 bg-background p-5">
           <CardHeader>
-            <p className="absolute -top-6 left-1 font-heading text-body text-background">Details</p>
             <CardTitle className="font-heading text-4xl font-normal">{mangaTitle}</CardTitle>
             <CardDescription className="font-heading text-2xl/7">
               Chapter {currentChapter}
@@ -129,32 +130,14 @@ const MobileControlsPanel: ReactFC<IMobileControlsPanel> = ({
           </CardContent>
         </Card>
 
-        <MetaCardLayout title="Genres" className="mt-5 bg-background">
-          {tags?.map(
-            tag =>
-              tag?.attributes?.name?.en && (
-                <Tag key={tag.id} text={tag.attributes.name.en} className="bg-secondary_bg1" />
-              ),
-          )}
-        </MetaCardLayout>
-
-        <MetaCardLayout title="Authors" className="mt-5 bg-background">
-          {authors?.map(
-            author =>
-              author?.attributes?.name && (
-                <Tag key={author.id} text={author.attributes.name} className="bg-secondary_bg1" />
-              ),
-          )}
-        </MetaCardLayout>
-
-        <MetaCardLayout title="Artists" className="mt-5 bg-background">
-          {artists?.map(
-            artist =>
-              artist?.attributes?.name && (
-                <Tag key={artist.id} text={artist.attributes.name} className="bg-secondary_bg1" />
-              ),
-          )}
-        </MetaCardLayout>
+        <MetaData
+          tags={tags}
+          authors={authors}
+          artists={artists}
+          className="mt-5"
+          metaLayoutClass="lg:w-full"
+          tagClass="bg-secondary_bg2"
+        />
       </Modal>
 
       <ChapterDneModal

@@ -1,6 +1,7 @@
 import type { HTMLAttributes, ReactNode } from 'react';
 
 export interface IModal extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
+  modalTitle?: string;
   backdropClassName?: string;
   closeIconClassName?: string;
   trigger: boolean;
