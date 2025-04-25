@@ -1,4 +1,4 @@
-import { useEffect, type FC as ReactFC } from 'react';
+import { useEffect, useRef, type FC as ReactFC } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card';
 import { IModal } from './Modal.types';
 import { cn } from '@/lib/utils';
@@ -14,12 +14,28 @@ const Modal: ReactFC<IModal> = ({
   closeIconClassName,
   onClose,
 }) => {
+  const preventScrollRef = useRef<(e: TouchEvent) => void>(() => {});
+
   useEffect(() => {
+    // Define the prevent scroll function once
+    preventScrollRef.current = (e: TouchEvent) => {
+      console.log('preventing scroll');
+      e.preventDefault(); // Prevents touch scrolling
+    };
+
     if (trigger === true) {
       document.body.style.overflow = 'hidden';
+      // Disable touch scrolling
+      document.body.addEventListener('touchmove', preventScrollRef.current, { passive: false });
     } else {
       document.body.style.overflow = '';
+      document.body.removeEventListener('touchmove', preventScrollRef.current);
     }
+
+    return () => {
+      document.body.removeEventListener('touchmove', preventScrollRef.current);
+      document.body.style.overflow = '';
+    };
   }, [trigger]);
 
   return (
