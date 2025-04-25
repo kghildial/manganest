@@ -1,11 +1,7 @@
 import { type FC as ReactFC } from 'react';
 import Image from 'next/image';
 
-import Motion from '@/components/motion';
 import LayoutWrapper from '@/components/LayoutWrapper';
-import MobileControlsPanel from './MobileControlsPanel';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import Controls from './Controls';
 
 import {
   findInFeed,

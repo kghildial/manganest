@@ -44,11 +44,10 @@ const MobileControlsPanel: ReactFC<IMobileControlsPanel> = ({
 
   return (
     <>
-      <LayoutGrid
-        size={18}
-        className="block min-w-[18px] lg:hidden"
-        onClick={() => setTrigger(true)}
-      />
+      <div className="flex gap-1" onClick={() => setTrigger(true)}>
+        <p className="font-heading">Menu</p>
+        <LayoutGrid size={24} className="block min-w-[18px] lg:hidden" />
+      </div>
       <Modal
         trigger={trigger}
         className="border-none bg-transparent p-0"
