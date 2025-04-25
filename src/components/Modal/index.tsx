@@ -1,4 +1,4 @@
-import { type FC as ReactFC } from 'react';
+import { useEffect, type FC as ReactFC } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card';
 import { IModal } from './Modal.types';
 import { cn } from '@/lib/utils';
@@ -14,6 +14,14 @@ const Modal: ReactFC<IModal> = ({
   closeIconClassName,
   onClose,
 }) => {
+  useEffect(() => {
+    if (trigger === true) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  }, [trigger]);
+
   return (
     <>
       {trigger && (

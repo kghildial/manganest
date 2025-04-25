@@ -40,6 +40,9 @@ export default {
         sm: 'calc(var(--radius) - 6px)',
         xs: 'calc(var(--radius) - 8px)',
       },
+      boxShadow: {
+        floating: '0 4px 8px rgba(0,0,0,0.2), 0 2px 4px rgba(0,0,0,0.1)',
+      },
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',

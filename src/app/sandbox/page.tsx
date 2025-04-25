@@ -1,27 +1,14 @@
 import React from 'react';
 
-import { Button } from '@/components/ui/button';
-
-import { getManga } from '@/lib/manga';
-import MangaCard from '@/widgets/MangaCard';
-import Carousel from '@/widgets/Carousel';
-import Tag from '@/components/Tag';
+import Motion from '@/components/motion';
 
 const Sandbox = () => {
   return (
-    <div className="flex flex-col items-center">
-      <h1>Trending Now</h1>
-      <Button>Read More</Button>
-      <Button variant="secondary">Read More</Button>
-      <Button variant="ghost">Read More</Button>
-      <Button variant="disabled">Read More</Button>
-      <MangaCard.Compact
-        className="w-1/3"
-        title="Solo Leveling"
-        chapter={25}
-        timestamp="30 minutes ago"
-      />
-      <Tag text="Action" />
+    <div className="flex h-[100vh] w-full items-center justify-center">
+      <Motion.Card
+        animate={{ rotate: 360 }}
+        className="h-[300px] w-[300px] rounded-sm bg-pink-600"
+      ></Motion.Card>
     </div>
   );
 };

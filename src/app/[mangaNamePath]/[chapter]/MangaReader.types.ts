@@ -22,6 +22,7 @@ export interface IControls extends HTMLAttributes<HTMLDivElement> {
   currentChapter: number;
   totalCh: number;
   mangaId: string;
+  onMinimize: () => void;
 }
 
 export interface IDneModalState {
@@ -53,4 +54,14 @@ export interface IChapterDneModal {
   mangaTitle: string;
   state: IDneModalState;
   setState: Dispatch<SetStateAction<IDneModalState>>;
+}
+
+export interface IMangaControlsBox {
+  mangaTitle: string;
+  mangaId: string;
+  currentChNum: string;
+  totalCh: number;
+  tags: IMangaTag[] | null;
+  authors: TMangaRelationship[] | null;
+  artists: TMangaRelationship[] | null;
 }

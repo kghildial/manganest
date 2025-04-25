@@ -1,6 +1,7 @@
 import { type FC as ReactFC } from 'react';
 import Image from 'next/image';
 
+import Motion from '@/components/motion';
 import LayoutWrapper from '@/components/LayoutWrapper';
 import MobileControlsPanel from './MobileControlsPanel';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -16,6 +17,7 @@ import {
 import { getMangaDetails, isChapterDataValid } from '@/lib/manga';
 
 import { IMangaReader } from './MangaReader.types';
+import ControlsBox from './ControlsBox';
 
 const MangaReader: ReactFC<IMangaReader> = async ({ params, searchParams }) => {
   const { mangaNamePath, chapter: chId } = await params;
@@ -73,36 +75,15 @@ const MangaReader: ReactFC<IMangaReader> = async ({ params, searchParams }) => {
             })}
           </div>
           <div className="fixed left-[2.5%] top-20 w-[95vw] lg:left-auto lg:right-[calc((100vw-1440px)/2)] lg:top-[117px] lg:w-[25%]">
-            <Card className="relative flex w-full flex-col items-start justify-between p-3 lg:px-9 lg:py-8">
-              <CardHeader className="w-full flex-row justify-between">
-                <div className="mb-3 flex flex-col pr-2">
-                  <CardTitle className="font-heading text-2xl/7 font-medium lg:text-5xl lg:leading-[54px]">
-                    {title}
-                  </CardTitle>
-                  <CardDescription className="font-heading text-xl/6 text-foreground_tint_60 lg:text-2xl/7">
-                    Chapter {currentChNum}
-                  </CardDescription>
-                </div>
-                <MobileControlsPanel
-                  mangaId={mangaId}
-                  mangaTitle={mangaTitle}
-                  totalChapters={totalCh}
-                  currentChapter={Number(currentChNum)}
-                  tags={tags}
-                  authors={authors}
-                  artists={artists}
-                />
-              </CardHeader>
-
-              <CardContent className="flex w-full gap-6">
-                <Controls
-                  mangaTitle={mangaTitle}
-                  currentChapter={Number(currentChNum)}
-                  totalCh={totalCh}
-                  mangaId={mangaId}
-                />
-              </CardContent>
-            </Card>
+            <ControlsBox
+              mangaId={mangaId}
+              mangaTitle={mangaTitle}
+              currentChNum={currentChNum}
+              totalCh={totalCh}
+              tags={tags}
+              authors={authors}
+              artists={artists}
+            />
           </div>
         </div>
       </LayoutWrapper>

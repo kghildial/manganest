@@ -19,6 +19,7 @@ const Controls: ReactFC<IControls> = ({
   mangaId,
   currentChapter,
   mangaTitle,
+  onMinimize,
 }) => {
   const router = useRouter();
 
@@ -31,7 +32,11 @@ const Controls: ReactFC<IControls> = ({
   return (
     <div className={cn('flex w-full flex-col', className)}>
       <div className="flex items-end justify-between gap-5 lg:justify-start">
-        <Minimize2 size={18} className="block text-foreground_tint_60 lg:hidden" />
+        <Minimize2
+          size={18}
+          className="block text-foreground_tint_60 lg:hidden"
+          onClick={() => onMinimize()}
+        />
         <div className="flex gap-5">
           <Button
             variant="secondary"
