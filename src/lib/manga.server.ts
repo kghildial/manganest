@@ -82,9 +82,6 @@ export async function getMangaFeed({
 
     const url = `${process.env.MANGADEX_BASE_API_URL}/manga/${id}/feed${queryString}`;
 
-    console.log('=============== : ID: ', id);
-    console.log('========= : URL: ', url);
-
     const response = await fetch(url, { next: { revalidate: 1 * 60 * 60 } });
 
     if (!response.ok) {

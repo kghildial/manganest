@@ -1,4 +1,4 @@
-import { useEffect, useRef, type FC as ReactFC } from 'react';
+import { memo, useCallback, useEffect, useRef, type FC as ReactFC } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card';
 import { IModal } from './Modal.types';
 import { cn } from '@/lib/utils';
@@ -17,17 +17,34 @@ const Modal: ReactFC<IModal> = ({
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
+  const scrollBlocker = useCallback((e: TouchEvent) => {
+    e.stopPropagation();
+    const target = e.target as HTMLElement;
+
+    const allowedElements = document.querySelectorAll('[data-allow-scroll-in-lock]');
+    const insideAllowed = Array.from(allowedElements).some(
+      el => el === target || el.contains(target),
+    );
+
+    if (insideAllowed) {
+      return;
+    }
+
+    if (!modalRef.current?.contains(target)) {
+      e.preventDefault();
+    }
+  }, []);
+
   // Enable scroll locking for all except modal
   useEffect(() => {
-    if (trigger === true) {
+    if (trigger) {
       document.body.style.overflow = 'hidden';
-      // Disable touch scrolling
-      document.body.addEventListener('touchmove', () => {}, { passive: false });
+      document.body.addEventListener('touchmove', scrollBlocker, { passive: false });
     }
 
     return () => {
-      document.body.removeEventListener('touchmove', () => {});
       document.body.style.overflow = '';
+      document.body.removeEventListener('touchmove', scrollBlocker);
     };
   }, [trigger]);
 
@@ -80,4 +97,4 @@ const Modal: ReactFC<IModal> = ({
   );
 };
 
-export default Modal;
+export default memo(Modal);

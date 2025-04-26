@@ -4,7 +4,6 @@ import LayoutWrapper from '@/components/LayoutWrapper';
 import TrendingManga from './TrendingManga';
 
 import { getManga } from '@/lib/manga.server';
-import { IManga } from '@/types/manga.types';
 import { LucideChevronsDown } from 'lucide-react';
 import LatestUpdated from './LatestUpdated';
 
