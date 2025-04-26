@@ -34,7 +34,7 @@ const ChapterListingFallback: ReactFC<IChapterListingFallback> = ({
             listingId !== mangaId && (
               <MangaCard.Compact
                 key={listingId}
-                className="w-[32%] cursor-pointer bg-secondary_bg2"
+                className="w-full cursor-pointer bg-secondary_bg2 md:w-[48%] lg:w-[32%]"
                 id={listingId}
                 coverArtFileName={coverArt?.attributes?.fileName}
                 timestamp={timeAgo(new Date(updatedAt as string), new Date())}

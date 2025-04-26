@@ -4,11 +4,9 @@ import { useEffect, useState, type FC as ReactFC } from 'react';
 import { useRouter } from 'next/navigation';
 import { LayoutGrid } from 'lucide-react';
 
-import Tag from '@/components/Tag';
 import Modal from '@/components/Modal';
 import ChapterDneModal from './ChapterDneModal';
 import { Button } from '@/components/ui/button';
-import MetaCardLayout from '@/widgets/MetaCardLayout';
 import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/ui/select';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -135,8 +133,8 @@ const MobileControlsPanel: ReactFC<IMobileControlsPanel> = ({
           authors={authors}
           artists={artists}
           className="mt-5"
-          metaLayoutClass="lg:w-full"
-          tagClass="bg-secondary_bg2"
+          metaLayoutClass="lg:w-full bg-background"
+          tagClass="bg-secondary_bg1"
         />
       </Modal>
 

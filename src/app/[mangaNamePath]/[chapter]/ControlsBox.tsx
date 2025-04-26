@@ -8,14 +8,12 @@ import Motion from '@/components/motion';
 import { CardTitle, CardDescription } from '@/components/ui/card';
 import MobileControlsPanel from './MobileControlsPanel';
 import Controls from './Controls';
+import MetaData from './MetaData';
 
 import { cn } from '@/lib/utils';
 import useResponsive from '@/hooks/useResponsive';
 
 import { IMangaControlsBox } from './MangaReader.types';
-import MetaCardLayout from '@/widgets/MetaCardLayout';
-import Tag from '@/components/Tag';
-import MetaData from './MetaData';
 
 const ControlsBox: ReactFC<IMangaControlsBox> = ({
   mangaTitle,
@@ -27,6 +25,7 @@ const ControlsBox: ReactFC<IMangaControlsBox> = ({
   artists,
 }) => {
   const { isDesktop, isMobile, isTablet } = useResponsive();
+
   const didUserMinimizeAtStart = useRef(false);
 
   const [controlsState, setControlsState] = useState({ minimize: false, isScrollTop: true });
@@ -42,15 +41,18 @@ const ControlsBox: ReactFC<IMangaControlsBox> = ({
   );
 
   const minimizeAnimVals = useMemo(
-    () => ({ height: 36, width: 36, transition: { delay: 0.3 } }),
+    () => ({ maxHeight: 36, width: 36, transition: { delay: 0.3 } }),
     [],
   );
 
   const maximizeAnimVals = useMemo(
     () =>
       midScrollMaximiseAnim
-        ? { width: isTablet ? 'calc(95vw - 16px)' : '95vw', height: 'fit-content' }
-        : { width: '95vw', height: 'fit-content' },
+        ? {
+            width: isTablet ? 'calc(95vw - 16px)' : '95vw',
+            maxHeight: 600,
+          }
+        : { width: '100%', maxHeight: 600 },
     [midScrollMaximiseAnim],
   );
 
@@ -64,6 +66,8 @@ const ControlsBox: ReactFC<IMangaControlsBox> = ({
         if (window.pageYOffset < 50) {
           if (didUserMinimizeAtStart.current) return;
           setControlsState({ minimize: false, isScrollTop: true });
+        } else {
+          didUserMinimizeAtStart.current = false;
         }
       });
 
@@ -76,11 +80,11 @@ const ControlsBox: ReactFC<IMangaControlsBox> = ({
       <Motion.Card
         animate={runAnimation ? minimizeAnimVals : maximizeAnimVals}
         className={cn(
-          'relative ml-0 flex h-fit w-full flex-col items-start justify-between p-3 lg:px-9 lg:py-8',
+          'relative ml-0 flex w-full flex-col items-start justify-between p-3 lg:px-9 lg:py-8',
           runAnimation
-            ? 'shadow-floating items-center justify-center border border-foreground p-0'
+            ? 'shadow-floating items-center justify-center border border-foreground bg-accent_tint'
             : '',
-          controlsState.minimize && isTablet ? 'ml-2' : '',
+          runAnimation && isTablet ? 'ml-2' : '',
           midScrollMaximiseAnim && isTablet ? 'ml-2' : '',
           midScrollMaximiseAnim && isMobile ? 'border border-foreground' : '',
         )}
@@ -128,7 +132,8 @@ const ControlsBox: ReactFC<IMangaControlsBox> = ({
         {runAnimation && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.3 } }}>
             <Grid2X2Plus
-              size={24}
+              size={40}
+              className="rounded-md border border-foreground p-2"
               onClick={() => setControlsState(prev => ({ ...prev, minimize: false }))}
             />
           </motion.div>
