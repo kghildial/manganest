@@ -4,6 +4,7 @@ import { useState, type FC as ReactFC } from 'react';
 import { useRouter } from 'next/navigation';
 import { Minimize2 } from 'lucide-react';
 
+import Motion from '@/components/motion';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/ui/select';
 
@@ -39,6 +40,7 @@ const Controls: ReactFC<IControls> = ({
         />
         <div className="flex gap-5">
           <Button
+            asChild
             variant="secondary"
             onClick={() =>
               changeChapter({
@@ -50,9 +52,10 @@ const Controls: ReactFC<IControls> = ({
               })
             }
           >
-            Prev
+            <Motion.Button>Prev</Motion.Button>
           </Button>
           <Button
+            asChild
             onClick={() =>
               changeChapter({
                 targetChapter: currentChapter + 1,
@@ -63,7 +66,7 @@ const Controls: ReactFC<IControls> = ({
               })
             }
           >
-            Next
+            <Motion.Button>Next</Motion.Button>
           </Button>
         </div>
       </div>

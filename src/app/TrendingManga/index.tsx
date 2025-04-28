@@ -7,6 +7,7 @@ import Image from 'next/image';
 import Carousel from '@/widgets/Carousel';
 import Tag from '@/components/Tag';
 import { Button } from '@/components/ui/button';
+import Motion from '@/components/motion';
 
 import { ITrendingMangaDetails } from './TrendingManga.types';
 
@@ -81,6 +82,7 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
                   : description}
               </p>
               <Button
+                asChild
                 className="w-fit"
                 onClick={() => {
                   title !== null
@@ -88,7 +90,9 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
                     : router.push('/');
                 }}
               >
-                Read{entry?.attributes?.description?.hasOwnProperty('en') ? ' More' : ''}
+                <Motion.Button>
+                  Read{entry?.attributes?.description?.hasOwnProperty('en') ? ' More' : ''}
+                </Motion.Button>
               </Button>
             </div>
           </div>
