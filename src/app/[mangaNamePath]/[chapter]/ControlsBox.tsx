@@ -29,6 +29,7 @@ const ControlsBox: ReactFC<IMangaControlsBox> = ({
   const didUserMinimizeAtStart = useRef(false);
 
   const [controlsState, setControlsState] = useState({ minimize: false, isScrollTop: true });
+  const [mobCtrlsTrigger, setMobCtrlsTrigger] = useState(false);
 
   const runAnimation = useMemo(
     () => !isDesktop && controlsState.minimize,
@@ -58,8 +59,15 @@ const ControlsBox: ReactFC<IMangaControlsBox> = ({
 
   useEffect(() => {
     if (!isDesktop) {
-      window.addEventListener('scroll', event => {
-        if (window.pageYOffset >= 143 && controlsState.minimize !== true) {
+      const scrollHandler = (e: Event) => {
+        if (mobCtrlsTrigger) {
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+          return;
+        }
+
+        if (window.pageYOffset >= 143 && !controlsState.minimize) {
           setControlsState({ minimize: true, isScrollTop: false });
         }
 
@@ -69,11 +77,15 @@ const ControlsBox: ReactFC<IMangaControlsBox> = ({
         } else {
           didUserMinimizeAtStart.current = false;
         }
-      });
+      };
 
-      () => window.removeEventListener('scroll', () => {});
+      window.addEventListener('scroll', scrollHandler, { passive: false });
+
+      return () => {
+        window.removeEventListener('scroll', scrollHandler);
+      };
     }
-  }, []);
+  }, [mobCtrlsTrigger, controlsState.minimize, isDesktop]);
 
   return (
     <>
@@ -82,14 +94,14 @@ const ControlsBox: ReactFC<IMangaControlsBox> = ({
         className={cn(
           'relative ml-0 flex w-full flex-col items-start justify-between p-3 lg:px-9 lg:py-8',
           runAnimation
-            ? 'shadow-floating items-center justify-center border border-foreground bg-accent_tint'
+            ? 'items-center justify-center border border-foreground bg-accent_tint shadow-floating'
             : '',
           runAnimation && isTablet ? 'ml-2' : '',
           midScrollMaximiseAnim && isTablet ? 'ml-2' : '',
           midScrollMaximiseAnim && isMobile ? 'border border-foreground' : '',
         )}
       >
-        <AnimatePresence>
+        <AnimatePresence mode="wait">
           {!runAnimation && (
             <>
               <Motion.CardHeader exit={{ opacity: 0 }} className="w-full flex-row justify-between">
@@ -102,13 +114,15 @@ const ControlsBox: ReactFC<IMangaControlsBox> = ({
                   </CardDescription>
                 </div>
                 <MobileControlsPanel
+                  trigger={mobCtrlsTrigger}
+                  setTrigger={setMobCtrlsTrigger}
+                  tags={tags}
+                  authors={authors}
+                  artists={artists}
                   mangaId={mangaId}
                   mangaTitle={mangaTitle}
                   totalChapters={totalCh}
                   currentChapter={Number(currentChNum)}
-                  tags={tags}
-                  authors={authors}
-                  artists={artists}
                 />
               </Motion.CardHeader>
               <Motion.CardContent exit={{ opacity: 0 }} className="flex w-full gap-6">

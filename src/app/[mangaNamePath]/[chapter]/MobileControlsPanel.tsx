@@ -24,10 +24,11 @@ const MobileControlsPanel: ReactFC<IMobileControlsPanel> = ({
   tags,
   authors,
   artists,
+  trigger,
+  setTrigger,
 }) => {
   const router = useRouter();
 
-  const [trigger, setTrigger] = useState(false);
   const [chapterDneModal, setChapterDneModal] = useState<IDneModalState>({
     trigger: false,
     unavailChNum: null,

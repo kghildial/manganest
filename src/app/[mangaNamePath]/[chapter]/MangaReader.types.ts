@@ -39,6 +39,8 @@ export interface IMobileControlsPanel {
   tags: IMangaTag[] | null;
   authors: TMangaRelationship[] | null;
   artists: TMangaRelationship[] | null;
+  trigger: boolean;
+  setTrigger: Dispatch<SetStateAction<boolean>>;
 }
 
 export interface IChangeChapter {
