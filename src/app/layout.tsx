@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Bebas_Neue, Inknut_Antiqua, Poppins } from 'next/font/google';
 import './globals.css';
 import Header from '@/widgets/Header';
+import RouteTransitionWrapper from './RouteTransitionWrapper';
 
 const bebasNeue = Bebas_Neue({
   subsets: ['latin'],
@@ -40,7 +41,7 @@ export default function RootLayout({
         className={`${bebasNeue.variable} ${inknutAntiqua.variable} ${poppins.variable} antialiased`}
       >
         <Header />
-        {children}
+        <RouteTransitionWrapper>{children}</RouteTransitionWrapper>
       </body>
     </html>
   );

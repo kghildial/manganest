@@ -50,7 +50,6 @@ const Carousel: ReactFC<ICarousel> = ({
   };
 
   const clickToBlur = () => {
-    console.log('Inslide clickToBlur!');
     carouselNode.current?.click();
   };
 
