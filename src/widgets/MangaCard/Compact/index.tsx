@@ -5,6 +5,7 @@ import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/comp
 
 import { cn } from '@/lib/utils';
 import { IMangaCard } from '../MangaCard.types';
+import Motion from '@/components/motion';
 
 const Compact = React.forwardRef<HTMLDivElement, IMangaCard>(
   ({ className, title, description, chapter, timestamp, id, coverArtFileName, onClick }, ref) => {
@@ -16,12 +17,12 @@ const Compact = React.forwardRef<HTMLDivElement, IMangaCard>(
     }
 
     return (
-      <Card
+      <Motion.Card
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        transition={{ type: 'spring', stiffness: 300 }}
         ref={ref}
-        className={cn(
-          'group flex p-2.5 transition-all hover:bg-accent_tint hover:text-background',
-          className,
-        )}
+        className={cn('group flex p-2.5 hover:bg-accent_tint hover:text-background', className)}
         onClick={onClick}
       >
         <Image
@@ -45,7 +46,7 @@ const Compact = React.forwardRef<HTMLDivElement, IMangaCard>(
             </p>
           </CardFooter>
         </div>
-      </Card>
+      </Motion.Card>
     );
   },
 );
