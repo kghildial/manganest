@@ -16,11 +16,14 @@ const ChapterDneModal: ReactFC<IChapterDneModal> = ({ mangaId, mangaTitle, state
       trigger={state.trigger}
       title={{ text: 'Uh-oh!' }}
       onClose={() => setState(prev => ({ ...prev, trigger: false }))}
-      className="mb-20"
+      className="mb-20 h-fit border border-foreground"
     >
       <p className="font-body font-medium">Chapter {state.unavailChNum} does not exist!</p>
       <p className="font-body font-medium">
         The next available chapter is Chapter is #{state.nextChapter?.attributes.chapter}
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Totam animi at a eum quaerat
+        incidunt obcaecati rem repellendus dolore, repellat praesentium saepe impedit ea qui optio
+        suscipit eos voluptatibus necessitatibus?
       </p>
       <Button
         className="mt-5"
