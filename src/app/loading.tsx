@@ -1,7 +1,7 @@
 'use client';
 
 import { useLottie } from 'lottie-react';
-import loaderLottie from '@/assets/lotties/manganest_loader_lottie.json';
+import loaderLottie from '@/assets/lotties/manganest_loader_alt_lottie.json';
 
 const Loading = () => {
   const { View: Loader } = useLottie({ animationData: loaderLottie, loop: true });
