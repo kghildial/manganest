@@ -4,6 +4,7 @@ import { type FC as ReactFC } from 'react';
 import { useRouter } from 'next/navigation';
 
 import Modal from '@/components/Modal';
+import Motion from '@/components/motion';
 import { Button } from '@/components/ui/button';
 
 import { IChapterDneModal } from './MangaReader.types';
@@ -23,6 +24,7 @@ const ChapterDneModal: ReactFC<IChapterDneModal> = ({ mangaId, mangaTitle, state
         The next available chapter is Chapter is #{state.nextChapter?.attributes.chapter}
       </p>
       <Button
+        asChild
         className="mt-5"
         onClick={() => {
           const redirectionPath = `/${encodeURIComponent(mangaTitle)}/${state.nextChapter?.id}?id=${mangaId}&ch=${state.nextChapter?.attributes.chapter}`;
@@ -35,7 +37,7 @@ const ChapterDneModal: ReactFC<IChapterDneModal> = ({ mangaId, mangaTitle, state
           }
         }}
       >
-        Read Chapter {state.nextChapter?.attributes.chapter}
+        <Motion.Button>Read Chapter {state.nextChapter?.attributes.chapter}</Motion.Button>
       </Button>
     </Modal>
   );

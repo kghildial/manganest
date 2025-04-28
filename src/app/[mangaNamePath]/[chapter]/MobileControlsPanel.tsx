@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { LayoutGrid } from 'lucide-react';
 
 import Modal from '@/components/Modal';
+import Motion from '@/components/motion';
 import ChapterDneModal from './ChapterDneModal';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/ui/select';
@@ -66,6 +67,7 @@ const MobileControlsPanel: ReactFC<IMobileControlsPanel> = ({
           <CardContent>
             <div className="flex gap-5">
               <Button
+                asChild
                 variant="secondary"
                 onClick={() =>
                   changeChapter({
@@ -77,9 +79,10 @@ const MobileControlsPanel: ReactFC<IMobileControlsPanel> = ({
                   })
                 }
               >
-                Prev
+                <Motion.Button>Prev</Motion.Button>
               </Button>
               <Button
+                asChild
                 onClick={() =>
                   changeChapter({
                     targetChapter: currentChapter + 1,
@@ -90,7 +93,7 @@ const MobileControlsPanel: ReactFC<IMobileControlsPanel> = ({
                   })
                 }
               >
-                Next
+                <Motion.Button>Next</Motion.Button>
               </Button>
             </div>
             <div className="mt-8 flex flex-col gap-2">
