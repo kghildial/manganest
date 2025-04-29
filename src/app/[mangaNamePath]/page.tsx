@@ -82,7 +82,7 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
         <div className="ml-2 flex flex-col md:ml-8">
           <h1 className="mb-3 hidden font-title text-5xl leading-[54px] md:block">{title}</h1>
           <div className="mb-2 flex items-center gap-x-2 md:mb-5 md:gap-x-10">
-            <Tag
+            <Tag.Static
               className="w-fit gap-1 rounded-sm py-2 md:rounded-md md:px-4 md:py-1.5"
               text={
                 <>
@@ -109,7 +109,7 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
               {authors?.map(
                 author =>
                   author?.attributes?.name && (
-                    <Tag
+                    <Tag.Static
                       key={author.id}
                       text={author.attributes.name}
                       className="bg-secondary_bg2"
@@ -121,7 +121,7 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
               {artists?.map(
                 artist =>
                   artist?.attributes?.name && (
-                    <Tag
+                    <Tag.Static
                       key={artist.id}
                       text={artist.attributes.name}
                       className="bg-secondary_bg2"
@@ -133,7 +133,11 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
               {tags?.map(
                 tag =>
                   tag?.attributes?.name?.en && (
-                    <Tag key={tag.id} text={tag.attributes.name.en} className="bg-secondary_bg2" />
+                    <Tag.Static
+                      key={tag.id}
+                      text={tag.attributes.name.en}
+                      className="bg-secondary_bg2"
+                    />
                   ),
               )}
             </MetaCardLayout>
@@ -143,7 +147,8 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
       <h1 className="my-3 block font-title text-2xl/7 md:hidden">{title}</h1>
       <div className="mb-5 flex flex-wrap gap-1 md:hidden">
         {tags?.map(
-          tag => tag?.attributes?.name?.en && <Tag key={tag.id} text={tag.attributes.name.en} />,
+          tag =>
+            tag?.attributes?.name?.en && <Tag.Static key={tag.id} text={tag.attributes.name.en} />,
         )}
       </div>
       <p className="block font-body text-sm font-medium md:hidden">{description}</p>

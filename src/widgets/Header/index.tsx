@@ -1,7 +1,7 @@
 import React from 'react';
-import { Equal } from 'lucide-react';
 import Link from 'next/link';
-import { Search as SearchIcon } from 'lucide-react';
+import { Search as SearchIcon, Equal } from 'lucide-react';
+
 import Motion from '@/components/motion';
 
 const Header = () => {
@@ -13,6 +13,7 @@ const Header = () => {
           className="cursor-pointer pr-3"
           whileHover={{ scale: 1.2 }}
           whileTap={{ scale: 0.8 }}
+          transition={{ type: 'spring', stiffness: 300 }}
         >
           <SearchIcon size={24} />
         </Motion.Link>

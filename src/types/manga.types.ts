@@ -188,3 +188,9 @@ export interface IFindNearestChapter {
   targetChapter: number;
   offsetMultiplier?: number;
 }
+
+export interface IGetMangTagsResp {
+  result: 'ok' | 'error';
+  response: 'collection' | 'entity';
+  data: IMangaTag[] | never[];
+}
