@@ -39,7 +39,7 @@ const Controls: ReactFC<IControls> = ({
           onClick={() => onMinimize()}
         />
         <div className="flex gap-5">
-          <Button
+          <Motion.Button
             asChild
             variant="secondary"
             onClick={() =>
@@ -52,9 +52,9 @@ const Controls: ReactFC<IControls> = ({
               })
             }
           >
-            <Motion.Button>Prev</Motion.Button>
-          </Button>
-          <Button
+            Prev
+          </Motion.Button>
+          <Motion.Button
             asChild
             onClick={() =>
               changeChapter({
@@ -66,8 +66,8 @@ const Controls: ReactFC<IControls> = ({
               })
             }
           >
-            <Motion.Button>Next</Motion.Button>
-          </Button>
+            Next
+          </Motion.Button>
         </div>
       </div>
 

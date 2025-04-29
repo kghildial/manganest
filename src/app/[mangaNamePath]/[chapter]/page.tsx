@@ -47,43 +47,41 @@ const MangaReader: ReactFC<IMangaReader> = async ({ params, searchParams }) => {
   const { title, tags, artists, authors } = getMangaDetails(manga);
 
   return (
-    <div className="mt-8 flex justify-center lg:mt-14">
-      <LayoutWrapper className="flex flex-col">
-        <div className="flex">
-          <div className="mt-32 w-full lg:mt-0 lg:w-[70%]">
-            {pageData.map((page, index) => {
-              const highResUrl = `${baseUrl}/data/${hash}/${page}`;
-              const lowResUrl = `${baseUrl}/data/${hash}/${pageDataSaver[index]}`;
+    <LayoutWrapper className="flex flex-col">
+      <div className="flex">
+        <div className="mt-32 w-full lg:mt-0 lg:w-[70%]">
+          {pageData.map((page, index) => {
+            const highResUrl = `${baseUrl}/data/${hash}/${page}`;
+            const lowResUrl = `${baseUrl}/data/${hash}/${pageDataSaver[index]}`;
 
-              return (
-                <Image
-                  unoptimized
-                  key={`${hash}_${page}`}
-                  src={highResUrl}
-                  placeholder="blur"
-                  blurDataURL={lowResUrl}
-                  alt={page}
-                  width={1000}
-                  height={700}
-                  className="w-full rounded-md"
-                />
-              );
-            })}
-          </div>
-          <div className="fixed left-[2.5%] top-20 w-[95vw] lg:left-auto lg:right-[calc((100vw-1440px)/2)] lg:top-[117px] lg:w-[25%]">
-            <ControlsBox
-              mangaId={mangaId}
-              mangaTitle={mangaTitle}
-              currentChNum={currentChNum}
-              totalCh={totalCh}
-              tags={tags}
-              authors={authors}
-              artists={artists}
-            />
-          </div>
+            return (
+              <Image
+                unoptimized
+                key={`${hash}_${page}`}
+                src={highResUrl}
+                placeholder="blur"
+                blurDataURL={lowResUrl}
+                alt={page}
+                width={1000}
+                height={700}
+                className="w-full rounded-md"
+              />
+            );
+          })}
         </div>
-      </LayoutWrapper>
-    </div>
+        <div className="fixed left-[2.5%] top-20 w-[95vw] lg:left-auto lg:right-[calc((100vw-1440px)/2)] lg:top-[117px] lg:w-[25%]">
+          <ControlsBox
+            mangaId={mangaId}
+            mangaTitle={mangaTitle}
+            currentChNum={currentChNum}
+            totalCh={totalCh}
+            tags={tags}
+            authors={authors}
+            artists={artists}
+          />
+        </div>
+      </div>
+    </LayoutWrapper>
   );
 };
 

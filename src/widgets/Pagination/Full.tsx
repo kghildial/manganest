@@ -1,6 +1,7 @@
 'use client';
 
 import { type FC as ReactFC, useMemo, useState } from 'react';
+import { motion } from 'motion/react';
 
 import {
   Pagination as CNPagination,
@@ -15,7 +16,6 @@ import {
 import { cn, getVisiblePages } from '@/lib/utils';
 import { IPagination } from './Pagination.types';
 import { EPaginationEllipses } from '@/types/utils.types';
-import Motion from '@/components/motion';
 
 const Pagination: ReactFC<IPagination> = ({ totalPages, className, onChange }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -30,12 +30,12 @@ const Pagination: ReactFC<IPagination> = ({ totalPages, className, onChange }) =
     <CNPagination className={className}>
       <PaginationContent>
         <PaginationItem className="group">
-          <Motion.Button whileHover={{ scale: 1.1 }}>
+          <motion.button whileHover={{ scale: 1.1 }}>
             <PaginationPrevious
               className="cursor-pointer group-hover:[&_span]:text-accent_tint"
               onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
             />
-          </Motion.Button>
+          </motion.button>
         </PaginationItem>
         {visiblePages.map(page => {
           return page === EPaginationEllipses.Start || page === EPaginationEllipses.End ? (
@@ -43,7 +43,7 @@ const Pagination: ReactFC<IPagination> = ({ totalPages, className, onChange }) =
               <PaginationEllipsis />
             </PaginationItem>
           ) : (
-            <Motion.Button whileHover={{ scale: 1.1 }} key={page}>
+            <motion.button whileHover={{ scale: 1.1 }} key={page}>
               <PaginationItem>
                 <PaginationLink
                   onClick={event => {
@@ -59,16 +59,16 @@ const Pagination: ReactFC<IPagination> = ({ totalPages, className, onChange }) =
                   {page}
                 </PaginationLink>
               </PaginationItem>
-            </Motion.Button>
+            </motion.button>
           );
         })}
         <PaginationItem className="group">
-          <Motion.Button whileHover={{ scale: 1.1 }}>
+          <motion.button whileHover={{ scale: 1.1 }}>
             <PaginationNext
               className="cursor-pointer group-hover:[&_span]:text-accent_tint"
               onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
             />
-          </Motion.Button>
+          </motion.button>
         </PaginationItem>
       </PaginationContent>
     </CNPagination>

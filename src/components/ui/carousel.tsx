@@ -4,6 +4,7 @@ import * as React from 'react';
 import useEmblaCarousel, { type UseEmblaCarouselType } from 'embla-carousel-react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import Motion from '../motion';
+import { motion } from 'motion/react';
 
 import { cn } from '@/lib/utils';
 import { Button, ButtonProps } from '@/components/ui/button';
@@ -235,10 +236,10 @@ const CarouselPrevious = React.forwardRef<HTMLButtonElement, ICarouselControl>(
         onClick={() => scrollPrev(onClick)}
         {...props}
       >
-        <Motion.Button whileHover={{ scale: 1.2 }}>
+        <motion.button whileHover={{ scale: 1.2 }}>
           <ArrowLeft size={24} className={iconClassName} />
           <span className="sr-only">Previous slide</span>
-        </Motion.Button>
+        </motion.button>
       </Button>
     );
   },
@@ -266,10 +267,10 @@ const CarouselNext = React.forwardRef<HTMLButtonElement, ICarouselControl>(
         onClick={() => scrollNext(onClick)}
         {...props}
       >
-        <Motion.Button whileHover={{ scale: 1.2 }}>
+        <motion.button whileHover={{ scale: 1.2 }}>
           <ArrowRight size={24} className={iconClassName} />
           <span className="sr-only">Next slide</span>
-        </Motion.Button>
+        </motion.button>
       </Button>
     );
   },
