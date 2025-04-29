@@ -20,7 +20,7 @@ const MetaData: ReactFC<IMetaData> = ({
         {tags?.map(
           tag =>
             tag?.attributes?.name?.en && (
-              <Tag key={tag.id} text={tag.attributes.name.en} className={tagClass} />
+              <Tag.Static key={tag.id} text={tag.attributes.name.en} className={tagClass} />
             ),
         )}
       </MetaCardLayout>
@@ -29,7 +29,7 @@ const MetaData: ReactFC<IMetaData> = ({
         {authors?.map(
           author =>
             author?.attributes?.name && (
-              <Tag key={author.id} text={author.attributes.name} className={tagClass} />
+              <Tag.Static key={author.id} text={author.attributes.name} className={tagClass} />
             ),
         )}
       </MetaCardLayout>
@@ -38,7 +38,7 @@ const MetaData: ReactFC<IMetaData> = ({
         {artists?.map(
           artist =>
             artist?.attributes?.name && (
-              <Tag key={artist.id} text={artist.attributes.name} className={tagClass} />
+              <Tag.Static key={artist.id} text={artist.attributes.name} className={tagClass} />
             ),
         )}
       </MetaCardLayout>
