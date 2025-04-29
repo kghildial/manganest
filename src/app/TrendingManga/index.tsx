@@ -81,7 +81,7 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
                   ? `${descriptionWords.slice(0, descWordLimit + 1).join(' ')}...`
                   : description}
               </p>
-              <Button
+              <Motion.Button
                 asChild
                 className="w-fit"
                 onClick={() => {
@@ -90,10 +90,8 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
                     : router.push('/');
                 }}
               >
-                <Motion.Button>
-                  Read{entry?.attributes?.description?.hasOwnProperty('en') ? ' More' : ''}
-                </Motion.Button>
-              </Button>
+                Read{entry?.attributes?.description?.hasOwnProperty('en') ? ' More' : ''}
+              </Motion.Button>
             </div>
           </div>
         );

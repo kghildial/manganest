@@ -23,7 +23,7 @@ const ChapterDneModal: ReactFC<IChapterDneModal> = ({ mangaId, mangaTitle, state
       <p className="font-body font-medium">
         The next available chapter is Chapter is #{state.nextChapter?.attributes.chapter}
       </p>
-      <Button
+      <Motion.Button
         asChild
         className="mt-5"
         onClick={() => {
@@ -37,8 +37,8 @@ const ChapterDneModal: ReactFC<IChapterDneModal> = ({ mangaId, mangaTitle, state
           }
         }}
       >
-        <Motion.Button>Read Chapter {state.nextChapter?.attributes.chapter}</Motion.Button>
-      </Button>
+        Read Chapter {state.nextChapter?.attributes.chapter}
+      </Motion.Button>
     </Modal>
   );
 };

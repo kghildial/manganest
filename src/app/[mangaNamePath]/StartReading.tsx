@@ -16,22 +16,22 @@ const StartReading: ReactFC<IStartReading> = ({ mangaTitle, firstChId, mangaId, 
   };
   return (
     <>
-      <Button
+      <Motion.Button
         asChild
         size="lg"
         className="hidden w-fit py-4 md:flex"
         onClick={() => handleStartReading()}
       >
-        <Motion.Button>Start Reading</Motion.Button>
-      </Button>
-      <Button
+        Start Reading
+      </Motion.Button>
+      <Motion.Button
         asChild
         size="sm"
         className="flex w-fit rounded-sm py-4 md:hidden"
         onClick={() => handleStartReading()}
       >
-        <Motion.Button>Start Reading</Motion.Button>
-      </Button>
+        Start Reading
+      </Motion.Button>
     </>
   );
 };

@@ -69,100 +69,94 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
   ).data[0] ?? { id: null, attributes: { chapter: null } };
 
   return (
-    <div className="mt-8 flex justify-center lg:mt-14">
-      <LayoutWrapper className="flex flex-col">
-        <div className="flex">
-          <Image
-            priority
-            src={`https://uploads.mangadex.org/covers/${mangaId}/${coverArt?.attributes?.fileName}.512.jpg`}
-            width="247"
-            height="351"
-            alt={!title ? 'N/A' : title}
-            className="h-[285px] w-[200px] rounded-lg border-2 border-foreground transition-opacity ease-linear lg:h-[500px] lg:w-[350px]"
-          />
-          <div className="ml-2 flex flex-col md:ml-8">
-            <h1 className="mb-3 hidden font-title text-5xl leading-[54px] md:block">{title}</h1>
-            <div className="mb-2 flex items-center gap-x-2 md:mb-5 md:gap-x-10">
-              <Tag
-                className="w-fit gap-1 rounded-sm py-2 md:rounded-md md:px-4 md:py-1.5"
-                text={
-                  <>
-                    <StarIcon size={24} className="hidden text-accent md:block" />
-                    <StarIcon size={18} className="text-accent md:hidden" />
-                    <p className="mt-1 text-xs font-medium md:text-base">
-                      {Math.round(stats.rating.average * 10) / 10}
-                    </p>
-                  </>
-                }
+    <LayoutWrapper className="flex flex-col">
+      <div className="flex">
+        <Image
+          priority
+          src={`https://uploads.mangadex.org/covers/${mangaId}/${coverArt?.attributes?.fileName}.512.jpg`}
+          width="247"
+          height="351"
+          alt={!title ? 'N/A' : title}
+          className="h-[285px] w-[200px] rounded-lg border-2 border-foreground transition-opacity ease-linear lg:h-[500px] lg:w-[350px]"
+        />
+        <div className="ml-2 flex flex-col md:ml-8">
+          <h1 className="mb-3 hidden font-title text-5xl leading-[54px] md:block">{title}</h1>
+          <div className="mb-2 flex items-center gap-x-2 md:mb-5 md:gap-x-10">
+            <Tag
+              className="w-fit gap-1 rounded-sm py-2 md:rounded-md md:px-4 md:py-1.5"
+              text={
+                <>
+                  <StarIcon size={24} className="hidden text-accent md:block" />
+                  <StarIcon size={18} className="text-accent md:hidden" />
+                  <p className="mt-1 text-xs font-medium md:text-base">
+                    {Math.round(stats.rating.average * 10) / 10}
+                  </p>
+                </>
+              }
+            />
+            {firstChId && firstChNum && (
+              <StartReading
+                mangaTitle={mangaTitle}
+                firstChId={firstChId}
+                mangaId={mangaId}
+                firstChNum={firstChNum}
               />
-              {firstChId && firstChNum && (
-                <StartReading
-                  mangaTitle={mangaTitle}
-                  firstChId={firstChId}
-                  mangaId={mangaId}
-                  firstChNum={firstChNum}
-                />
+            )}
+          </div>
+          <p className="mb-5 hidden font-body font-medium md:block">{description}</p>
+          <div className="mb-3 flex flex-col flex-wrap gap-x-0 gap-y-2 md:mb-8 md:flex-row md:gap-x-5 md:gap-y-3">
+            <MetaCardLayout title="Authors">
+              {authors?.map(
+                author =>
+                  author?.attributes?.name && (
+                    <Tag
+                      key={author.id}
+                      text={author.attributes.name}
+                      className="bg-secondary_bg2"
+                    />
+                  ),
               )}
-            </div>
-            <p className="mb-5 hidden font-body font-medium md:block">{description}</p>
-            <div className="mb-3 flex flex-col flex-wrap gap-x-0 gap-y-2 md:mb-8 md:flex-row md:gap-x-5 md:gap-y-3">
-              <MetaCardLayout title="Authors">
-                {authors?.map(
-                  author =>
-                    author?.attributes?.name && (
-                      <Tag
-                        key={author.id}
-                        text={author.attributes.name}
-                        className="bg-secondary_bg2"
-                      />
-                    ),
-                )}
-              </MetaCardLayout>
-              <MetaCardLayout title="Artists">
-                {artists?.map(
-                  artist =>
-                    artist?.attributes?.name && (
-                      <Tag
-                        key={artist.id}
-                        text={artist.attributes.name}
-                        className="bg-secondary_bg2"
-                      />
-                    ),
-                )}
-              </MetaCardLayout>
-              <MetaCardLayout title="Genres" className="hidden md:block">
-                {tags?.map(
-                  tag =>
-                    tag?.attributes?.name?.en && (
-                      <Tag
-                        key={tag.id}
-                        text={tag.attributes.name.en}
-                        className="bg-secondary_bg2"
-                      />
-                    ),
-                )}
-              </MetaCardLayout>
-            </div>
+            </MetaCardLayout>
+            <MetaCardLayout title="Artists">
+              {artists?.map(
+                artist =>
+                  artist?.attributes?.name && (
+                    <Tag
+                      key={artist.id}
+                      text={artist.attributes.name}
+                      className="bg-secondary_bg2"
+                    />
+                  ),
+              )}
+            </MetaCardLayout>
+            <MetaCardLayout title="Genres" className="hidden md:block">
+              {tags?.map(
+                tag =>
+                  tag?.attributes?.name?.en && (
+                    <Tag key={tag.id} text={tag.attributes.name.en} className="bg-secondary_bg2" />
+                  ),
+              )}
+            </MetaCardLayout>
           </div>
         </div>
-        <h1 className="my-3 block font-title text-2xl/7 md:hidden">{title}</h1>
-        <div className="mb-5 flex flex-wrap gap-1 md:hidden">
-          {tags?.map(
-            tag => tag?.attributes?.name?.en && <Tag key={tag.id} text={tag.attributes.name.en} />,
-          )}
-        </div>
-        <p className="block font-body text-sm font-medium md:hidden">{description}</p>
-        <div className="mt-12 flex flex-col md:mt-24">
-          <h2 className="mb-5 md:mb-8">Chapters</h2>
-          <div className="flex flex-col gap-2"></div>
-          {isChaptersDataAvail ? (
-            <ChapterListing mangaId={mangaId} initialList={mangaFeed} mangaTitle={mangaTitle} />
-          ) : (
-            <ChapterListingFallback mangaId={mangaId} mangaSearchResults={searchResp.data} />
-          )}
-        </div>
-      </LayoutWrapper>
-    </div>
+      </div>
+      <h1 className="my-3 block font-title text-2xl/7 md:hidden">{title}</h1>
+      <div className="mb-5 flex flex-wrap gap-1 md:hidden">
+        {tags?.map(
+          tag => tag?.attributes?.name?.en && <Tag key={tag.id} text={tag.attributes.name.en} />,
+        )}
+      </div>
+      <p className="block font-body text-sm font-medium md:hidden">{description}</p>
+      <div className="mt-12 flex flex-col md:mt-24">
+        <h2 className="mb-5 md:mb-8">Chapters</h2>
+        <div className="flex flex-col gap-2"></div>
+        {isChaptersDataAvail ? (
+          <ChapterListing mangaId={mangaId} initialList={mangaFeed} mangaTitle={mangaTitle} />
+        ) : (
+          <ChapterListingFallback mangaId={mangaId} mangaSearchResults={searchResp.data} />
+        )}
+      </div>
+    </LayoutWrapper>
   );
 };
 

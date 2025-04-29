@@ -1,29 +1,48 @@
-import type { ReactNode, FC as ReactFC } from 'react';
+import {
+  type ReactNode,
+  type FC as ReactFC,
+  type ComponentPropsWithoutRef,
+  forwardRef,
+} from 'react';
+import { Button as ShadCNBtn, type ButtonProps } from '@/components/ui/button';
 import { type HTMLMotionProps, motion } from 'motion/react';
 
-interface IButton extends HTMLMotionProps<'button'> {
+interface IButton
+  extends Omit<ButtonProps, keyof ComponentPropsWithoutRef<'button'>>,
+    HTMLMotionProps<'button'> {
   children: ReactNode;
 }
 
-const Button: ReactFC<IButton> = ({
-  children,
-  whileHover,
-  whileTap,
-  animate,
-  transition,
-  ...props
-}) => {
-  return (
-    <motion.button
-      whileHover={whileHover ?? { scale: 1.05 }}
-      whileTap={whileTap ?? { scale: 0.95 }}
-      animate={animate ?? { scale: 1 }}
-      transition={transition ?? { type: 'spring', stiffness: 300 }}
-      {...props}
-    >
-      {children}
-    </motion.button>
-  );
-};
+const Button = forwardRef<HTMLButtonElement, IButton>(
+  (
+    {
+      children,
+      asChild,
+      variant,
+      className,
+      onClick,
+      whileHover,
+      whileTap,
+      animate,
+      transition,
+      ...props
+    },
+    ref,
+  ) => {
+    return (
+      <ShadCNBtn asChild ref={ref} variant={variant} className={className} onClick={onClick}>
+        <motion.button
+          whileHover={whileHover ?? { scale: 1.05 }}
+          whileTap={whileTap ?? { scale: 0.95 }}
+          animate={animate ?? { scale: 1 }}
+          transition={transition ?? { type: 'spring', stiffness: 300 }}
+          {...props}
+        >
+          {children}
+        </motion.button>
+      </ShadCNBtn>
+    );
+  },
+);
 
 export default Button;

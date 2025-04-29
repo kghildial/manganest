@@ -66,7 +66,7 @@ const MobileControlsPanel: ReactFC<IMobileControlsPanel> = ({
           </CardHeader>
           <CardContent>
             <div className="flex gap-5">
-              <Button
+              <Motion.Button
                 asChild
                 variant="secondary"
                 onClick={() =>
@@ -79,9 +79,9 @@ const MobileControlsPanel: ReactFC<IMobileControlsPanel> = ({
                   })
                 }
               >
-                <Motion.Button>Prev</Motion.Button>
-              </Button>
-              <Button
+                Prev
+              </Motion.Button>
+              <Motion.Button
                 asChild
                 onClick={() =>
                   changeChapter({
@@ -93,8 +93,8 @@ const MobileControlsPanel: ReactFC<IMobileControlsPanel> = ({
                   })
                 }
               >
-                <Motion.Button>Next</Motion.Button>
-              </Button>
+                Next
+              </Motion.Button>
             </div>
             <div className="mt-8 flex flex-col gap-2">
               <p className="font-body font-medium">Move to Chapter:</p>
