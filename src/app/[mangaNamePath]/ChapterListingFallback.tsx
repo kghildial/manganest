@@ -21,7 +21,7 @@ const ChapterListingFallback: ReactFC<IChapterListingFallback> = ({
       <h4 className="font-body font-medium">Uh-oh!</h4>
       <p className="font-body font-medium">No chapters available!</p>
       <p className="font-body font-medium">Maybe check out these similar manga:</p>
-      <div className="mt-8 flex w-fit flex-wrap justify-between gap-3">
+      <div className="mt-8 flex w-full flex-wrap justify-between gap-3">
         {mangaSearchResults.map(manga => {
           const {
             mangaId: listingId,

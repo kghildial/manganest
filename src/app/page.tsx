@@ -7,13 +7,7 @@ import { getManga } from '@/lib/manga.server';
 import { LucideChevronsDown } from 'lucide-react';
 import LatestUpdated from './LatestUpdated';
 
-async function delay(ms: number) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 const Home = async () => {
-  await delay(5000);
-
   const getTrendingNowMangas = async () => {
     const topTrendingMangas = getManga({
       includes: ['cover_art', 'author', 'artist'],
