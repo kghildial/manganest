@@ -13,12 +13,14 @@ import { cn } from '@/lib/utils';
 
 import { IPagination } from './Pagination.types';
 
-const CompactPagination: ReactFC<IPagination> = ({ totalPages, onChange, className }) => {
-  const [currentPage, setCurrentPage] = useState(1);
-
+const CompactPagination: ReactFC<IPagination> = ({
+  className,
+  totalPages,
+  currentPage,
+  setCurrentPage,
+}) => {
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    onChange(page);
   };
 
   return (
@@ -37,10 +39,8 @@ const CompactPagination: ReactFC<IPagination> = ({ totalPages, onChange, classNa
         </SelectTrigger>
         <SelectContent className="w-32 border-accent">
           {(() => {
-            const rangeStart = Math.max(currentPage - 3, 1);
-            const rangeEnd = Math.min(currentPage + 3, totalPages);
-            return Array.from({ length: rangeEnd - rangeStart + 1 }).map((_, index) => {
-              const pageNum = rangeStart + index;
+            return Array.from({ length: totalPages }).map((_, index) => {
+              const pageNum = index + 1;
               return (
                 <SelectItem
                   key={pageNum}
@@ -54,41 +54,6 @@ const CompactPagination: ReactFC<IPagination> = ({ totalPages, onChange, classNa
                 </SelectItem>
               );
             });
-          })()}
-          <div className="px-2 py-1">
-            <input
-              type="number"
-              min={1}
-              max={totalPages}
-              placeholder="Jump to page"
-              className="w-full rounded-xs border px-2 py-1 text-xs"
-              onKeyDown={e => {
-                if (e.key === 'Enter') {
-                  const value = Number(e.currentTarget.value);
-                  if (!isNaN(value) && value >= 1 && value <= totalPages) {
-                    handlePageChange(value);
-                  }
-                }
-              }}
-            />
-          </div>
-          {(() => {
-            const rangeStart = Math.max(currentPage - 3, 1);
-            const rangeEnd = Math.min(currentPage + 3, totalPages);
-            return (
-              rangeEnd < totalPages && (
-                <SelectItem
-                  key={totalPages}
-                  value={`${totalPages}`}
-                  className={cn(
-                    'justify-center py-1 [&_span]:text-xs',
-                    currentPage === totalPages ? 'bg-accent_tint [&_span]:text-background' : '',
-                  )}
-                >
-                  {totalPages}
-                </SelectItem>
-              )
-            );
           })()}
         </SelectContent>
       </Select>

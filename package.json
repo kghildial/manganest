@@ -17,6 +17,7 @@
     "embla-carousel-autoplay": "^8.5.2",
     "embla-carousel-fade": "^8.5.2",
     "embla-carousel-react": "^8.5.2",
+    "lodash": "^4.17.21",
     "lottie-react": "^2.4.1",
     "lucide-react": "^0.471.2",
     "motion": "^12.9.0",
@@ -29,6 +30,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@types/lodash": "^4.17.16",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

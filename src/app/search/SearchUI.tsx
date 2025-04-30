@@ -39,10 +39,6 @@ const SearchUI: ReactFC<ISearchUI> = ({ tags, intitialDisplay, paginationLimit, 
     getResults();
   };
 
-  useEffect(() => {
-    console.log(searchResults);
-  }, [searchResults]);
-
   return (
     <>
       <SearchBar
@@ -54,9 +50,10 @@ const SearchUI: ReactFC<ISearchUI> = ({ tags, intitialDisplay, paginationLimit, 
       {/* Search Results */}
       <PagiantedView
         className="mt-8"
+        resetPageKey={searchTerm}
         initialData={searchResults.data}
-        totalResults={searchResults.total}
         paginationLimit={paginationLimit}
+        totalResults={searchResults.total}
         mangaFetchOptions={
           searchTerm !== '' ? { ...baseSearchPrompt, title: searchTerm } : baseSearchPrompt
         }
