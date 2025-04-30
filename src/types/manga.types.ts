@@ -110,6 +110,9 @@ export interface IGetMangaParams {
   createdAtSince?: string;
   updatedAtSince?: string;
   title?: string;
+  includedTags?: string[];
+  includedTagsMode?: 'AND' | 'OR';
+  excludedTagsMode?: 'AND' | 'OR';
 }
 
 export interface IGetMangaResponse {

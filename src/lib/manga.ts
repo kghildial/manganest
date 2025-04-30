@@ -16,7 +16,7 @@ export function createMangaQueryParams(params: IGetMangaParams | IGetMangaFeedPa
   let parsedQueryString = '?';
 
   Object.entries(params).map(([key, value]) => {
-    if (Array.isArray(value)) {
+    if (Array.isArray(value) && value.length > 0) {
       value.forEach(subValue => {
         parsedQueryString += `${key}[]=${subValue}&`;
       });
@@ -54,7 +54,7 @@ export function getMangaDetails(manga: IManga) {
 
   const lastChapter = manga?.attributes?.lastChapter;
 
-  const updatedAt = manga?.attributes?.updatedAt;
+  const updatedAt = manga?.attributes?.updatedAt ?? '';
 
   return {
     mangaId: manga.id,
