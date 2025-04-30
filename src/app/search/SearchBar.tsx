@@ -4,9 +4,12 @@ import { type FC as ReactFC } from 'react';
 import { motion, scale } from 'motion/react';
 import { Search as SearchIcon, SlidersHorizontal } from 'lucide-react';
 
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import Motion from '@/components/motion';
 import { Input } from '@/components/ui/input';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+
+import useResponsive from '@/hooks/useResponsive';
+
 import { ISearchBar } from './Search.types';
 
 const SearchBar: ReactFC<ISearchBar> = ({
@@ -15,10 +18,19 @@ const SearchBar: ReactFC<ISearchBar> = ({
   setFilters,
   handleSubmit,
 }) => {
+  const { isMobile } = useResponsive();
+
   return (
-    <div className="flex justify-between">
+    <form
+      className="flex justify-between"
+      onSubmit={e => {
+        e.preventDefault();
+        handleSubmit(searchTerm);
+      }}
+    >
       <div className="flex flex-1 items-center border-b border-secondary_bg2 pb-1">
         <SearchIcon size={24} className="mr-4 text-secondary_bg2" />
+
         <Input
           type="text"
           name="query"
@@ -47,17 +59,15 @@ const SearchBar: ReactFC<ISearchBar> = ({
         </TooltipProvider>
       </div>
       <Motion.Button
+        type="submit"
         onClick={() => {
           handleSubmit(searchTerm);
         }}
-        className="ml-5 hidden md:flex"
+        className="ml-5 px-2 md:px-4"
       >
-        Search
+        {!isMobile ? 'Search' : <SearchIcon size={24} className="text-background" />}
       </Motion.Button>
-      <Motion.Button onClick={() => {}} className="ml-5 flex px-2 md:hidden">
-        <SearchIcon size={24} className="text-background" />
-      </Motion.Button>
-    </div>
+    </form>
   );
 };
 

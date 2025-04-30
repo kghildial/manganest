@@ -1,6 +1,7 @@
-import type { HTMLAttributes } from 'react';
+import type { Dispatch, HTMLAttributes, SetStateAction } from 'react';
 
 export interface IPagination extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
   totalPages: number;
-  onChange: (page: number) => void;
+  currentPage: number;
+  setCurrentPage: Dispatch<SetStateAction<number>>;
 }

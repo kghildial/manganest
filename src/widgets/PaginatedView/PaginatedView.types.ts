@@ -6,4 +6,12 @@ export interface IPagiantedView extends HTMLAttributes<HTMLDivElement> {
   totalResults: number;
   paginationLimit: number;
   mangaFetchOptions: IGetMangaParams;
+  resetPageKey?: unknown;
+}
+
+export interface IPaginationContent extends HTMLAttributes<HTMLDivElement> {
+  currentPage: number;
+  initialData: IManga[];
+  paginationLimit: number;
+  mangaFetchOptions: IGetMangaParams;
 }

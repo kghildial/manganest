@@ -1,6 +1,6 @@
 'use client';
 
-import { type FC as ReactFC, useMemo, useState } from 'react';
+import { type FC as ReactFC, useEffect, useMemo, useState } from 'react';
 import { motion } from 'motion/react';
 
 import {
@@ -17,8 +17,12 @@ import { cn, getVisiblePages } from '@/lib/utils';
 import { IPagination } from './Pagination.types';
 import { EPaginationEllipses } from '@/types/utils.types';
 
-const Pagination: ReactFC<IPagination> = ({ totalPages, className, onChange }) => {
-  const [currentPage, setCurrentPage] = useState(1);
+const Pagination: ReactFC<IPagination> = ({
+  className,
+  totalPages,
+  currentPage,
+  setCurrentPage,
+}) => {
   const visiblePages = useMemo(
     () => getVisiblePages(currentPage, totalPages),
     [currentPage, totalPages],
@@ -26,7 +30,6 @@ const Pagination: ReactFC<IPagination> = ({ totalPages, className, onChange }) =
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    onChange(page);
   };
 
   return (
