@@ -19,7 +19,10 @@ import { EPaginationEllipses } from '@/types/utils.types';
 
 const Pagination: ReactFC<IPagination> = ({ totalPages, className, onChange }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const visiblePages = useMemo(() => getVisiblePages(currentPage, totalPages), [currentPage]);
+  const visiblePages = useMemo(
+    () => getVisiblePages(currentPage, totalPages),
+    [currentPage, totalPages],
+  );
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -29,7 +32,9 @@ const Pagination: ReactFC<IPagination> = ({ totalPages, className, onChange }) =
   return (
     <CNPagination className={className}>
       <PaginationContent>
-        <PaginationItem className="group">
+        <PaginationItem
+          className={cn('group', currentPage === 1 ? 'opcaity-50 pointer-events-none' : '')}
+        >
           <motion.button whileHover={{ scale: 1.1 }}>
             <PaginationPrevious
               className="cursor-pointer group-hover:[&_span]:text-accent_tint"
@@ -62,7 +67,12 @@ const Pagination: ReactFC<IPagination> = ({ totalPages, className, onChange }) =
             </motion.button>
           );
         })}
-        <PaginationItem className="group">
+        <PaginationItem
+          className={cn(
+            'group',
+            currentPage === totalPages ? 'opcaity-50 pointer-events-none' : '',
+          )}
+        >
           <motion.button whileHover={{ scale: 1.1 }}>
             <PaginationNext
               className="cursor-pointer group-hover:[&_span]:text-accent_tint"

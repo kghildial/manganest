@@ -1,4 +1,4 @@
-import { IMangaTag } from '@/types/manga.types';
+import { IGetMangaResponse, IManga, IMangaTag } from '@/types/manga.types';
 import { Dispatch, SetStateAction } from 'react';
 
 export interface IFilters {
@@ -15,10 +15,14 @@ export interface ISearchBar {
   searchTerm: string;
   setSearchTerm: Dispatch<SetStateAction<string>>;
   setFilters: Dispatch<SetStateAction<IFilters>>;
+  handleSubmit: (searchTerm: string) => void;
 }
 
 export interface ISearchUI {
   tags: IMangaTag[] | never[];
+  intitialDisplay: IGetMangaResponse;
+  paginationLimit: number;
+  totalResults: number;
 }
 
 export interface ITagFilterCardTemplate {

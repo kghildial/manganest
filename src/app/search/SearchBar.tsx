@@ -9,7 +9,12 @@ import Motion from '@/components/motion';
 import { Input } from '@/components/ui/input';
 import { ISearchBar } from './Search.types';
 
-const SearchBar: ReactFC<ISearchBar> = ({ searchTerm, setSearchTerm, setFilters }) => {
+const SearchBar: ReactFC<ISearchBar> = ({
+  searchTerm,
+  setSearchTerm,
+  setFilters,
+  handleSubmit,
+}) => {
   return (
     <div className="flex justify-between">
       <div className="flex flex-1 items-center border-b border-secondary_bg2 pb-1">
@@ -41,7 +46,12 @@ const SearchBar: ReactFC<ISearchBar> = ({ searchTerm, setSearchTerm, setFilters 
           </Tooltip>
         </TooltipProvider>
       </div>
-      <Motion.Button onClick={() => {}} className="ml-5 hidden md:flex">
+      <Motion.Button
+        onClick={() => {
+          handleSubmit(searchTerm);
+        }}
+        className="ml-5 hidden md:flex"
+      >
         Search
       </Motion.Button>
       <Motion.Button onClick={() => {}} className="ml-5 flex px-2 md:hidden">

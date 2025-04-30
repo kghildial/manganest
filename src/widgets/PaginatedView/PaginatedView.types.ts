@@ -1,0 +1,9 @@
+import { IGetMangaParams, IManga } from '@/types/manga.types';
+import { HTMLAttributes } from 'react';
+
+export interface IPagiantedView extends HTMLAttributes<HTMLDivElement> {
+  initialData: IManga[];
+  totalResults: number;
+  paginationLimit: number;
+  mangaFetchOptions: IGetMangaParams;
+}

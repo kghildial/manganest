@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PagiantedView from './PaginatedView';
+import PagiantedView from '../../widgets/PaginatedView';
 
 import { getManga } from '@/lib/manga.server';
 import { getDeviceTypeFromUA } from '../api/utils';
@@ -32,6 +32,15 @@ const LatestUpdated = async () => {
         initialData={latestUpdatedMangas}
         totalResults={totalResults}
         paginationLimit={paginationLimit}
+        mangaFetchOptions={{
+          includes: ['cover_art', 'artist', 'author', 'chapter', 'tag'],
+          order: {
+            updatedAt: 'desc',
+          },
+          contentRating: ['safe', 'suggestive'],
+          hasAvailableChapters: true,
+          limit: paginationLimit,
+        }}
       />
     </div>
   );
