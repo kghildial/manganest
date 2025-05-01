@@ -1,6 +1,14 @@
 import { IGetMangaResponse, IManga, IMangaTag } from '@/types/manga.types';
 import { Dispatch, SetStateAction } from 'react';
 
+interface ISearchParams {
+  tag: string;
+}
+
+export interface ISeach {
+  searchParams: ISearchParams;
+}
+
 export interface IFilters {
   visible: boolean;
   include: Record<string, string>;
@@ -18,6 +26,7 @@ export interface IFiltersModal {
 export interface ISearchBar {
   handleSubmit: (options: IHandleSubmit) => void;
   filterTypes: TFilterType;
+  searchParamTag: TTag | null;
 }
 
 export interface ISearchUI {
@@ -25,6 +34,7 @@ export interface ISearchUI {
   paginationLimit: number;
   totalResults: number;
   filterTypes: TFilterType;
+  searchParamTag: TTag | null;
 }
 
 export interface ITagFilterCardTemplate {
@@ -44,14 +54,14 @@ export enum EFiltersAction {
   Reset = 'RESET',
 }
 
+export type TTag = {
+  id: string;
+  name: string;
+};
+
 export interface IFiltersAction {
   type: EFiltersAction;
-  payload?:
-    | string
-    | {
-        id: string;
-        name: string;
-      };
+  payload?: string | TTag;
 }
 
 export type TFiltersReducer = (draft: IFilters, action: IFiltersAction) => IFilters;

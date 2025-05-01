@@ -1,9 +1,9 @@
 'use-client';
 
-import { memo, useEffect, useState, type FC as ReactFC } from 'react';
+import { memo, useEffect, useMemo, useState, type FC as ReactFC } from 'react';
 import { useImmerReducer } from 'use-immer';
 import { motion } from 'motion/react';
-import { Search as SearchIcon, SlidersHorizontal } from 'lucide-react';
+import { Dot, Search as SearchIcon, SlidersHorizontal } from 'lucide-react';
 
 import Motion from '@/components/motion';
 import { Input } from '@/components/ui/input';
@@ -14,7 +14,7 @@ import { EFiltersAction, IFilters, ISearchBar } from './Search.types';
 import FiltersModal from './FiltersModal';
 import { filtersReducer } from './utils';
 
-const SearchBar: ReactFC<ISearchBar> = ({ filterTypes, handleSubmit }) => {
+const SearchBar: ReactFC<ISearchBar> = ({ filterTypes, handleSubmit, searchParamTag }) => {
   const { isMobile } = useResponsive();
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -23,6 +23,17 @@ const SearchBar: ReactFC<ISearchBar> = ({ filterTypes, handleSubmit }) => {
     visible: false,
     filtersChanged: false,
   });
+
+  const isFiltersEmpty = useMemo(
+    () => Object.keys(filters.include).length === 0,
+    [filters.include],
+  );
+
+  useEffect(() => {
+    if (searchParamTag) {
+      dispatch({ type: EFiltersAction.Include, payload: searchParamTag });
+    }
+  }, []);
 
   // Search again when tags
   useEffect(() => {
@@ -57,10 +68,13 @@ const SearchBar: ReactFC<ISearchBar> = ({ filterTypes, handleSubmit }) => {
             whileHover={{ scale: 1.2 }}
             whileTap={{ scale: 0.8 }}
             transition={{ type: 'spring', stiffness: 300 }}
-            className="cursor-pointer"
+            className="relative cursor-pointer overflow-hidden pr-1 pt-1"
             onClick={() => dispatch({ type: EFiltersAction.Show })}
           >
             <SlidersHorizontal size={24} className="text-foreground_tint" />
+            {!isFiltersEmpty && (
+              <Dot size={50} className="absolute left-[-5px] top-[-20px] text-accent" />
+            )}
           </motion.div>
         </div>
         <Motion.Button

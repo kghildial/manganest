@@ -1,3 +1,4 @@
+import { type FC as ReactFC } from 'react';
 import SearchUI from './SearchUI';
 import LayoutWrapper from '@/components/LayoutWrapper';
 
@@ -5,10 +6,16 @@ import { getManga } from '@/lib/manga.server';
 import { getDeviceTypeFromUA } from '../api/utils';
 
 import { IGetMangTagsResp } from '@/types/manga.types';
-const Search = async () => {
+import { ISeach } from './Search.types';
+const Search: ReactFC<ISeach> = async ({ searchParams }) => {
+  const { tag: searchParamTagId } = await searchParams;
+
   const { data: tags }: IGetMangTagsResp = await (
     await fetch(`${process.env.MANGADEX_BASE_API_URL}/manga/tag`)
   ).json();
+
+  const searchParamTagName =
+    tags.find(({ id }) => id === searchParamTagId)?.attributes?.name?.en ?? '';
 
   const genres = tags.filter(tag => tag.attributes?.group === 'genre');
   const themes = tags.filter(tag => tag.attributes?.group === 'theme');
@@ -24,7 +31,7 @@ const Search = async () => {
     includes: ['cover_art', 'chapter', 'tag', 'author'],
     contentRating: ['safe', 'suggestive'],
     includedTagsMode: 'AND',
-    includedTags: [],
+    includedTags: searchParamTagId ? [searchParamTagId] : [],
     order: {
       followedCount: 'desc',
     },
@@ -41,6 +48,14 @@ const Search = async () => {
         paginationLimit={paginationLimit}
         totalResults={100}
         filterTypes={{ genres, themes, formats, content }}
+        searchParamTag={
+          searchParamTagId
+            ? {
+                id: searchParamTagId,
+                name: searchParamTagName,
+              }
+            : null
+        }
       />
     </LayoutWrapper>
   );

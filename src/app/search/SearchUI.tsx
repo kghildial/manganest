@@ -9,12 +9,17 @@ import { IGetMangaParams, IGetMangaResponse, IManga } from '@/types/manga.types'
 import PagiantedView from '@/widgets/PaginatedView';
 import { getManga } from '@/lib/manga.server';
 
-const SearchUI: ReactFC<ISearchUI> = ({ intitialDisplay, paginationLimit, filterTypes }) => {
+const SearchUI: ReactFC<ISearchUI> = ({
+  intitialDisplay,
+  paginationLimit,
+  filterTypes,
+  searchParamTag,
+}) => {
   const [searchStatus, setSearchStatus] = useState<ISearchStatus>({
     results: intitialDisplay,
     searchTerm: '',
     resetPageKey: '',
-    includedTags: [],
+    includedTags: searchParamTag ? [searchParamTag.id] : [],
   });
 
   const baseSearchPrompt: IGetMangaParams = useMemo(
@@ -57,7 +62,11 @@ const SearchUI: ReactFC<ISearchUI> = ({ intitialDisplay, paginationLimit, filter
 
   return (
     <>
-      <SearchBar filterTypes={filterTypes} handleSubmit={handleSubmit} />
+      <SearchBar
+        filterTypes={filterTypes}
+        handleSubmit={handleSubmit}
+        searchParamTag={searchParamTag}
+      />
       {/* Search Results */}
       <PagiantedView
         className="mt-8"
