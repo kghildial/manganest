@@ -14,6 +14,7 @@ import { getManga, getMangaFeed, getMangaStats } from '@/lib/manga.server';
 import { getMangaDetails } from '@/lib/manga';
 
 import { IMangaDetails } from './MangaDetails.types';
+import Link from 'next/link';
 
 const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) => {
   const { mangaNamePath } = await params;
@@ -133,11 +134,9 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
               {tags?.map(
                 tag =>
                   tag?.attributes?.name?.en && (
-                    <Tag.Static
-                      key={tag.id}
-                      text={tag.attributes.name.en}
-                      className="bg-secondary_bg2"
-                    />
+                    <Link key={tag.id} href={`/search?tag=${tag.id}`}>
+                      <Tag.Motion text={tag.attributes.name.en} className="bg-secondary_bg2" />
+                    </Link>
                   ),
               )}
             </MetaCardLayout>

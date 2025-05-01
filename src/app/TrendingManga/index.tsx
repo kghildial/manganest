@@ -65,13 +65,19 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
                 <>
                   <div className="mb-5 flex flex-wrap gap-3 lg:hidden">
                     {(tags.length > 5 ? tags.slice(0, 6) : tags).map(tag => (
-                      <Tag.Static key={tag.id} text={tag?.attributes?.name?.en ?? null} />
+                      <Tag.Motion key={tag.id} text={tag?.attributes?.name?.en ?? null} />
                     ))}
                     {isMobile && tags.length > 5 && <Tag.Static key="..." text="..." />}
                   </div>
                   <div className="mb-5 hidden flex-wrap gap-3 lg:flex">
                     {tags.map(tag => (
-                      <Tag.Static key={tag.id} text={tag?.attributes?.name?.en ?? null} />
+                      <Tag.Motion
+                        key={tag.id}
+                        text={tag?.attributes?.name?.en ?? null}
+                        onClick={() => {
+                          router.push(`/search?tag=${tag.id}`);
+                        }}
+                      />
                     ))}
                   </div>
                 </>

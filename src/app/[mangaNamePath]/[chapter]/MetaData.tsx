@@ -5,6 +5,7 @@ import MetaCardLayout from '@/widgets/MetaCardLayout';
 
 import { IMetaData } from './MangaReader.types';
 import { cn } from '@/lib/utils';
+import Link from 'next/link';
 
 const MetaData: ReactFC<IMetaData> = ({
   tags,
@@ -20,7 +21,9 @@ const MetaData: ReactFC<IMetaData> = ({
         {tags?.map(
           tag =>
             tag?.attributes?.name?.en && (
-              <Tag.Static key={tag.id} text={tag.attributes.name.en} className={tagClass} />
+              <Link key={tag.id} href={`/search?tag=${tag.id}`}>
+                <Tag.Motion text={tag.attributes.name.en} className={tagClass} />
+              </Link>
             ),
         )}
       </MetaCardLayout>
