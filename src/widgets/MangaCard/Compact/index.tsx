@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 import { IMangaCard } from '../MangaCard.types';
 
 const Compact = React.forwardRef<HTMLDivElement, IMangaCard>(
-  ({ className, title, description, chapter, timestamp, id, coverArtFileName, onClick }, ref) => {
+  ({ className, title, description, authors, timestamp, id, coverArtFileName, onClick }, ref) => {
     let filteredTitle = title;
 
     const titleWords = title?.split(' ') ?? [];
@@ -39,9 +39,22 @@ const Compact = React.forwardRef<HTMLDivElement, IMangaCard>(
             {description && <CardDescription>{description}</CardDescription>}
           </CardHeader>
           <CardFooter className="flex justify-between font-ui">
-            <p className="font-3.25 text-xs/4 font-medium group-hover:text-background">
-              Chapter {chapter}
-            </p>
+            <div className="flex flex-wrap">
+              {authors &&
+                authors.map(({ id, attributes }, index) => {
+                  const length = authors.length;
+                  const isCommaNeeded = length > 1 && index !== length - 1;
+
+                  return (
+                    <p
+                      key={id}
+                      className="font-3.25 ml-1 text-xs/4 font-medium group-hover:text-background"
+                    >
+                      {`${attributes?.name}${isCommaNeeded ? ',' : ''}`}
+                    </p>
+                  );
+                })}
+            </div>
             <p className="font-3.25 text-[0.625rem]/4 font-medium group-hover:text-background">
               {timestamp}
             </p>

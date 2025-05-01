@@ -69,7 +69,7 @@ const PaginationContent: ReactFC<IPaginationContent> = ({
           >
             {data.length > 0 &&
               data.map(manga => {
-                const { mangaId, title, coverArt, lastChapter, updatedAt } = getMangaDetails(manga);
+                const { mangaId, title, coverArt, authors, updatedAt } = getMangaDetails(manga);
                 const timeStamp = timeAgo(new Date(updatedAt), new Date()) ?? null;
 
                 return (
@@ -79,8 +79,8 @@ const PaginationContent: ReactFC<IPaginationContent> = ({
                     coverArtFileName={coverArt?.attributes?.fileName}
                     className="w-full cursor-pointer md:w-[calc(50%-5px)] lg:w-[calc(33%-5px)]"
                     title={title ?? 'N/A'}
-                    chapter={lastChapter}
                     timestamp={timeStamp}
+                    authors={authors}
                     onClick={() => {
                       title !== null
                         ? router.push(`/${encodeURIComponent(title)}?id=${mangaId}`)

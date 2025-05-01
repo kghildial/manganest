@@ -21,7 +21,7 @@ const Search = async () => {
   const intitialDisplay = await getManga({
     limit: paginationLimit,
     offset: 0,
-    includes: ['cover_art', 'chapter', 'tag'],
+    includes: ['cover_art', 'chapter', 'tag', 'author'],
     contentRating: ['safe', 'suggestive'],
     includedTagsMode: 'AND',
     includedTags: [],

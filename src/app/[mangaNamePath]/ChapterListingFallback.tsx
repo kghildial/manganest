@@ -27,7 +27,7 @@ const ChapterListingFallback: ReactFC<IChapterListingFallback> = ({
             mangaId: listingId,
             coverArt,
             title,
-            lastChapter,
+            authors,
             updatedAt,
           } = getMangaDetails(manga);
           return (
@@ -39,7 +39,7 @@ const ChapterListingFallback: ReactFC<IChapterListingFallback> = ({
                 coverArtFileName={coverArt?.attributes?.fileName}
                 timestamp={timeAgo(new Date(updatedAt as string), new Date())}
                 title={title}
-                chapter={lastChapter}
+                authors={authors}
                 onClick={() => {
                   title !== null
                     ? router.push(`/${encodeURIComponent(title)}?id=${listingId}`)

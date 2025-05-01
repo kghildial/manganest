@@ -1,3 +1,4 @@
+import { TMangaRelationship } from '@/types/manga.types';
 import type { HTMLAttributes } from 'react';
 
 export interface IMangaCard extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
@@ -5,6 +6,6 @@ export interface IMangaCard extends Omit<HTMLAttributes<HTMLDivElement>, 'title'
   coverArtFileName: string | undefined;
   title: string | null;
   description?: string;
-  chapter: string | undefined;
+  authors: TMangaRelationship[] | null;
   timestamp: string | null;
 }
