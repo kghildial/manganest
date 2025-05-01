@@ -20,7 +20,7 @@ const SearchUI: ReactFC<ISearchUI> = ({ intitialDisplay, paginationLimit, filter
   const baseSearchPrompt: IGetMangaParams = useMemo(
     () => ({
       limit: paginationLimit,
-      includes: ['cover_art', 'chapter', 'tag'],
+      includes: ['cover_art', 'chapter', 'tag', 'author'],
       contentRating: ['safe', 'suggestive'],
       includedTagsMode: 'AND',
       includedTags: searchStatus.includedTags,
