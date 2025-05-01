@@ -1,5 +1,5 @@
 import { type FC as ReactFC } from 'react';
-import Image from 'next/image';
+import Image from '@/components/Image';
 import { notFound } from 'next/navigation';
 import { StarIcon } from 'lucide-react';
 

@@ -2,7 +2,7 @@
 
 import React, { type FC as ReactFC } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
+import Image from '@/components/Image';
 
 import Carousel from '@/widgets/Carousel';
 import Tag from '@/components/Tag';

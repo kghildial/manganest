@@ -56,7 +56,7 @@ const PaginationContent: ReactFC<IPaginationContent> = ({
   }, [initialData]);
 
   return (
-    <div className={cn('relative mb-8 mt-0 md:mt-8', className)}>
+    <div className={cn('mb-8 mt-0 h-[564px] md:mt-8 md:h-[912px] lg:h-[564px]', className)}>
       <AnimatePresence mode="wait">
         {!isLoading ? (
           <motion.div

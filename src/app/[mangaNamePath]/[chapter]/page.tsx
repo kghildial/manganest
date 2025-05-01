@@ -1,5 +1,5 @@
 import { type FC as ReactFC } from 'react';
-import Image from 'next/image';
+import Image from '@/components/Image';
 
 import LayoutWrapper from '@/components/LayoutWrapper';
 

@@ -6,7 +6,8 @@ export interface IPagiantedView extends HTMLAttributes<HTMLDivElement> {
   totalResults: number;
   paginationLimit: number;
   mangaFetchOptions: IGetMangaParams;
-  resetPageKey?: unknown;
+  resetPageKey?: string;
+  compactViewClassName?: string;
 }
 
 export interface IPaginationContent extends HTMLAttributes<HTMLDivElement> {
