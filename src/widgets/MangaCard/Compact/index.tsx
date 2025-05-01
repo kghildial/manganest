@@ -1,11 +1,12 @@
 import React from 'react';
-import Image from 'next/image';
 
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import Image from '@/components/Image';
+import Motion from '@/components/motion';
+import { CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 
 import { cn } from '@/lib/utils';
+
 import { IMangaCard } from '../MangaCard.types';
-import Motion from '@/components/motion';
 
 const Compact = React.forwardRef<HTMLDivElement, IMangaCard>(
   ({ className, title, description, chapter, timestamp, id, coverArtFileName, onClick }, ref) => {

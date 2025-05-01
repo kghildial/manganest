@@ -1,20 +1,24 @@
 'use client';
 
-import React, { useEffect, useMemo, useState, type FC as ReactFC } from 'react';
+import React, { memo, useEffect, useMemo, useState, type FC as ReactFC } from 'react';
 
 import Pagination from '@/widgets/Pagination';
+import PaginationContent from './PaginationContent';
+
+import { cn } from '@/lib/utils';
 
 import { IPagiantedView } from './PaginatedView.types';
-import PaginationContent from './PaginationContent';
 
 const PagiantedView: ReactFC<IPagiantedView> = ({
   className,
   initialData,
+  resetPageKey,
   totalResults,
   paginationLimit,
   mangaFetchOptions,
-  resetPageKey,
+  compactViewClassName,
 }) => {
+  console.log('pagination rendered');
   const totalPages = useMemo(() => {
     return Math.ceil(totalResults / paginationLimit);
   }, [totalResults]);
@@ -41,7 +45,7 @@ const PagiantedView: ReactFC<IPagiantedView> = ({
       />
       <Pagination.Compact
         totalPages={totalPages}
-        className="absolute right-0 top-2 md:hidden"
+        className={cn('absolute right-0 top-2 md:hidden', compactViewClassName)}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
       />
@@ -49,4 +53,4 @@ const PagiantedView: ReactFC<IPagiantedView> = ({
   );
 };
 
-export default PagiantedView;
+export default memo(PagiantedView);

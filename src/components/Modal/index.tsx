@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { IModal } from './Modal.types';
 import { cn } from '@/lib/utils';
 import { X } from 'lucide-react';
+import Motion from '@/components/motion';
 
 const Modal: ReactFC<IModal> = ({
   trigger,
@@ -59,14 +60,20 @@ const Modal: ReactFC<IModal> = ({
           )}
         >
           <div className="relative h-[84%]">
-            <p className="absolute -top-6 left-1 font-heading text-body text-background">
+            <p className="absolute left-1 top-[-30px] font-heading text-[28px] font-light text-background">
               {modalTitle}
             </p>
-            <X
-              size={24}
-              className={cn('absolute -top-8 right-0 cursor-pointer', closeIconClassName)}
+            <Motion.Button
+              whileHover={{ scale: 1.2 }}
+              variant="secondary"
+              className={cn(
+                'bg-backgrund absolute -top-8 right-0 h-[24px] w-[24px] cursor-pointer border-none px-0 py-0',
+                closeIconClassName,
+              )}
               onClick={() => onClose()}
-            />
+            >
+              <X size={24} />
+            </Motion.Button>
             <Card
               className={cn(
                 'z-2 flex h-full w-[90vw] flex-col overflow-y-scroll p-5 lg:w-full lg:max-w-[70vw]',

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { type FC as ReactFC } from 'react';
+import React, { memo, type FC as ReactFC } from 'react';
 import { motion } from 'motion/react';
 
 import { ITag } from './Tag.types';
@@ -23,4 +23,4 @@ const Motion: ReactFC<ITag> = ({ text, className, onClick = () => {} }) => {
   );
 };
 
-export default Motion;
+export default memo(Motion);
