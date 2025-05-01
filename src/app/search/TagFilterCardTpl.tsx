@@ -33,12 +33,19 @@ const TagFilterCardTemplate: ReactFC<ITagFilterCardTemplate> = ({
               key={id}
               text={attributes?.name?.en}
               className={filters.include[id] ? 'bg-accent_tint' : ''}
-              onClick={() =>
-                dispathFilterAction({
-                  type: EFiltersAction.Include,
-                  payload: { id, name: tagName },
-                })
-              }
+              onClick={() => {
+                if (filters.include[id]) {
+                  dispathFilterAction({
+                    type: EFiltersAction.Exclude,
+                    payload: id,
+                  });
+                } else {
+                  dispathFilterAction({
+                    type: EFiltersAction.Include,
+                    payload: { id, name: tagName },
+                  });
+                }
+              }}
             />
           );
         })}

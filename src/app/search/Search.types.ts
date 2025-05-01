@@ -46,10 +46,12 @@ export enum EFiltersAction {
 
 export interface IFiltersAction {
   type: EFiltersAction;
-  payload?: {
-    id: string;
-    name: string;
-  };
+  payload?:
+    | string
+    | {
+        id: string;
+        name: string;
+      };
 }
 
 export type TFiltersReducer = (draft: IFilters, action: IFiltersAction) => IFilters;
