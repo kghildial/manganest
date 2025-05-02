@@ -1,9 +1,6 @@
-import {
-  type ReactNode,
-  type FC as ReactFC,
-  type ComponentPropsWithoutRef,
-  forwardRef,
-} from 'react';
+'use client';
+
+import { type ReactNode, type ComponentPropsWithoutRef, forwardRef } from 'react';
 import { Button as ShadCNBtn, type ButtonProps } from '@/components/ui/button';
 import { type HTMLMotionProps, motion } from 'motion/react';
 
