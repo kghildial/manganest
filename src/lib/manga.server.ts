@@ -179,7 +179,10 @@ export async function getValidChRef(feedList: IMangaFeed[]) {
 
   if (!baseUrl || baseUrl === '' || !hash || hash === '' || !data || data.length === 0) {
     const newFeedList = feedList.slice(1, feedList.length);
-    output = await getValidChRef(newFeedList);
+
+    if (newFeedList.length > 0) {
+      output = await getValidChRef(newFeedList);
+    }
   }
 
   return output;

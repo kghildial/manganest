@@ -75,3 +75,7 @@ export interface IMetaData extends HTMLAttributes<HTMLDivElement> {
   metaLayoutClass: string;
   tagClass: string;
 }
+
+export interface IChapterNAFallback {
+  title: string;
+}
