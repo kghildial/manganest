@@ -55,7 +55,7 @@ const Modal: ReactFC<IModal> = ({
         <div
           ref={modalRef}
           className={cn(
-            'fixed left-0 top-[68px] flex h-[calc(100vh-68px)] w-[100vw] items-start justify-center bg-background_50 pt-14 backdrop-blur-lg md:items-center lg:top-[73px] lg:h-[calc(100vh-73px)]',
+            'fixed left-0 top-[68px] flex h-[calc(100vh-68px)] w-[100vw] items-start justify-center bg-background_50 pt-14 backdrop-blur-lg md:items-center xl:top-[73px] xl:h-[calc(100vh-73px)]',
             backdropClassName,
           )}
         >
@@ -76,7 +76,7 @@ const Modal: ReactFC<IModal> = ({
             </Motion.Button>
             <Card
               className={cn(
-                'z-2 flex h-full w-[90vw] flex-col overflow-y-scroll p-5 lg:w-full lg:max-w-[70vw]',
+                'z-2 flex h-full w-[90vw] flex-col overflow-y-scroll p-5 xl:w-full xl:max-w-[70vw]',
                 className,
               )}
             >

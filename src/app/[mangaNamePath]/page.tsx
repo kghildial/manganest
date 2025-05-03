@@ -78,7 +78,7 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
           width="247"
           height="351"
           alt={!title ? 'N/A' : title}
-          className="h-[285px] w-[200px] rounded-lg border-2 border-foreground transition-opacity ease-linear lg:h-[500px] lg:w-[350px]"
+          className="h-[285px] w-[200px] rounded-lg border-2 border-foreground transition-opacity ease-linear xl:h-[500px] xl:w-[350px]"
         />
         <div className="ml-2 flex flex-col md:ml-8">
           <h1 className="mb-3 hidden font-title text-5xl leading-[54px] md:block">{title}</h1>

@@ -88,7 +88,13 @@ export default {
         },
       },
       screens: {
+        sm: '480px',
         md: '768px',
+        lg: '1024px', // you can adjust this
+        xl: '1280px', // 1440px for large laptops if you want
+        '2xl': '1536px', // for 4K, you can even add '3xl'
+        // Custom example:
+        '4k': '2560px',
       },
     },
   },

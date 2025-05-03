@@ -16,13 +16,16 @@ import useResponsive from '@/hooks/useResponsive';
 import { IMangaControlsBox } from './MangaReader.types';
 
 const ControlsBox: ReactFC<IMangaControlsBox> = ({
-  mangaTitle,
-  mangaId,
-  currentChNum,
-  totalCh,
   tags,
   authors,
   artists,
+  mangaId,
+  totalCh,
+  className,
+  mangaTitle,
+  currentChNum,
+  minimizeOnScroll = false,
+  showMenuTriggerOnMob = false,
 }) => {
   const { isDesktop, isMobile, isTablet } = useResponsive();
 
@@ -58,7 +61,7 @@ const ControlsBox: ReactFC<IMangaControlsBox> = ({
   );
 
   useEffect(() => {
-    if (!isDesktop) {
+    if (!isDesktop && minimizeOnScroll) {
       const scrollHandler = (e: Event) => {
         if (mobCtrlsTrigger) {
           e.preventDefault();
@@ -88,11 +91,11 @@ const ControlsBox: ReactFC<IMangaControlsBox> = ({
   }, [mobCtrlsTrigger, controlsState.minimize, isDesktop]);
 
   return (
-    <>
+    <div className={className}>
       <Motion.Card
         animate={runAnimation ? minimizeAnimVals : maximizeAnimVals}
         className={cn(
-          'relative ml-0 flex w-full flex-col items-start justify-between p-3 lg:px-9 lg:py-8',
+          'relative ml-0 flex w-full flex-col items-start justify-between p-3 xl:px-9 xl:py-8',
           runAnimation
             ? 'items-center justify-center border border-foreground bg-accent_tint shadow-floating'
             : '',
@@ -106,27 +109,30 @@ const ControlsBox: ReactFC<IMangaControlsBox> = ({
             <>
               <Motion.CardHeader exit={{ opacity: 0 }} className="w-full flex-row justify-between">
                 <div className="mb-3 flex flex-col pr-2">
-                  <CardTitle className="pr-6 font-heading text-2xl/7 font-medium lg:text-5xl lg:leading-[54px]">
+                  <CardTitle className="pr-6 font-heading text-2xl/7 font-medium xl:text-5xl xl:leading-[54px]">
                     {mangaTitle}
                   </CardTitle>
-                  <CardDescription className="font-heading text-xl/6 text-foreground_tint_60 lg:text-2xl/7">
+                  <CardDescription className="font-heading text-xl/6 text-foreground_tint_60 xl:text-2xl/7">
                     Chapter {currentChNum}
                   </CardDescription>
                 </div>
-                <MobileControlsPanel
-                  trigger={mobCtrlsTrigger}
-                  setTrigger={setMobCtrlsTrigger}
-                  tags={tags}
-                  authors={authors}
-                  artists={artists}
-                  mangaId={mangaId}
-                  mangaTitle={mangaTitle}
-                  totalChapters={totalCh}
-                  currentChapter={Number(currentChNum)}
-                />
+                {showMenuTriggerOnMob && (
+                  <MobileControlsPanel
+                    trigger={mobCtrlsTrigger}
+                    setTrigger={setMobCtrlsTrigger}
+                    tags={tags}
+                    authors={authors}
+                    artists={artists}
+                    mangaId={mangaId}
+                    mangaTitle={mangaTitle}
+                    totalChapters={totalCh}
+                    currentChapter={Number(currentChNum)}
+                  />
+                )}
               </Motion.CardHeader>
               <Motion.CardContent exit={{ opacity: 0 }} className="flex w-full gap-6">
                 <Controls
+                  showMinimize={!isDesktop && minimizeOnScroll}
                   mangaTitle={mangaTitle}
                   currentChapter={Number(currentChNum)}
                   totalCh={totalCh}
@@ -158,11 +164,11 @@ const ControlsBox: ReactFC<IMangaControlsBox> = ({
         tags={tags}
         authors={authors}
         artists={artists}
-        className="mt-5 hidden lg:flex"
-        metaLayoutClass="lg:w-full"
+        className="mt-5 hidden xl:flex"
+        metaLayoutClass="xl:w-full"
         tagClass="bg-secondary_bg2"
       />
-    </>
+    </div>
   );
 };
 

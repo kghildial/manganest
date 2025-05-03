@@ -8,9 +8,11 @@ export interface IPagiantedView extends HTMLAttributes<HTMLDivElement> {
   mangaFetchOptions: IGetMangaParams;
   resetPageKey?: string;
   compactViewClassName?: string;
+  loading?: boolean;
 }
 
 export interface IPaginationContent extends HTMLAttributes<HTMLDivElement> {
+  loading: boolean;
   currentPage: number;
   initialData: IManga[];
   paginationLimit: number;

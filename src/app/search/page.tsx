@@ -42,7 +42,7 @@ const Search: ReactFC<ISeach> = async ({ searchParams }) => {
 
   return (
     <LayoutWrapper className="relative">
-      <h1 className="mb-8 lg:mb-14">Search Manga</h1>
+      <h1 className="mb-8 xl:mb-14">Search Manga</h1>
       <SearchUI
         intitialDisplay={intitialDisplay}
         paginationLimit={paginationLimit}

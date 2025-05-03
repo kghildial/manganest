@@ -22,7 +22,7 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
   return (
     <Carousel
       showOnlyProgress={isMobile}
-      controlsClassName="absolute lg:bottom-0 lg:top-auto top-[-55px] right-0 lg:w-[200px] w-[calc(100%-160px)] md:w-[150px]"
+      controlsClassName="absolute xl:bottom-0 xl:top-auto top-[-55px] right-0 xl:w-[200px] w-[calc(100%-160px)] md:w-[150px]"
       template={({ entry, index, activeSlide }) => {
         const { mangaId, coverArt, title, tags, description } = getMangaDetails(entry);
 
@@ -36,8 +36,8 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
         else if (isTablet) descWordLimit = 50;
 
         return (
-          <div className="flex flex-col justify-center md:flex-row">
-            <div className="flex items-center md:w-[35%] lg:w-[30%]">
+          <div className="flex flex-col justify-center overflow-visible md:flex-row xl:px-5 xl:py-9">
+            <div className="flex items-center md:w-[35%] xl:w-[30%]">
               <Image
                 priority
                 src={`https://uploads.mangadex.org/covers/${entry.id}/${coverArt?.attributes?.fileName}.512.jpg`}
@@ -45,9 +45,9 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
                 height="351"
                 alt={title ?? 'N/A'}
                 className={cn(
-                  'h-[350px] cursor-pointer rounded-lg border-2 border-foreground transition-opacity ease-linear lg:h-[500px] lg:w-[350px]',
+                  'h-[350px] cursor-pointer rounded-lg border-2 border-foreground transition-opacity ease-linear xl:h-[500px] xl:w-[350px]',
                   isMobile && isNextSlide
-                    ? '-translate-x-24 opacity-50 lg:translate-x-0 lg:opacity-100'
+                    ? '-translate-x-24 opacity-50 xl:translate-x-0 xl:opacity-100'
                     : 'opacity-100',
                 )}
                 onClick={() => {
@@ -57,19 +57,19 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
                 }}
               />
             </div>
-            <div className="mt-5 flex flex-col md:w-[65%] lg:ml-10 lg:mt-0 lg:w-[70%]">
+            <div className="mt-5 flex flex-col md:w-[65%] xl:ml-10 xl:mt-0 xl:w-[70%]">
               <h2 className="mb-5 font-title text-2xl/8">
                 {index + 1}. {title}
               </h2>
               {tags && (
                 <>
-                  <div className="mb-5 flex flex-wrap gap-3 lg:hidden">
+                  <div className="mb-5 flex flex-wrap gap-3 xl:hidden">
                     {(tags.length > 5 ? tags.slice(0, 6) : tags).map(tag => (
                       <Tag.Motion key={tag.id} text={tag?.attributes?.name?.en ?? null} />
                     ))}
                     {isMobile && tags.length > 5 && <Tag.Static key="..." text="..." />}
                   </div>
-                  <div className="mb-5 hidden flex-wrap gap-3 lg:flex">
+                  <div className="mb-5 hidden flex-wrap gap-3 xl:flex">
                     {tags.map(tag => (
                       <Tag.Motion
                         key={tag.id}
