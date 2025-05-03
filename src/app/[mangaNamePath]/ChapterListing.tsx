@@ -1,7 +1,8 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState, type FC as ReactFC } from 'react';
+import { motion } from 'motion/react';
 import { useRouter } from 'next/navigation';
+import { useEffect, useMemo, useRef, useState, type FC as ReactFC } from 'react';
 
 import { Clock } from 'lucide-react';
 
@@ -67,8 +68,11 @@ const ChapterListing: ReactFC<IChapterListing> = ({ mangaId, mangaTitle, initial
   return (
     <>
       {list.map(({ id, attributes: { chapter, updatedAt } }) => (
-        <div
+        <motion.div
           key={id}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.9 }}
+          transition={{ type: 'tween' }}
           className="group mb-3 flex cursor-pointer items-center rounded-sm bg-secondary_bg1 px-5 py-3 hover:bg-accent_tint md:px-8 md:py-4"
           onClick={() => {
             router.push(`/${mangaTitle}/${id}?id=${mangaId}&ch=${chapter}`);
@@ -81,7 +85,7 @@ const ChapterListing: ReactFC<IChapterListing> = ({ mangaId, mangaTitle, initial
           <p className="mr-2 font-body text-sm font-medium text-foreground_tint_60 group-hover:text-background">
             {timeAgo(new Date(updatedAt), now)}
           </p>
-        </div>
+        </motion.div>
       ))}
       <div ref={loader} className="h-10" />
     </>

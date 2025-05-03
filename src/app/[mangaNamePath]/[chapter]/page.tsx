@@ -83,7 +83,7 @@ const MangaReader: ReactFC<IMangaReader> = async ({ params, searchParams }) => {
           mangaTitle={mangaTitle}
           currentChNum={currentChNum}
         />
-        <div className="4k:right-[12vw] fixed left-[2.5%] top-20 h-[85vh] w-[95vw] overflow-scroll xl:left-auto xl:right-[calc((10vw)/2)] xl:top-[117px] xl:w-[25%] 2xl:right-[calc((100vw-1440px)/2)]">
+        <div className="4k:right-[12vw] fixed left-[2.5%] top-20 h-[85vh] w-[95vw] xl:left-auto xl:right-[calc((10vw)/2)] xl:top-[117px] xl:w-[25%] xl:overflow-scroll 2xl:right-[calc((100vw-1440px)/2)]">
           <ControlsBox
             tags={tags}
             minimizeOnScroll
