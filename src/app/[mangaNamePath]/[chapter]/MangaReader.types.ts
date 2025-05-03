@@ -23,6 +23,7 @@ export interface IControls extends HTMLAttributes<HTMLDivElement> {
   totalCh: number;
   mangaId: string;
   onMinimize: () => void;
+  showMinimize: boolean;
 }
 
 export interface IDneModalState {
@@ -58,12 +59,14 @@ export interface IChapterDneModal {
   setState: Dispatch<SetStateAction<IDneModalState>>;
 }
 
-export interface IMangaControlsBox {
-  mangaTitle: string;
+export interface IMangaControlsBox extends HTMLAttributes<HTMLDivElement> {
   mangaId: string;
-  currentChNum: string;
   totalCh: number;
+  mangaTitle: string;
+  currentChNum: string;
   tags: IMangaTag[] | null;
+  minimizeOnScroll?: boolean;
+  showMenuTriggerOnMob?: boolean;
   authors: TMangaRelationship[] | null;
   artists: TMangaRelationship[] | null;
 }

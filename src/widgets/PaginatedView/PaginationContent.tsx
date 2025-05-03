@@ -13,6 +13,7 @@ import { IPaginationContent } from './PaginatedView.types';
 import { AnimatePresence } from 'motion/react';
 
 const PaginationContent: ReactFC<IPaginationContent> = ({
+  loading,
   currentPage,
   initialData,
   className,
@@ -21,7 +22,7 @@ const PaginationContent: ReactFC<IPaginationContent> = ({
 }) => {
   const router = useRouter();
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(loading);
   const [data, setData] = useState(initialData);
 
   const onPageChange = useCallback(
@@ -55,8 +56,12 @@ const PaginationContent: ReactFC<IPaginationContent> = ({
     setData(initialData);
   }, [initialData]);
 
+  useEffect(() => {
+    setIsLoading(loading);
+  }, [loading]);
+
   return (
-    <div className={cn('mb-8 mt-0 h-[564px] md:mt-8 md:h-[912px] lg:h-[564px]', className)}>
+    <div className={cn('mb-8 mt-0 h-[564px] md:mt-8 md:h-[912px] xl:h-[564px]', className)}>
       <AnimatePresence mode="wait">
         {!isLoading ? (
           <motion.div
@@ -77,7 +82,7 @@ const PaginationContent: ReactFC<IPaginationContent> = ({
                     key={mangaId}
                     id={mangaId}
                     coverArtFileName={coverArt?.attributes?.fileName}
-                    className="w-full cursor-pointer md:w-[calc(50%-5px)] lg:w-[calc(33%-5px)]"
+                    className="w-full cursor-pointer md:w-[calc(50%-5px)] xl:w-[calc(33%-5px)]"
                     title={title ?? 'N/A'}
                     timestamp={timeStamp}
                     authors={authors}

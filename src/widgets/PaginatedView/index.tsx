@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils';
 import { IPagiantedView } from './PaginatedView.types';
 
 const PagiantedView: ReactFC<IPagiantedView> = ({
+  loading = true,
   className,
   initialData,
   resetPageKey,
@@ -30,6 +31,7 @@ const PagiantedView: ReactFC<IPagiantedView> = ({
   return (
     <>
       <PaginationContent
+        loading={loading}
         className={className}
         currentPage={currentPage}
         initialData={initialData}

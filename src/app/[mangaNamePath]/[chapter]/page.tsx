@@ -49,8 +49,8 @@ const MangaReader: ReactFC<IMangaReader> = async ({ params, searchParams }) => {
 
   return (
     <LayoutWrapper className="flex flex-col">
-      <div className="flex">
-        <div className="mt-32 w-full lg:mt-0 lg:w-[70%]">
+      <div className="mb-5 flex flex-col">
+        <div className="mt-32 w-full xl:mt-0 xl:w-[70%]">
           {pageData.length > 0 ? (
             pageData.map((page, index) => {
               const highResUrl = `${baseUrl}/data/${hash}/${page}`;
@@ -73,15 +73,27 @@ const MangaReader: ReactFC<IMangaReader> = async ({ params, searchParams }) => {
             <ChapterNAFallback title={mangaTitle} />
           )}
         </div>
-        <div className="fixed left-[2.5%] top-20 w-[95vw] lg:left-auto lg:right-[calc((100vw-1440px)/2)] lg:top-[117px] lg:w-[25%]">
+        <ControlsBox
+          className="mt-5 xl:hidden"
+          tags={tags}
+          mangaId={mangaId}
+          totalCh={totalCh}
+          authors={authors}
+          artists={artists}
+          mangaTitle={mangaTitle}
+          currentChNum={currentChNum}
+        />
+        <div className="4k:right-[12vw] fixed left-[2.5%] top-20 h-[85vh] w-[95vw] overflow-scroll xl:left-auto xl:right-[calc((10vw)/2)] xl:top-[117px] xl:w-[25%] 2xl:right-[calc((100vw-1440px)/2)]">
           <ControlsBox
-            mangaId={mangaId}
-            mangaTitle={mangaTitle}
-            currentChNum={currentChNum}
-            totalCh={totalCh}
             tags={tags}
+            minimizeOnScroll
+            showMenuTriggerOnMob
+            mangaId={mangaId}
+            totalCh={totalCh}
             authors={authors}
             artists={artists}
+            mangaTitle={mangaTitle}
+            currentChNum={currentChNum}
           />
         </div>
       </div>

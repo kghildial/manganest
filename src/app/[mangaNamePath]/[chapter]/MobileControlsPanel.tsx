@@ -45,7 +45,7 @@ const MobileControlsPanel: ReactFC<IMobileControlsPanel> = ({
 
   return (
     <>
-      <div className="flex gap-1 lg:hidden" onClick={() => setTrigger(true)}>
+      <div className="flex gap-1 xl:hidden" onClick={() => setTrigger(true)}>
         <p className="font-heading">Menu</p>
         <LayoutGrid size={24} />
       </div>
@@ -119,7 +119,7 @@ const MobileControlsPanel: ReactFC<IMobileControlsPanel> = ({
                       key={index}
                       value={`${index}`}
                       className={cn(
-                        'px-3 py-3 font-body lg:py-1 [&_span]:text-xs',
+                        'px-3 py-3 font-body xl:py-1 [&_span]:text-xs',
                         currentChapter === index ? 'bg-accent_tint [&_span]:text-background' : '',
                       )}
                     >
@@ -137,7 +137,7 @@ const MobileControlsPanel: ReactFC<IMobileControlsPanel> = ({
           authors={authors}
           artists={artists}
           className="mt-5"
-          metaLayoutClass="lg:w-full bg-background"
+          metaLayoutClass="xl:w-full bg-background"
           tagClass="bg-secondary_bg1"
         />
       </Modal>

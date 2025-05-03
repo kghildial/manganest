@@ -15,6 +15,7 @@ const SearchUI: ReactFC<ISearchUI> = ({
   filterTypes,
   searchParamTag,
 }) => {
+  const [isLoading, setIsLoading] = useState(true);
   const [searchStatus, setSearchStatus] = useState<ISearchStatus>({
     results: intitialDisplay,
     searchTerm: '',
@@ -37,6 +38,7 @@ const SearchUI: ReactFC<ISearchUI> = ({
   );
 
   const handleSubmit = useCallback(({ searchTerm, filters }: IHandleSubmit) => {
+    setIsLoading(true);
     const getResults = async () => {
       const includedTags = Object.keys(filters);
 
@@ -60,6 +62,10 @@ const SearchUI: ReactFC<ISearchUI> = ({
     getResults();
   }, []);
 
+  useEffect(() => {
+    setIsLoading(false);
+  }, [searchStatus.resetPageKey]);
+
   return (
     <>
       <SearchBar
@@ -69,6 +75,7 @@ const SearchUI: ReactFC<ISearchUI> = ({
       />
       {/* Search Results */}
       <PagiantedView
+        loading={isLoading}
         className="mt-8"
         resetPageKey={searchStatus.resetPageKey}
         initialData={searchStatus.results.data}

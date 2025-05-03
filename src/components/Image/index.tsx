@@ -1,7 +1,8 @@
 'use client';
 
 import NxtImg from 'next/image';
-import { type FC as ReactFC, useState } from 'react';
+import { motion } from 'motion/react';
+import { type FC as ReactFC, useMemo, useState } from 'react';
 
 import FallbackImg from '@/assets/images/image_fallback.png';
 
@@ -18,14 +19,31 @@ const Image: ReactFC<IImage> = ({
   fallbackSrc = null,
 }) => {
   const [imgSrc, setImgSrc] = useState(src);
+  const hasClick = useMemo(() => typeof onClick === 'function', [onClick]);
 
-  return (
+  return hasClick ? (
+    <motion.div
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
+      transition={{ type: 'spring', stiffness: 300 }}
+    >
+      <NxtImg
+        src={imgSrc}
+        alt={alt}
+        width={width}
+        height={height}
+        onClick={onClick}
+        unoptimized={unoptimized}
+        className={className}
+        onError={() => setImgSrc(fallbackSrc ?? FallbackImg)}
+      />
+    </motion.div>
+  ) : (
     <NxtImg
       src={imgSrc}
       alt={alt}
       width={width}
       height={height}
-      onClick={onClick}
       unoptimized={unoptimized}
       className={className}
       onError={() => setImgSrc(fallbackSrc ?? FallbackImg)}

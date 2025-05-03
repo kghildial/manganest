@@ -21,6 +21,7 @@ const Controls: ReactFC<IControls> = ({
   currentChapter,
   mangaTitle,
   onMinimize,
+  showMinimize,
 }) => {
   const router = useRouter();
 
@@ -32,12 +33,19 @@ const Controls: ReactFC<IControls> = ({
 
   return (
     <div className={cn('flex w-full flex-col', className)}>
-      <div className="flex items-end justify-between gap-5 lg:justify-start">
-        <Minimize2
-          size={24}
-          className="block pr-2 pt-2 text-foreground_tint_60 lg:hidden"
-          onClick={() => onMinimize()}
-        />
+      <div
+        className={cn(
+          'flex items-end gap-5 xl:justify-start',
+          showMinimize ? 'justify-between' : 'justify-end',
+        )}
+      >
+        {showMinimize && (
+          <Minimize2
+            size={24}
+            className="block pr-2 pt-2 text-foreground_tint_60 xl:hidden"
+            onClick={() => onMinimize()}
+          />
+        )}
         <div className="flex gap-5">
           <Motion.Button
             asChild
@@ -71,7 +79,7 @@ const Controls: ReactFC<IControls> = ({
         </div>
       </div>
 
-      <div className="mt-8 hidden flex-col gap-2 lg:flex">
+      <div className="mt-8 hidden flex-col gap-2 xl:flex">
         <p className="font-body font-medium">Move to Chapter:</p>
         <Select
           value={String(currentChapter)}
@@ -94,7 +102,7 @@ const Controls: ReactFC<IControls> = ({
                 key={index}
                 value={`${index}`}
                 className={cn(
-                  'px-3 py-3 font-body lg:py-1 [&_span]:text-xs',
+                  'px-3 py-3 font-body xl:py-1 [&_span]:text-xs',
                   currentChapter === index ? 'bg-accent_tint [&_span]:text-background' : '',
                 )}
               >
