@@ -1,8 +1,7 @@
-import React from 'react';
-import Link from 'next/link';
 import { Search as SearchIcon, Equal } from 'lucide-react';
 
 import Motion from '@/components/motion';
+import Logo from './Logo';
 
 const Header = () => {
   return (
@@ -17,9 +16,7 @@ const Header = () => {
         >
           <SearchIcon size={24} />
         </Motion.Link>
-        <Link href="/" className="flex-1 text-center">
-          <h1 className="text-4xl/10">Manganest</h1>
-        </Link>
+        <Logo />
         <Equal size={36} className="cursor-pointer pl-3" />
       </div>
     </div>
