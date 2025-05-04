@@ -29,6 +29,7 @@ const LatestUpdated = async () => {
     <div className="relative flex flex-col md:mt-24">
       <h1 className="mb-5 xl:mb-0">Latest Updated</h1>
       <PagiantedView
+        className="h-[564px] md:h-[912px] xl:h-[564px]"
         initialData={latestUpdatedMangas}
         totalResults={totalResults}
         paginationLimit={paginationLimit}

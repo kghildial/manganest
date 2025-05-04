@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import { Minimize2 } from 'lucide-react';
 
 import Motion from '@/components/motion';
-import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/ui/select';
 
 import { cn } from '@/lib/utils';

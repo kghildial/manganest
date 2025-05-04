@@ -74,7 +74,7 @@ const MangaReader: ReactFC<IMangaReader> = async ({ params, searchParams }) => {
           )}
         </div>
         <ControlsBox
-          className="mt-5 xl:hidden"
+          className="z-50 mt-5 xl:hidden"
           tags={tags}
           mangaId={mangaId}
           totalCh={totalCh}

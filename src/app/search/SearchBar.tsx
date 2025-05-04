@@ -68,7 +68,7 @@ const SearchBar: ReactFC<ISearchBar> = ({ filterTypes, handleSubmit, searchParam
             whileHover={{ scale: 1.2 }}
             whileTap={{ scale: 0.8 }}
             transition={{ type: 'spring', stiffness: 300 }}
-            className="relative cursor-pointer overflow-hidden pr-1 pt-1"
+            className="relative cursor-pointer overflow-hidden pr-2 pt-1"
             onClick={() => dispatch({ type: EFiltersAction.Show })}
           >
             <SlidersHorizontal size={24} className="text-foreground_tint" />
