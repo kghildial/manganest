@@ -1,8 +1,11 @@
 import type { Metadata } from 'next';
-import { Bebas_Neue, Inknut_Antiqua, Poppins } from 'next/font/google';
-import './globals.css';
+
 import Header from '@/widgets/Header';
+import Footer from '@/widgets/Footer';
 import RouteTransitionWrapper from './RouteTransitionWrapper';
+
+import './globals.css';
+import { Bebas_Neue, Inknut_Antiqua, Poppins } from 'next/font/google';
 
 const bebasNeue = Bebas_Neue({
   subsets: ['latin'],
@@ -42,6 +45,7 @@ export default function RootLayout({
       >
         <Header />
         <RouteTransitionWrapper>{children}</RouteTransitionWrapper>
+        <Footer />
       </body>
     </html>
   );

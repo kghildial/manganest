@@ -7,7 +7,7 @@ import Img404 from '@/assets/images/manganest_404.png';
 
 export default function NotFound() {
   return (
-    <div className="-md:translate-x-14 flex h-[80vh] w-full flex-col items-center justify-center md:flex-row">
+    <div className="-md:translate-x-14 flex h-[calc(100vh-30px)] w-full flex-col items-center justify-center md:flex-row">
       <Image
         src={Img404}
         width={575}
