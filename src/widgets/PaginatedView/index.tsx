@@ -21,7 +21,7 @@ const PagiantedView: ReactFC<IPagiantedView> = ({
 }) => {
   const totalPages = useMemo(() => {
     return Math.ceil(totalResults / paginationLimit);
-  }, [totalResults]);
+  }, [totalResults, paginationLimit]);
 
   const [currentPage, setCurrentPage] = useState(1);
 

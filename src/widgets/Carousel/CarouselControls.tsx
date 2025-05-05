@@ -42,4 +42,6 @@ const CarouselControls = forwardRef<HTMLDivElement, ICarouselControls>(
   },
 );
 
+CarouselControls.displayName = 'CarouselControls';
+
 export default CarouselControls;

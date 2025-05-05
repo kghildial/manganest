@@ -47,7 +47,7 @@ const Modal: ReactFC<IModal> = ({
       document.body.style.overflow = '';
       document.body.removeEventListener('touchmove', scrollBlocker);
     };
-  }, [trigger]);
+  }, [trigger, scrollBlocker]);
 
   return (
     <>

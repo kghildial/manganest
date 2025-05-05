@@ -14,6 +14,7 @@ const Button = forwardRef<HTMLButtonElement, IButton>(
   (
     {
       children,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       asChild,
       variant,
       className,
@@ -41,5 +42,7 @@ const Button = forwardRef<HTMLButtonElement, IButton>(
     );
   },
 );
+
+Button.displayName = 'Button';
 
 export default Button;

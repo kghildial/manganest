@@ -1,4 +1,4 @@
-import { Search as SearchIcon, Equal } from 'lucide-react';
+import { Search as SearchIcon } from 'lucide-react';
 
 import Motion from '@/components/motion';
 import Logo from './Logo';

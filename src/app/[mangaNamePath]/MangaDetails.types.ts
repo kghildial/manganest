@@ -1,4 +1,4 @@
-import type { HTMLAttributes, ReactNode } from 'react';
+import type { HTMLAttributes } from 'react';
 
 import { IManga, IMangaFeed } from '@/types/manga.types';
 
@@ -11,8 +11,8 @@ interface ISearchParams {
 }
 
 export interface IMangaDetails {
-  params: IParams;
-  searchParams: ISearchParams;
+  params: Promise<IParams>;
+  searchParams: Promise<ISearchParams>;
 }
 
 export interface IChapterListing extends HTMLAttributes<HTMLDivElement> {

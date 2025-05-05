@@ -1,12 +1,12 @@
-import { IGetMangaResponse, IManga, IMangaTag } from '@/types/manga.types';
-import { Dispatch, SetStateAction } from 'react';
+import { IGetMangaResponse, IMangaTag } from '@/types/manga.types';
+import { Dispatch } from 'react';
 
 interface ISearchParams {
   tag: string;
 }
 
 export interface ISeach {
-  searchParams: ISearchParams;
+  searchParams: Promise<ISearchParams>;
 }
 
 export interface IFilters {

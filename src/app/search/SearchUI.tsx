@@ -5,7 +5,7 @@ import { type FC as ReactFC, useCallback, useEffect, useMemo, useState } from 'r
 import SearchBar from './SearchBar';
 
 import { IHandleSubmit, ISearchStatus, ISearchUI } from './Search.types';
-import { IGetMangaParams, IGetMangaResponse, IManga } from '@/types/manga.types';
+import { IGetMangaParams } from '@/types/manga.types';
 import PagiantedView from '@/widgets/PaginatedView';
 import { getManga } from '@/lib/manga.server';
 
@@ -34,33 +34,36 @@ const SearchUI: ReactFC<ISearchUI> = ({
         followedCount: 'desc',
       },
     }),
-    [searchStatus.includedTags],
+    [searchStatus.includedTags, paginationLimit],
   );
 
-  const handleSubmit = useCallback(({ searchTerm, filters }: IHandleSubmit) => {
-    setIsLoading(true);
-    const getResults = async () => {
-      const includedTags = Object.keys(filters);
+  const handleSubmit = useCallback(
+    ({ searchTerm, filters }: IHandleSubmit) => {
+      setIsLoading(true);
+      const getResults = async () => {
+        const includedTags = Object.keys(filters);
 
-      let prompt = { ...baseSearchPrompt, includedTags };
+        let prompt = { ...baseSearchPrompt, includedTags };
 
-      if (searchTerm !== '') {
-        prompt = { ...prompt, title: searchTerm };
-      }
+        if (searchTerm !== '') {
+          prompt = { ...prompt, title: searchTerm };
+        }
 
-      const results = await getManga(prompt);
+        const results = await getManga(prompt);
 
-      // Generate new random key to trigger needed sideEffects down the chain
-      const resetPageKey = Math.random().toString(36).slice(2);
+        // Generate new random key to trigger needed sideEffects down the chain
+        const resetPageKey = Math.random().toString(36).slice(2);
 
-      // Show top hundred entries
-      if (results.total > 100) results.total = 100;
+        // Show top hundred entries
+        if (results.total > 100) results.total = 100;
 
-      setSearchStatus({ results, searchTerm, resetPageKey, includedTags });
-    };
+        setSearchStatus({ results, searchTerm, resetPageKey, includedTags });
+      };
 
-    getResults();
-  }, []);
+      getResults();
+    },
+    [baseSearchPrompt],
+  );
 
   useEffect(() => {
     setIsLoading(false);

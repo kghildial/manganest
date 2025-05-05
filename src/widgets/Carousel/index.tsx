@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useState, useRef, type FC as ReactFC } from 'react';
-import type { CreatePluginType } from 'embla-carousel';
 import Autoplay, { type AutoplayType } from 'embla-carousel-autoplay';
 import Fade, { type FadeType } from 'embla-carousel-fade';
 
@@ -88,7 +87,7 @@ const Carousel: ReactFC<ICarousel> = ({
 
     replayCarousel();
 
-    () => {
+    return () => {
       window.cancelAnimationFrame(animFrameId.current);
       window.clearTimeout(timeoutId.current);
     };

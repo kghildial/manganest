@@ -1,6 +1,6 @@
 'use client';
 
-import { type FC as ReactFC, useEffect, useMemo, useState } from 'react';
+import { type FC as ReactFC, useMemo } from 'react';
 import { motion } from 'motion/react';
 
 import {
@@ -54,7 +54,7 @@ const Pagination: ReactFC<IPagination> = ({
             <motion.button whileHover={{ scale: 1.1 }} key={page}>
               <PaginationItem>
                 <PaginationLink
-                  onClick={event => {
+                  onClick={() => {
                     handlePageChange(page);
                   }}
                   className={cn(

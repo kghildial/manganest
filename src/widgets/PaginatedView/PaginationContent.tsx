@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { useRouter } from 'next/navigation';
-import { memo, useCallback, useEffect, useMemo, useState, type FC as ReactFC } from 'react';
+import { memo, useCallback, useEffect, useState, type FC as ReactFC } from 'react';
 
 import MangaCard from '../MangaCard';
 import Loader from '@/widgets/Loader';
@@ -42,7 +42,7 @@ const PaginationContent: ReactFC<IPaginationContent> = ({
 
   useEffect(() => {
     onPageChange(currentPage);
-  }, [currentPage]);
+  }, [currentPage, onPageChange]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -87,9 +87,11 @@ const PaginationContent: ReactFC<IPaginationContent> = ({
                     timestamp={timeStamp}
                     authors={authors}
                     onClick={() => {
-                      title !== null
-                        ? router.push(`/${encodeURIComponent(title)}?id=${mangaId}`)
-                        : router.push('/');
+                      if (title !== null) {
+                        router.push(`/${encodeURIComponent(title)}?id=${mangaId}`);
+                      } else {
+                        router.push('/');
+                      }
                     }}
                   />
                 );

@@ -1,4 +1,4 @@
-'use-client';
+'use client';
 
 import { memo, useEffect, useMemo, useState, type FC as ReactFC } from 'react';
 import { useImmerReducer } from 'use-immer';
@@ -10,7 +10,7 @@ import { Input } from '@/components/ui/input';
 
 import useResponsive from '@/hooks/useResponsive';
 
-import { EFiltersAction, IFilters, ISearchBar } from './Search.types';
+import { EFiltersAction, ISearchBar } from './Search.types';
 import FiltersModal from './FiltersModal';
 import { filtersReducer } from './utils';
 
@@ -33,7 +33,7 @@ const SearchBar: ReactFC<ISearchBar> = ({ filterTypes, handleSubmit, searchParam
     if (searchParamTag) {
       dispatch({ type: EFiltersAction.Include, payload: searchParamTag });
     }
-  }, []);
+  }, [dispatch, searchParamTag]);
 
   // Search again when tags
   useEffect(() => {
@@ -42,7 +42,7 @@ const SearchBar: ReactFC<ISearchBar> = ({ filterTypes, handleSubmit, searchParam
     if (!visible && filtersChanged) {
       handleSubmit({ searchTerm, filters: filters.include });
     }
-  }, [filters.visible]);
+  }, [filters, handleSubmit, searchTerm]);
 
   return (
     <>

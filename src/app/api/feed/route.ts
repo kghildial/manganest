@@ -14,7 +14,7 @@ export async function POST(req: Request) {
     } else {
       return NextResponse.json({ error: 'Failed to fetch manga feed' }, { status: 400 });
     }
-  } catch (err) {
-    return NextResponse.json({ error: 'Failed to fetch manga feed' }, { status: 500 });
+  } catch (error) {
+    return NextResponse.json({ error }, { status: 500 });
   }
 }

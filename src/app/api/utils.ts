@@ -8,7 +8,7 @@ export async function getDeviceTypeFromUA() {
 
   const headerList = await headers();
   const userAgent = headerList.get('user-agent') ?? '';
-  const { device, browser, cpu, os } = UAParser(userAgent);
+  const { device } = UAParser(userAgent);
 
   return {
     isMobile: device.type === 'mobile',

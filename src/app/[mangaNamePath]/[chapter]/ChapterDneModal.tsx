@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 
 import Modal from '@/components/Modal';
 import Motion from '@/components/motion';
-import { Button } from '@/components/ui/button';
 
 import { IChapterDneModal } from './MangaReader.types';
 

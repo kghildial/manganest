@@ -1,7 +1,6 @@
-import type { HTMLAttributes, ReactNode, RefObject } from 'react';
+import type { HTMLAttributes, ReactNode } from 'react';
 
 import { IManga } from '@/types/manga.types';
-import { AutoplayType } from 'embla-carousel-autoplay';
 
 export interface ICarouselControls extends HTMLAttributes<HTMLDivElement> {
   onMouseEnter: () => void;

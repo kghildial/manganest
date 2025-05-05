@@ -63,7 +63,7 @@ const ChapterListing: ReactFC<IChapterListing> = ({ mangaId, mangaTitle, initial
 
       fetchMoreData();
     }
-  }, [page]);
+  }, [page, mangaId]);
 
   return (
     <>

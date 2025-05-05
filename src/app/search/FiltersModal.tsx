@@ -1,6 +1,6 @@
-'use-client';
+'use client';
 
-import { memo, useEffect, useMemo, useState, type FC as ReactFC } from 'react';
+import { memo, useMemo, type FC as ReactFC } from 'react';
 import { FunnelX } from 'lucide-react';
 
 import Modal from '@/components/Modal';

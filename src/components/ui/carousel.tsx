@@ -3,7 +3,6 @@
 import * as React from 'react';
 import useEmblaCarousel, { type UseEmblaCarouselType } from 'embla-carousel-react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
-import Motion from '../motion';
 import { motion } from 'motion/react';
 
 import { cn } from '@/lib/utils';
@@ -112,10 +111,8 @@ const Carousel = React.forwardRef<
   );
 
   React.useEffect(() => {
-    () => {
-      window.cancelAnimationFrame(animFrameId.current);
-      window.clearTimeout(timeoutId.current);
-    };
+    window.cancelAnimationFrame(animFrameId.current);
+    window.clearTimeout(timeoutId.current);
   }, []);
 
   React.useEffect(() => {

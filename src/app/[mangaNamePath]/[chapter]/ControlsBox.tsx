@@ -36,12 +36,12 @@ const ControlsBox: ReactFC<IMangaControlsBox> = ({
 
   const runAnimation = useMemo(
     () => !isDesktop && controlsState.minimize,
-    [controlsState.minimize],
+    [controlsState.minimize, isDesktop],
   );
 
   const midScrollMaximiseAnim = useMemo(
     () => !isDesktop && !controlsState.isScrollTop && !controlsState.minimize,
-    [controlsState.isScrollTop, controlsState.minimize],
+    [controlsState.isScrollTop, controlsState.minimize, isDesktop],
   );
 
   const minimizeAnimVals = useMemo(
@@ -57,7 +57,7 @@ const ControlsBox: ReactFC<IMangaControlsBox> = ({
             maxHeight: 600,
           }
         : { width: '100%', maxHeight: 600 },
-    [midScrollMaximiseAnim],
+    [midScrollMaximiseAnim, isTablet],
   );
 
   useEffect(() => {
@@ -88,7 +88,7 @@ const ControlsBox: ReactFC<IMangaControlsBox> = ({
         window.removeEventListener('scroll', scrollHandler);
       };
     }
-  }, [mobCtrlsTrigger, controlsState.minimize, isDesktop]);
+  }, [mobCtrlsTrigger, controlsState.minimize, isDesktop, minimizeOnScroll]);
 
   return (
     <div className={className}>

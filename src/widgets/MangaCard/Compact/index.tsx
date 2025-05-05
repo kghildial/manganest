@@ -65,4 +65,6 @@ const Compact = React.forwardRef<HTMLDivElement, IMangaCard>(
   },
 );
 
+Compact.displayName = 'Compact';
+
 export default Compact;

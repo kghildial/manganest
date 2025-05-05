@@ -71,7 +71,7 @@ export function getMangaDetails(manga: IManga) {
 
 export function isChapterDataValid({
   baseUrl,
-  chapter: { hash, data: pageData, dataSaver: pageDataSaver },
+  chapter: { hash, data: pageData },
 }: IGetMangaChapterResponse) {
   return !baseUrl || baseUrl === '' || !hash || hash === '' || !pageData || pageData.length === 0;
 }

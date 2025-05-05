@@ -1,4 +1,4 @@
-import { type FC as ReactFC, useState } from 'react';
+import { type FC as ReactFC } from 'react';
 
 import {
   Select,

@@ -6,7 +6,6 @@ import Image from '@/components/Image';
 
 import Carousel from '@/widgets/Carousel';
 import Tag from '@/components/Tag';
-import { Button } from '@/components/ui/button';
 import Motion from '@/components/motion';
 
 import { ITrendingMangaDetails } from './TrendingManga.types';
@@ -68,9 +67,11 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
                     : 'opacity-100',
                 )}
                 onClick={() => {
-                  title !== null
-                    ? router.push(`/${encodeURIComponent(title)}?id=${mangaId}`)
-                    : router.push('/');
+                  if (title !== null) {
+                    router.push(`/${encodeURIComponent(title)}?id=${mangaId}`);
+                  } else {
+                    router.push('/');
+                  }
                 }}
               />
             </div>
@@ -108,9 +109,11 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
                 asChild
                 className="w-fit"
                 onClick={() => {
-                  title !== null
-                    ? router.push(`/${encodeURIComponent(title)}?id=${mangaId}`)
-                    : router.push('/');
+                  if (title !== null) {
+                    router.push(`/${encodeURIComponent(title)}?id=${mangaId}`);
+                  } else {
+                    router.push('/');
+                  }
                 }}
               >
                 Read{entry?.attributes?.description?.hasOwnProperty('en') ? ' More' : ''}

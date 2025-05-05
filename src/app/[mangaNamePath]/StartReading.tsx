@@ -4,7 +4,6 @@ import { type FC as ReactFC } from 'react';
 import { useRouter } from 'next/navigation';
 
 import Motion from '@/components/motion';
-import { Button } from '@/components/ui/button';
 
 import { IStartReading } from './MangaDetails.types';
 
@@ -18,7 +17,7 @@ const StartReading: ReactFC<IStartReading> = ({ mangaTitle, firstChId, mangaId, 
     <>
       <Motion.Button
         asChild
-        size="lg"
+        size="xl"
         className="hidden w-fit py-4 md:flex"
         onClick={() => handleStartReading()}
       >

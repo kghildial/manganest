@@ -1,4 +1,4 @@
-import { memo, type FC as ReactFC, useEffect, useMemo } from 'react';
+import { memo, type FC as ReactFC } from 'react';
 
 import Tag from '@/components/Tag';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';

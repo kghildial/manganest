@@ -13,8 +13,8 @@ interface ISearchParams {
 }
 
 export interface IMangaReader {
-  params: IParams;
-  searchParams: ISearchParams;
+  params: Promise<IParams>;
+  searchParams: Promise<ISearchParams>;
 }
 
 export interface IControls extends HTMLAttributes<HTMLDivElement> {

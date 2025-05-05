@@ -41,9 +41,11 @@ const ChapterListingFallback: ReactFC<IChapterListingFallback> = ({
                 title={title}
                 authors={authors}
                 onClick={() => {
-                  title !== null
-                    ? router.push(`/${encodeURIComponent(title)}?id=${listingId}`)
-                    : router.push('/');
+                  if (title !== null) {
+                    router.push(`/${encodeURIComponent(title)}?id=${listingId}`);
+                  } else {
+                    router.push('/');
+                  }
                 }}
               />
             )

@@ -7,7 +7,6 @@ import { LayoutGrid } from 'lucide-react';
 import Modal from '@/components/Modal';
 import Motion from '@/components/motion';
 import ChapterDneModal from './ChapterDneModal';
-import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/ui/select';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -41,7 +40,7 @@ const MobileControlsPanel: ReactFC<IMobileControlsPanel> = ({
     if (chapterDneModal.trigger) {
       setTrigger(false);
     }
-  }, [chapterDneModal.trigger]);
+  }, [chapterDneModal.trigger, setTrigger]);
 
   return (
     <>
