@@ -64,3 +64,10 @@ export function getVisiblePages(current: number, total: number): TPaginationPage
 
   return pages;
 }
+
+export const scrollToElement = (el: Element) => {
+  const yOffset = -80; // based on the header height
+
+  const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+  window.scrollTo({ top: y, behavior: 'smooth' });
+};

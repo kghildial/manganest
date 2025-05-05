@@ -19,7 +19,6 @@ const PagiantedView: ReactFC<IPagiantedView> = ({
   mangaFetchOptions,
   compactViewClassName,
 }) => {
-  console.log('pagination rendered');
   const totalPages = useMemo(() => {
     return Math.ceil(totalResults / paginationLimit);
   }, [totalResults]);

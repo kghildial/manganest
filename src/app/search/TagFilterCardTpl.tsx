@@ -14,10 +14,6 @@ const TagFilterCardTemplate: ReactFC<ITagFilterCardTemplate> = ({
   filters,
   dispathFilterAction,
 }) => {
-  useEffect(() => {
-    console.log(filters);
-  }, [filters]);
-
   return (
     <Card className={cn('bg-background p-5', className)}>
       <CardHeader className="mb-5">

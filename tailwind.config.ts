@@ -41,7 +41,8 @@ export default {
         xs: 'calc(var(--radius) - 8px)',
       },
       boxShadow: {
-        floating: '0 4px 8px rgba(0,0,0,0.2), 0 2px 4px rgba(0,0,0,0.1)',
+        floating:
+          '0px 177px 49px 0px rgba(0, 0, 0, 0.00), 0px 113px 45px 0px rgba(0, 0, 0, 0.01), 0px 64px 38px 0px rgba(0, 0, 0, 0.03), 0px 28px 28px 0px rgba(0, 0, 0, 0.05), 0px 7px 16px 0px rgba(0, 0, 0, 0.06);',
       },
       colors: {
         background: 'var(--background)',

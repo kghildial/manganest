@@ -1,6 +1,6 @@
 'use client';
 
-import React, { type FC as ReactFC } from 'react';
+import React, { useEffect, type FC as ReactFC } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from '@/components/Image';
 
@@ -11,13 +11,30 @@ import Motion from '@/components/motion';
 
 import { ITrendingMangaDetails } from './TrendingManga.types';
 
-import { cn } from '@/lib/utils';
+import { cn, scrollToElement } from '@/lib/utils';
 import useResponsive from '@/hooks/useResponsive';
 import { getMangaDetails } from '@/lib/manga';
+import useCleanUrlHash from '@/hooks/useCleanUrlHash';
 
 const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
   const { isMobile, isTablet } = useResponsive();
   const router = useRouter();
+
+  useCleanUrlHash();
+
+  useEffect(() => {
+    const scrollTimeout = setTimeout(() => {
+      if (window.location.hash !== '') {
+        const el = document.querySelector(window.location.hash);
+
+        if (el) {
+          scrollToElement(el);
+        }
+      }
+    }, 300);
+
+    return () => clearTimeout(scrollTimeout);
+  }, []);
 
   return (
     <Carousel
