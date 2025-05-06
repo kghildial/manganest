@@ -12,7 +12,6 @@ const LayoutLoader = () => {
   const { visible: isLoaderVisible, setVisibility } = useContext(LoaderContext);
 
   useEffect(() => {
-    console.log(pathName);
     setVisibility(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathName]);
