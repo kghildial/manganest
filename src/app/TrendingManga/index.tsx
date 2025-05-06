@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, type FC as ReactFC } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Image from '@/components/Image';
 
 import Carousel from '@/widgets/Carousel';
@@ -17,7 +17,6 @@ import { getMangaDetails } from '@/lib/manga';
 const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
   const { isMobile, isTablet } = useResponsive();
   const router = useRouter();
-  const pathname = usePathname();
 
   useEffect(() => {
     const scrollTimeout = setTimeout(() => {
