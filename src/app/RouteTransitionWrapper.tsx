@@ -1,22 +1,19 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
+import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useState, type FC as ReactFC } from 'react';
 
 import { IRouteTransitionWrapper } from '@/types/utils.types';
-import { AnimatePresence, motion } from 'motion/react';
-import { usePathname } from 'next/navigation';
 
 const RouteTransitionWrapper: ReactFC<IRouteTransitionWrapper> = ({ children }) => {
   const pathname = usePathname();
+
   const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      setShowContent(true);
-    }, 300);
-
-    return () => clearTimeout(timeout);
-  }, []);
+    setShowContent(true);
+  }, [pathname]);
 
   return (
     <AnimatePresence mode="wait" initial={false}>
@@ -27,6 +24,7 @@ const RouteTransitionWrapper: ReactFC<IRouteTransitionWrapper> = ({ children }) 
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
+          className="opacity-0"
         >
           {children}
         </motion.div>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, type FC as ReactFC } from 'react';
+import { useContext, useState, type FC as ReactFC } from 'react';
 import { useRouter } from 'next/navigation';
 import { Minimize2 } from 'lucide-react';
 
@@ -12,6 +12,7 @@ import { changeChapter } from '@/lib/manga';
 
 import { IControls, IDneModalState } from './MangaReader.types';
 import ChapterDneModal from './ChapterDneModal';
+import { LoaderContext } from '@/context/loader';
 
 const Controls: ReactFC<IControls> = ({
   className,
@@ -23,6 +24,7 @@ const Controls: ReactFC<IControls> = ({
   showMinimize,
 }) => {
   const router = useRouter();
+  const { setVisibility: setFullScreenLoader } = useContext(LoaderContext);
 
   const [chapterDneModal, setChapterDneModal] = useState<IDneModalState>({
     trigger: false,
@@ -52,10 +54,11 @@ const Controls: ReactFC<IControls> = ({
             onClick={() =>
               changeChapter({
                 targetChapter: currentChapter - 1,
+                router,
                 mangaId,
                 mangaTitle,
                 setChapterDneModal,
-                router,
+                setFullScreenLoader,
               })
             }
           >
@@ -66,10 +69,11 @@ const Controls: ReactFC<IControls> = ({
             onClick={() =>
               changeChapter({
                 targetChapter: currentChapter + 1,
+                router,
                 mangaId,
                 mangaTitle,
                 setChapterDneModal,
-                router,
+                setFullScreenLoader,
               })
             }
           >
@@ -85,10 +89,11 @@ const Controls: ReactFC<IControls> = ({
           onValueChange={chapter => {
             changeChapter({
               targetChapter: Number(chapter),
+              router,
               mangaId,
               mangaTitle,
               setChapterDneModal,
-              router,
+              setFullScreenLoader,
             });
           }}
         >

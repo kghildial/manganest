@@ -107,7 +107,9 @@ export const changeChapter = async ({
   mangaTitle,
   targetChapter,
   setChapterDneModal,
+  setFullScreenLoader,
 }: IChangeChapter) => {
+  setFullScreenLoader(true);
   const listings = await findInFeed({ mangaId, chNum: targetChapter, pagination: 50 });
 
   if (listings.length === 0) {

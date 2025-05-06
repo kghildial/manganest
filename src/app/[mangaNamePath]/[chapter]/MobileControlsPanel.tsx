@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, type FC as ReactFC } from 'react';
+import { useContext, useEffect, useState, type FC as ReactFC } from 'react';
 import { useRouter } from 'next/navigation';
 import { LayoutGrid } from 'lucide-react';
 
@@ -15,6 +15,7 @@ import { changeChapter } from '@/lib/manga';
 
 import { IDneModalState, IMobileControlsPanel } from './MangaReader.types';
 import MetaData from './MetaData';
+import { LoaderContext } from '@/context/loader';
 
 const MobileControlsPanel: ReactFC<IMobileControlsPanel> = ({
   mangaId,
@@ -28,6 +29,8 @@ const MobileControlsPanel: ReactFC<IMobileControlsPanel> = ({
   setTrigger,
 }) => {
   const router = useRouter();
+
+  const { setVisibility: setFullScreenLoader } = useContext(LoaderContext);
 
   const [chapterDneModal, setChapterDneModal] = useState<IDneModalState>({
     trigger: false,
@@ -71,10 +74,11 @@ const MobileControlsPanel: ReactFC<IMobileControlsPanel> = ({
                 onClick={() =>
                   changeChapter({
                     targetChapter: currentChapter - 1,
+                    router,
                     mangaId,
                     mangaTitle,
                     setChapterDneModal,
-                    router,
+                    setFullScreenLoader,
                   })
                 }
               >
@@ -85,10 +89,11 @@ const MobileControlsPanel: ReactFC<IMobileControlsPanel> = ({
                 onClick={() =>
                   changeChapter({
                     targetChapter: currentChapter + 1,
+                    router,
                     mangaId,
                     mangaTitle,
                     setChapterDneModal,
-                    router,
+                    setFullScreenLoader,
                   })
                 }
               >
@@ -102,10 +107,11 @@ const MobileControlsPanel: ReactFC<IMobileControlsPanel> = ({
                 onValueChange={chapter => {
                   changeChapter({
                     targetChapter: Number(chapter),
+                    router,
                     mangaId,
                     mangaTitle,
                     setChapterDneModal,
-                    router,
+                    setFullScreenLoader,
                   });
                 }}
               >

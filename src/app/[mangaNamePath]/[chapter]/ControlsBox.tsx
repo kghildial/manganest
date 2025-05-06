@@ -31,8 +31,8 @@ const ControlsBox: ReactFC<IMangaControlsBox> = ({
 
   const didUserMinimizeAtStart = useRef(false);
 
-  const [controlsState, setControlsState] = useState({ minimize: false, isScrollTop: true });
   const [mobCtrlsTrigger, setMobCtrlsTrigger] = useState(false);
+  const [controlsState, setControlsState] = useState({ minimize: false, isScrollTop: true });
 
   const runAnimation = useMemo(
     () => !isDesktop && controlsState.minimize,

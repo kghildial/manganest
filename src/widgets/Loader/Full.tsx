@@ -1,5 +1,7 @@
-import { type FC as ReactFC } from 'react';
+'use client';
+
 import { useLottie } from 'lottie-react';
+import { type FC as ReactFC } from 'react';
 
 import loaderLottie from '@/assets/lotties/manganest_loader_lottie.json';
 
@@ -9,7 +11,14 @@ import { cn } from '@/lib/utils';
 const Full: ReactFC<ILoaderFull> = ({ className }) => {
   const { View: Loader } = useLottie({ animationData: loaderLottie, loop: true });
   return (
-    <div className={cn('flex h-full w-full items-center justify-center', className)}>{Loader}</div>
+    <div
+      className={cn(
+        'fixed left-0 top-0 flex h-screen w-screen items-center justify-center bg-background',
+        className,
+      )}
+    >
+      {Loader}
+    </div>
   );
 };
 

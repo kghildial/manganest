@@ -2,10 +2,12 @@ import type { Metadata } from 'next';
 
 import Header from '@/widgets/Header';
 import Footer from '@/widgets/Footer';
+import { LoaderProvider } from '../context/loader';
 import RouteTransitionWrapper from './RouteTransitionWrapper';
 
 import './globals.css';
 import { Bebas_Neue, Inknut_Antiqua, Poppins } from 'next/font/google';
+import LayoutLoader from './LayoutLoader';
 
 const bebasNeue = Bebas_Neue({
   subsets: ['latin'],
@@ -43,9 +45,12 @@ export default function RootLayout({
       <body
         className={`${bebasNeue.variable} ${inknutAntiqua.variable} ${poppins.variable} antialiased`}
       >
-        <Header />
-        <RouteTransitionWrapper>{children}</RouteTransitionWrapper>
-        <Footer />
+        <LoaderProvider>
+          <Header />
+          <RouteTransitionWrapper>{children}</RouteTransitionWrapper>
+          <LayoutLoader />
+          <Footer />
+        </LoaderProvider>
       </body>
     </html>
   );

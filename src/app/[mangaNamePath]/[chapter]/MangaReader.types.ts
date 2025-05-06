@@ -49,6 +49,7 @@ export interface IChangeChapter {
   mangaTitle: string;
   targetChapter: number;
   setChapterDneModal: Dispatch<SetStateAction<IDneModalState>>;
+  setFullScreenLoader: Dispatch<SetStateAction<boolean>>;
   router: ReturnType<typeof useRouter>;
 }
 
