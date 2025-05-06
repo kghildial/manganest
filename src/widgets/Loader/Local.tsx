@@ -35,4 +35,6 @@ const Local = forwardRef<Omit<HTMLDivElement, 'ref'>, ILoaderLocal>(
   },
 );
 
+Local.displayName = 'Local';
+
 export default Local;

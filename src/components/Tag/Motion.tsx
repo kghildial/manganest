@@ -13,7 +13,7 @@ const Motion: ReactFC<ITag> = ({ text, className, onClick = () => {} }) => {
       whileTap={{ scale: 0.8 }}
       transition={{ type: 'spring', stiffness: 300 }}
       className={cn(
-        'flex cursor-pointer items-center justify-center rounded-xs bg-secondary_bg1 px-2 py-1 font-ui text-xs/3 font-medium transition-colors hover:bg-accent_tint',
+        'flex cursor-pointer items-center justify-center rounded-xs bg-secondary_bg1 px-2 py-1 font-ui text-xs/3 font-medium transition-colors',
         className,
       )}
       onClick={onClick}
