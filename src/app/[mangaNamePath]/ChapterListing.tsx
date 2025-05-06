@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useRef, useState, type FC as ReactFC } from 'react';
 
@@ -9,6 +9,7 @@ import { Clock } from 'lucide-react';
 import { IChapterListing } from './MangaDetails.types';
 import { timeAgo } from '@/lib/utils';
 import { IGetMangaFeedResponse } from '@/types/manga.types';
+import Loader from '@/widgets/Loader';
 
 const ChapterListing: ReactFC<IChapterListing> = ({ mangaId, mangaTitle, initialList }) => {
   const router = useRouter();
@@ -66,7 +67,7 @@ const ChapterListing: ReactFC<IChapterListing> = ({ mangaId, mangaTitle, initial
   }, [page, mangaId]);
 
   return (
-    <>
+    <AnimatePresence>
       {list.map(({ id, attributes: { chapter, updatedAt } }) => (
         <motion.div
           key={id}
@@ -87,8 +88,8 @@ const ChapterListing: ReactFC<IChapterListing> = ({ mangaId, mangaTitle, initial
           </p>
         </motion.div>
       ))}
-      <div ref={loader} className="h-10" />
-    </>
+      {hasMore && <Loader.Local ref={loader} className="h-10 w-20" />}
+    </AnimatePresence>
   );
 };
 
