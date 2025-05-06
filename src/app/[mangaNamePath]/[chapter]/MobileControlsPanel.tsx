@@ -59,7 +59,7 @@ const MobileControlsPanel: ReactFC<IMobileControlsPanel> = ({
         onClose={() => setTrigger(false)}
         closeIconClassName="bg-background rounded-xs"
       >
-        <Card className="-mt-6 bg-background p-5">
+        <Card className="bg-background p-5">
           <CardHeader>
             <CardTitle className="font-heading text-4xl font-normal">{mangaTitle}</CardTitle>
             <CardDescription className="font-heading text-2xl/7">

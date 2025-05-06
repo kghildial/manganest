@@ -15,6 +15,8 @@ import { getMangaDetails } from '@/lib/manga';
 
 import { IMangaDetails } from './MangaDetails.types';
 import Link from 'next/link';
+import CreatorData from './CreatorData';
+import MobDesc from './MobileDesc';
 
 const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) => {
   const { mangaNamePath } = await params;
@@ -82,9 +84,9 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
         />
         <div className="ml-2 flex flex-col md:ml-8">
           <h1 className="mb-3 hidden font-title text-5xl leading-[54px] md:block">{title}</h1>
-          <div className="mb-2 flex items-center gap-x-2 md:mb-5 md:gap-x-10">
+          <div className="mb-2 flex flex-col gap-x-2 sm:flex-row sm:items-center md:mb-5 md:gap-x-10">
             <Tag.Static
-              className="w-fit gap-1 rounded-sm py-2 md:rounded-md md:px-4 md:py-1.5"
+              className="mb-2 w-fit gap-1 rounded-sm py-2 sm:mb-0 md:rounded-md md:px-4 md:py-1.5"
               text={
                 <>
                   <StarIcon size={24} className="hidden text-accent md:block" />
@@ -104,32 +106,8 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
               />
             )}
           </div>
-          <p className="mb-5 hidden font-body font-medium md:block">{description}</p>
+
           <div className="mb-3 flex flex-col flex-wrap gap-x-0 gap-y-2 md:mb-8 md:flex-row md:gap-x-5 md:gap-y-3">
-            <MetaCardLayout title="Authors">
-              {authors?.map(
-                author =>
-                  author?.attributes?.name && (
-                    <Tag.Static
-                      key={author.id}
-                      text={author.attributes.name}
-                      className="bg-secondary_bg2"
-                    />
-                  ),
-              )}
-            </MetaCardLayout>
-            <MetaCardLayout title="Artists">
-              {artists?.map(
-                artist =>
-                  artist?.attributes?.name && (
-                    <Tag.Static
-                      key={artist.id}
-                      text={artist.attributes.name}
-                      className="bg-secondary_bg2"
-                    />
-                  ),
-              )}
-            </MetaCardLayout>
             <MetaCardLayout title="Genres" className="hidden md:block">
               {tags?.map(
                 tag =>
@@ -140,18 +118,33 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
                   ),
               )}
             </MetaCardLayout>
+            <CreatorData
+              title={mangaTitle}
+              description={description ?? ''}
+              authors={authors}
+              artists={artists}
+            />
           </div>
         </div>
       </div>
-      <h1 className="my-3 block font-title text-2xl/7 md:hidden">{title}</h1>
+      <h1 className="my-3 mt-5 block font-title text-2xl/7 sm:mt-12 md:hidden">{title}</h1>
       <div className="mb-5 flex flex-wrap gap-1 md:hidden">
         {tags?.map(
           tag =>
-            tag?.attributes?.name?.en && <Tag.Static key={tag.id} text={tag.attributes.name.en} />,
+            tag?.attributes?.name?.en && (
+              <Link key={tag.id} href={`/search?tag=${tag.id}`}>
+                <Tag.Motion key={tag.id} text={tag.attributes.name.en} />
+              </Link>
+            ),
         )}
       </div>
-      <p className="block font-body text-sm font-medium md:hidden">{description}</p>
-      <div className="mt-12 flex flex-col md:mt-24">
+      <MobDesc
+        title={title ?? 'N/A'}
+        description={description ?? ''}
+        authors={authors}
+        artists={artists}
+      />
+      <div className="mt-5 flex flex-col md:mt-24">
         <h2 className="mb-5 md:mb-8">Chapters</h2>
         <div className="flex flex-col gap-2"></div>
         {isChaptersDataAvail ? (

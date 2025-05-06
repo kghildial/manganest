@@ -89,7 +89,7 @@ export default {
         },
       },
       screens: {
-        sm: '480px',
+        sm: '400px',
         md: '768px',
         lg: '1024px', // you can adjust this
         xl: '1280px', // 1440px for large laptops if you want
@@ -99,5 +99,6 @@ export default {
       },
     },
   },
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   plugins: [require('tailwindcss-animate')],
 } satisfies Config;

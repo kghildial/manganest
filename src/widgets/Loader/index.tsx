@@ -1,7 +1,5 @@
-import dynamic from 'next/dynamic';
-
-const Full = dynamic(() => import('./Full'), { ssr: false });
-const Local = dynamic(() => import('./Local'), { ssr: false });
+import Local from './Local';
+import Full from './Full';
 
 const Loader = {
   Local,

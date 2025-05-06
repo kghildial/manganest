@@ -1,10 +1,12 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { useContext, useEffect } from 'react';
 import { LoaderContext } from '@/context/loader';
 
-import Loader from '@/widgets/Loader';
 import { usePathname } from 'next/navigation';
+
+const FullLoader = dynamic(() => import('@/widgets/Loader/Full'), { ssr: false });
 
 const LayoutLoader = () => {
   const pathName = usePathname();
@@ -16,7 +18,7 @@ const LayoutLoader = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathName]);
 
-  return isLoaderVisible && <Loader.Full />;
+  return isLoaderVisible && <FullLoader />;
 };
 
 export default LayoutLoader;

@@ -45,7 +45,6 @@ const FiltersModal: ReactFC<IFiltersModal> = ({ filters, filterTypes, dispathFil
       </AnimatePresence>
       <TagFilterCardTemplate
         title="Genre"
-        className="-mt-6"
         tags={filterTypes.genres}
         filters={filters}
         dispathFilterAction={dispathFilterAction}

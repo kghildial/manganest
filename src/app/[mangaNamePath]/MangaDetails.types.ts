@@ -1,6 +1,6 @@
-import type { HTMLAttributes } from 'react';
+import type { Dispatch, HTMLAttributes, SetStateAction } from 'react';
 
-import { IManga, IMangaFeed } from '@/types/manga.types';
+import { IManga, IMangaFeed, TMangaRelationship } from '@/types/manga.types';
 
 export interface IParams {
   mangaNamePath: string;
@@ -32,3 +32,17 @@ export interface IChapterListingFallback {
   mangaId: string;
   mangaSearchResults: IManga[];
 }
+
+export interface ICreatorData {
+  title: string;
+  description: string;
+  authors: TMangaRelationship[] | null;
+  artists: TMangaRelationship[] | null;
+}
+
+export interface IFullDetailsModal extends ICreatorData {
+  showModal: boolean;
+  setShowModal: Dispatch<SetStateAction<boolean>>;
+}
+
+export type IMobDesc = ICreatorData;

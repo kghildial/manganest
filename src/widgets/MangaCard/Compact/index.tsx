@@ -17,6 +17,8 @@ const Compact = React.forwardRef<HTMLDivElement, IMangaCard>(
       filteredTitle = titleWords.slice(0, 11).join(' ') + '...';
     }
 
+    const authorsToShow = authors && authors.length > 2 ? authors.slice(0, 2) : authors;
+
     return (
       <Motion.Card
         whileHover={{ scale: 1.05 }}
@@ -40,17 +42,22 @@ const Compact = React.forwardRef<HTMLDivElement, IMangaCard>(
           </CardHeader>
           <CardFooter className="flex justify-between font-ui">
             <div className="flex flex-wrap">
-              {authors &&
-                authors.map(({ id, attributes }, index) => {
-                  const length = authors.length;
+              {authorsToShow &&
+                authorsToShow.map(({ id, attributes }, index) => {
+                  const length = authorsToShow.length;
                   const isCommaNeeded = length > 1 && index !== length - 1;
 
                   return (
                     <p
                       key={id}
-                      className="font-3.25 ml-1 text-xs/4 font-medium group-hover:text-background"
+                      className="font-3.25 ml-1 flex items-center text-xs/4 font-medium text-foreground_tint group-hover:text-background"
                     >
                       {`${attributes?.name}${isCommaNeeded ? ',' : ''}`}
+                      {index === authorsToShow.length - 1 && authors && authors?.length > 2 && (
+                        <span className="font-body text-foreground_tint group-hover:text-background">
+                          , ...
+                        </span>
+                      )}
                     </p>
                   );
                 })}

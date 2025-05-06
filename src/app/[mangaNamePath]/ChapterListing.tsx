@@ -76,7 +76,7 @@ const ChapterListing: ReactFC<IChapterListing> = ({ mangaId, mangaTitle, initial
           transition={{ type: 'tween' }}
           className="group mb-3 flex cursor-pointer items-center rounded-sm bg-secondary_bg1 px-5 py-3 hover:bg-accent_tint md:px-8 md:py-4"
           onClick={() => {
-            router.push(`/${mangaTitle}/${id}?id=${mangaId}&ch=${chapter}`);
+            router.push(`/${encodeURIComponent(mangaTitle)}/${id}?id=${mangaId}&ch=${chapter}`);
           }}
         >
           <p className="flex-1 font-body text-sm font-medium group-hover:text-background">
@@ -88,7 +88,7 @@ const ChapterListing: ReactFC<IChapterListing> = ({ mangaId, mangaTitle, initial
           </p>
         </motion.div>
       ))}
-      {hasMore && <Loader.Local ref={loader} className="h-10 w-20" />}
+      {hasMore && <Loader.Local ref={loader} className="h-20 w-20" />}
     </AnimatePresence>
   );
 };

@@ -4,6 +4,7 @@ import { IModal } from './Modal.types';
 import { cn } from '@/lib/utils';
 import { X } from 'lucide-react';
 import Motion from '@/components/motion';
+import { AnimatePresence, motion } from 'motion/react';
 
 const Modal: ReactFC<IModal> = ({
   trigger,
@@ -50,9 +51,12 @@ const Modal: ReactFC<IModal> = ({
   }, [trigger, scrollBlocker]);
 
   return (
-    <>
+    <AnimatePresence mode="wait">
       {trigger && (
-        <div
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.8 }}
           ref={modalRef}
           className={cn(
             'fixed left-0 top-[68px] flex h-[calc(100vh-68px)] w-[100vw] items-start justify-center bg-background_50 pt-14 backdrop-blur-lg md:items-center xl:top-[73px] xl:h-[calc(100vh-73px)]',
@@ -80,7 +84,7 @@ const Modal: ReactFC<IModal> = ({
                 className,
               )}
             >
-              <CardHeader className="relative mb-5 flex w-full flex-row justify-between">
+              <CardHeader className="relative flex w-full flex-row justify-between">
                 <div className="flex flex-col">
                   {title && (
                     <CardTitle>
@@ -98,9 +102,9 @@ const Modal: ReactFC<IModal> = ({
               <CardFooter></CardFooter>
             </Card>
           </div>
-        </div>
+        </motion.div>
       )}
-    </>
+    </AnimatePresence>
   );
 };
 
