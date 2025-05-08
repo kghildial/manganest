@@ -14,7 +14,6 @@ import { cn } from '@/lib/utils';
 import useResponsive from '@/hooks/useResponsive';
 
 import { IMangaControlsBox } from './MangaReader.types';
-import Link from 'next/link';
 
 const ControlsBox: ReactFC<IMangaControlsBox> = ({
   tags,
