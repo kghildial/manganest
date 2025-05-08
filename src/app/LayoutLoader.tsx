@@ -5,6 +5,7 @@ import { useContext, useEffect } from 'react';
 import { LoaderContext } from '@/context/loader';
 
 import { usePathname } from 'next/navigation';
+import { AnimatePresence } from 'motion/react';
 
 const FullLoader = dynamic(() => import('@/widgets/Loader/Full'), { ssr: false });
 
@@ -18,7 +19,7 @@ const LayoutLoader = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathName]);
 
-  return isLoaderVisible && <FullLoader />;
+  return <AnimatePresence mode="wait">{isLoaderVisible && <FullLoader />}</AnimatePresence>;
 };
 
 export default LayoutLoader;

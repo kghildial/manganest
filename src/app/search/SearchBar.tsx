@@ -87,9 +87,7 @@ const SearchBar: ReactFC<ISearchBar> = ({ filterTypes, handleSubmit, searchParam
           {!isMobile ? 'Search' : <SearchIcon size={24} className="text-background" />}
         </Motion.Button>
       </form>
-      {filters.visible && (
-        <FiltersModal filters={filters} filterTypes={filterTypes} dispathFilterAction={dispatch} />
-      )}
+      <FiltersModal filters={filters} filterTypes={filterTypes} dispathFilterAction={dispatch} />
     </>
   );
 };

@@ -1,15 +1,24 @@
 'use client';
 
-import { type FC as ReactFC } from 'react';
+import { useContext, useEffect, type FC as ReactFC } from 'react';
 import { useRouter } from 'next/navigation';
 
 import Modal from '@/components/Modal';
 import Motion from '@/components/motion';
 
+import { LoaderContext } from '@/context/loader';
+
 import { IChapterDneModal } from './MangaReader.types';
 
 const ChapterDneModal: ReactFC<IChapterDneModal> = ({ mangaId, mangaTitle, state, setState }) => {
   const router = useRouter();
+  const { visible: isFulllScreenLoaderVisible, setVisibility: setFullScreenLoader } =
+    useContext(LoaderContext);
+
+  useEffect(() => {
+    if (state.trigger && isFulllScreenLoaderVisible) setFullScreenLoader(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.trigger]);
 
   return (
     <Modal
