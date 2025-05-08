@@ -67,7 +67,7 @@ const ChapterListing: ReactFC<IChapterListing> = ({ mangaId, mangaTitle, initial
   }, [page, mangaId]);
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {list.map(({ id, attributes: { chapter, updatedAt } }) => (
         <motion.div
           key={id}
