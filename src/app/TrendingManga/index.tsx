@@ -89,9 +89,23 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
                 <>
                   <div className="mb-5 flex flex-wrap gap-3 xl:hidden">
                     {(tags.length > 5 ? tags.slice(0, 6) : tags).map(tag => (
-                      <Tag.Motion key={tag.id} text={tag?.attributes?.name?.en ?? null} />
+                      <Tag.Motion
+                        key={tag.id}
+                        text={tag?.attributes?.name?.en ?? null}
+                        onClick={() => {
+                          router.push(`/search?tag=${tag.id}`);
+                        }}
+                      />
                     ))}
-                    {isMobile && tags.length > 5 && <Tag.Static key="..." text="..." />}
+                    {isMobile && tags.length > 5 && (
+                      <Tag.Motion
+                        key="..."
+                        text="..."
+                        onClick={() => {
+                          router.push(`/${title}?id=${mangaId}`);
+                        }}
+                      />
+                    )}
                   </div>
                   <div className="mb-5 hidden flex-wrap gap-3 xl:flex">
                     {tags.map(tag => (

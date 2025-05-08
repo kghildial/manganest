@@ -62,7 +62,16 @@ const MobileControlsPanel: ReactFC<IMobileControlsPanel> = ({
       >
         <Card className="bg-background p-5">
           <CardHeader>
-            <CardTitle className="font-heading text-4xl font-normal">{mangaTitle}</CardTitle>
+            <CardTitle className="flex font-heading text-4xl font-normal">
+              <Motion.Link
+                whileHover={{ scale: 1.1, translateX: 16 }}
+                whileTap={{ scale: 0.9 }}
+                className="transition-colors hover:text-accent"
+                href={`/${mangaTitle}?id=${mangaId}`}
+              >
+                {mangaTitle}
+              </Motion.Link>
+            </CardTitle>
             <CardDescription className="font-heading text-2xl/7">
               Chapter {currentChapter}
             </CardDescription>
