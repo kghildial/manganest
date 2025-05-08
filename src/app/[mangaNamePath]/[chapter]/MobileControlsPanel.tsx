@@ -22,6 +22,7 @@ const MobileControlsPanel: ReactFC<IMobileControlsPanel> = ({
   mangaTitle,
   currentChapter,
   totalChapters,
+  firstChNum,
   tags,
   authors,
   artists,
@@ -71,6 +72,9 @@ const MobileControlsPanel: ReactFC<IMobileControlsPanel> = ({
               <Motion.Button
                 asChild
                 variant="secondary"
+                className={cn(
+                  currentChapter === firstChNum ? 'pointer-events-none opacity-50' : '',
+                )}
                 onClick={() =>
                   changeChapter({
                     targetChapter: currentChapter - 1,
@@ -86,6 +90,9 @@ const MobileControlsPanel: ReactFC<IMobileControlsPanel> = ({
               </Motion.Button>
               <Motion.Button
                 asChild
+                className={cn(
+                  currentChapter === totalChapters ? 'pointer-events-none opacity-50' : '',
+                )}
                 onClick={() =>
                   changeChapter({
                     targetChapter: currentChapter + 1,

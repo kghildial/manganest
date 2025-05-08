@@ -1,6 +1,8 @@
 import { type FC as ReactFC } from 'react';
 import Image from '@/components/Image';
 
+import ControlsBox from './ControlsBox';
+import ChapterNAFallback from './ChapterNAFallback';
 import LayoutWrapper from '@/components/LayoutWrapper';
 
 import {
@@ -10,11 +12,9 @@ import {
   getMangaChapter,
   getValidChRef,
 } from '@/lib/manga.server';
-import { getMangaDetails, isChapterDataValid } from '@/lib/manga';
+import { getFirstChapter, getMangaDetails, isChapterDataValid } from '@/lib/manga';
 
 import { IMangaReader } from './MangaReader.types';
-import ControlsBox from './ControlsBox';
-import ChapterNAFallback from './ChapterNAFallback';
 
 const MangaReader: ReactFC<IMangaReader> = async ({ params, searchParams }) => {
   const { mangaNamePath, chapter: chId } = await params;
@@ -46,6 +46,8 @@ const MangaReader: ReactFC<IMangaReader> = async ({ params, searchParams }) => {
     baseUrl,
     chapter: { hash, data: pageData, dataSaver: pageDataSaver },
   } = chapterData;
+
+  const { firstChNum } = await getFirstChapter(mangaId);
 
   return (
     <LayoutWrapper className="flex flex-col">
@@ -80,10 +82,11 @@ const MangaReader: ReactFC<IMangaReader> = async ({ params, searchParams }) => {
           totalCh={totalCh}
           authors={authors}
           artists={artists}
+          firstChNum={Number(firstChNum)}
           mangaTitle={mangaTitle}
           currentChNum={currentChNum}
         />
-        <div className="4k:right-[12vw] fixed left-[2.5%] top-20 h-[85vh] w-[95vw] xl:left-auto xl:right-[calc((10vw)/2)] xl:top-[117px] xl:w-[25%] xl:overflow-scroll 2xl:right-[calc((100vw-1440px)/2)]">
+        <div className="fixed left-[2.5%] top-20 h-[85vh] w-[95vw] xl:left-auto xl:right-[calc((10vw)/2)] xl:top-[117px] xl:w-[25%] xl:overflow-scroll 2xl:right-[calc((100vw-1440px)/2)] 4k:right-[12vw]">
           <ControlsBox
             tags={tags}
             minimizeOnScroll
@@ -92,6 +95,7 @@ const MangaReader: ReactFC<IMangaReader> = async ({ params, searchParams }) => {
             totalCh={totalCh}
             authors={authors}
             artists={artists}
+            firstChNum={Number(firstChNum)}
             mangaTitle={mangaTitle}
             currentChNum={currentChNum}
           />

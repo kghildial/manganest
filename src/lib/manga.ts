@@ -124,3 +124,22 @@ export const changeChapter = async ({
     router.push(`/${encodeURIComponent(mangaTitle)}/${id}?id=${mangaId}&ch=${targetChapter}`);
   }
 };
+
+export const getFirstChapter = async (mangaId: string) => {
+  const {
+    id: firstChId,
+    attributes: { chapter: firstChNum },
+  } = (
+    await getMangaFeed({
+      id: mangaId,
+      limit: 1,
+      offset: 0,
+      translatedLanguage: ['en'],
+      order: {
+        chapter: 'asc',
+      },
+    })
+  ).data[0] ?? { id: null, attributes: { chapter: null } };
+
+  return { firstChId, firstChNum };
+};

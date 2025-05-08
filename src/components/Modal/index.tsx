@@ -11,6 +11,7 @@ const Modal: ReactFC<IModal> = ({
   modalTitle = '',
   className,
   backdropClassName = '',
+  scrollWrapperClassName = '',
   children,
   title = null,
   description = null,
@@ -59,11 +60,11 @@ const Modal: ReactFC<IModal> = ({
           exit={{ opacity: 0, scale: 0.8 }}
           ref={modalRef}
           className={cn(
-            'fixed left-0 top-[68px] flex h-[calc(100vh-68px)] w-[100vw] items-start justify-center bg-background_50 pt-14 backdrop-blur-lg md:items-center xl:top-[73px] xl:h-[calc(100vh-73px)]',
+            'fixed left-0 top-[68px] z-10 flex h-[calc(100vh-68px)] w-[100vw] items-start justify-center bg-background_50 pt-14 backdrop-blur-lg md:items-center xl:top-[73px] xl:h-[calc(100vh-73px)]',
             backdropClassName,
           )}
         >
-          <div className="relative h-[84%]">
+          <div className={cn('relative h-[84%]', scrollWrapperClassName)}>
             <p className="absolute left-1 top-[-30px] font-heading text-[28px] font-light text-background">
               {modalTitle}
             </p>

@@ -20,6 +20,7 @@ const Controls: ReactFC<IControls> = ({
   mangaId,
   currentChapter,
   mangaTitle,
+  firstChNum,
   onMinimize,
   showMinimize,
 }) => {
@@ -51,6 +52,9 @@ const Controls: ReactFC<IControls> = ({
           <Motion.Button
             asChild
             variant="secondary"
+            className={cn(
+              currentChapter === firstChNum ? 'z-1 pointer-events-none opacity-50' : '',
+            )}
             onClick={() =>
               changeChapter({
                 targetChapter: currentChapter - 1,
@@ -66,6 +70,7 @@ const Controls: ReactFC<IControls> = ({
           </Motion.Button>
           <Motion.Button
             asChild
+            className={cn(currentChapter === totalCh ? 'pointer-events-none opacity-50' : '')}
             onClick={() =>
               changeChapter({
                 targetChapter: currentChapter + 1,
@@ -106,7 +111,7 @@ const Controls: ReactFC<IControls> = ({
                 key={index}
                 value={`${index}`}
                 className={cn(
-                  'px-3 py-3 font-body xl:py-1 [&_span]:text-xs',
+                  'my-1 px-3 py-3 font-body xl:py-1 [&_span]:text-xs',
                   currentChapter === index ? 'bg-accent_tint [&_span]:text-background' : '',
                 )}
               >

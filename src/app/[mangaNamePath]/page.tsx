@@ -11,7 +11,7 @@ import StartReading from './StartReading';
 import ChapterListingFallback from './ChapterListingFallback';
 
 import { getManga, getMangaFeed, getMangaStats } from '@/lib/manga.server';
-import { getMangaDetails } from '@/lib/manga';
+import { getFirstChapter, getMangaDetails } from '@/lib/manga';
 
 import { IMangaDetails } from './MangaDetails.types';
 import Link from 'next/link';
@@ -56,20 +56,7 @@ const MangaDetails: ReactFC<IMangaDetails> = async ({ params, searchParams }) =>
     isChaptersDataAvail = false;
   }
 
-  const {
-    id: firstChId,
-    attributes: { chapter: firstChNum },
-  } = (
-    await getMangaFeed({
-      id: mangaId,
-      limit: 1,
-      offset: 0,
-      translatedLanguage: ['en'],
-      order: {
-        chapter: 'asc',
-      },
-    })
-  ).data[0] ?? { id: null, attributes: { chapter: null } };
+  const { firstChId, firstChNum } = await getFirstChapter(mangaId);
 
   return (
     <LayoutWrapper className="flex flex-col">

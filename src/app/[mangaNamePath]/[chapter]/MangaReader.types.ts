@@ -20,6 +20,7 @@ export interface IMangaReader {
 export interface IControls extends HTMLAttributes<HTMLDivElement> {
   mangaTitle: string;
   currentChapter: number;
+  firstChNum: number;
   totalCh: number;
   mangaId: string;
   onMinimize: () => void;
@@ -36,6 +37,7 @@ export interface IMobileControlsPanel {
   mangaId: string;
   currentChapter: number;
   totalChapters: number;
+  firstChNum: number;
   mangaTitle: string;
   tags: IMangaTag[] | null;
   authors: TMangaRelationship[] | null;
@@ -63,6 +65,7 @@ export interface IChapterDneModal {
 export interface IMangaControlsBox extends HTMLAttributes<HTMLDivElement> {
   mangaId: string;
   totalCh: number;
+  firstChNum: number;
   mangaTitle: string;
   currentChNum: string;
   tags: IMangaTag[] | null;

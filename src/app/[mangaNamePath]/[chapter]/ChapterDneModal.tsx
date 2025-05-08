@@ -25,7 +25,9 @@ const ChapterDneModal: ReactFC<IChapterDneModal> = ({ mangaId, mangaTitle, state
       trigger={state.trigger}
       title={{ text: 'Uh-oh!' }}
       onClose={() => setState(prev => ({ ...prev, trigger: false }))}
-      className="mb-20 h-fit border border-foreground"
+      className="z-10 h-fit border border-foreground"
+      backdropClassName="items-center"
+      scrollWrapperClassName="h-fit mb-[50%] xl:mb-[20%]"
     >
       <p className="font-body font-medium">Chapter {state.unavailChNum} does not exist!</p>
       <p className="font-body font-medium">

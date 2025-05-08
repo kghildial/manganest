@@ -14,6 +14,7 @@ import { cn } from '@/lib/utils';
 import useResponsive from '@/hooks/useResponsive';
 
 import { IMangaControlsBox } from './MangaReader.types';
+import Link from 'next/link';
 
 const ControlsBox: ReactFC<IMangaControlsBox> = ({
   tags,
@@ -23,6 +24,7 @@ const ControlsBox: ReactFC<IMangaControlsBox> = ({
   totalCh,
   className,
   mangaTitle,
+  firstChNum,
   currentChNum,
   minimizeOnScroll = false,
   showMenuTriggerOnMob = false,
@@ -110,7 +112,14 @@ const ControlsBox: ReactFC<IMangaControlsBox> = ({
               <Motion.CardHeader exit={{ opacity: 0 }} className="w-full flex-row justify-between">
                 <div className="mb-3 flex flex-col pr-2">
                   <CardTitle className="pr-6 font-heading text-2xl/7 font-medium xl:text-5xl xl:leading-[54px]">
-                    {mangaTitle}
+                    <Motion.Link
+                      whileHover={{ scale: 1.1, translateX: 16 }}
+                      whileTap={{ scale: 0.9 }}
+                      className="transition-colors hover:text-accent"
+                      href={`/${mangaTitle}?id=${mangaId}`}
+                    >
+                      {mangaTitle}
+                    </Motion.Link>
                   </CardTitle>
                   <CardDescription className="font-heading text-xl/6 text-foreground_tint_60 xl:text-2xl/7">
                     Chapter {currentChNum}
@@ -125,6 +134,7 @@ const ControlsBox: ReactFC<IMangaControlsBox> = ({
                     artists={artists}
                     mangaId={mangaId}
                     mangaTitle={mangaTitle}
+                    firstChNum={firstChNum}
                     totalChapters={totalCh}
                     currentChapter={Number(currentChNum)}
                   />
@@ -132,6 +142,7 @@ const ControlsBox: ReactFC<IMangaControlsBox> = ({
               </Motion.CardHeader>
               <Motion.CardContent exit={{ opacity: 0 }} className="flex w-full gap-6">
                 <Controls
+                  firstChNum={firstChNum}
                   showMinimize={!isDesktop && minimizeOnScroll}
                   mangaTitle={mangaTitle}
                   currentChapter={Number(currentChNum)}
