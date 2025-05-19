@@ -24,7 +24,7 @@ const About = () => {
             <Link
               href="https://mangadex.org"
               target="_blank"
-              className="transition-colors hover:text-accent"
+              className="underline transition-colors hover:text-accent"
             >
               MangaDex
             </Link>
@@ -32,7 +32,7 @@ const About = () => {
             <Link
               href="https://in.linkedin.com/in/kghildial"
               target="_blank"
-              className="transition-colors hover:text-accent"
+              className="underline transition-colors hover:text-accent"
             >
               Kinshuk Ghildial
             </Link>
@@ -88,7 +88,7 @@ const About = () => {
         For legal and copyright information, view our full{' '}
         <Link
           href="/disclaimer"
-          className="text-secondary_bg2 transition-colors hover:text-accent_tint"
+          className="text-secondary_bg2 underline transition-colors hover:text-accent_tint"
         >
           disclaimer
         </Link>
