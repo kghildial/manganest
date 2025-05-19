@@ -44,7 +44,7 @@ const TrendingManga: ReactFC<ITrendingMangaDetails> = ({ data }) => {
   return (
     <Carousel
       showOnlyProgress={isMobile}
-      controlsClassName="absolute xl:bottom-0 xl:top-auto top-[-55px] right-0 xl:w-[200px] w-[calc(100%-160px)] md:w-[150px]"
+      controlsClassName="absolute xl:bottom-0 xl:top-auto top-[-55px] right-0 xl:w-[200px] w-[calc(100%-165px)] md:w-[150px]"
       template={({ entry, index, activeSlide }) => {
         const { mangaId, coverArt, title, tags, description } = getMangaDetails(entry);
 
