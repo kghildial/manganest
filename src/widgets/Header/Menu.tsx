@@ -1,14 +1,19 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Equal, X } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { AnimatePresence, motion } from 'motion/react';
 import { scrollToElement } from '@/lib/utils';
 
 const Menu = () => {
   const [trigger, setTrigger] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setTrigger(false);
+  }, [pathname]);
 
   return (
     <>
