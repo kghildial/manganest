@@ -52,43 +52,7 @@ const MangaReader: ReactFC<IMangaReader> = async ({ params, searchParams }) => {
   return (
     <LayoutWrapper className="flex flex-col">
       <div className="mb-5 flex flex-col">
-        <>
-          {pageData.length > 0 ? (
-            <div className="mt-32 w-full xl:mt-0 xl:w-[70%]">
-              {pageData.map((page, index) => {
-                const highResUrl = `${baseUrl}/data/${hash}/${page}`;
-                const lowResUrl = `${baseUrl}/data/${hash}/${pageDataSaver[index]}`;
-                return (
-                  <Image
-                    unoptimized
-                    key={`${hash}_${page}`}
-                    src={highResUrl}
-                    placeholder="blur"
-                    blurDataURL={lowResUrl}
-                    alt={page}
-                    width={1000}
-                    height={700}
-                    className="w-full rounded-md"
-                  />
-                );
-              })}
-              <ControlsBox
-                className="z-50 mt-5 xl:hidden"
-                tags={tags}
-                mangaId={mangaId}
-                totalCh={totalCh}
-                authors={authors}
-                artists={artists}
-                firstChNum={Number(firstChNum)}
-                mangaTitle={mangaTitle}
-                currentChNum={currentChNum}
-              />
-            </div>
-          ) : (
-            <ChapterNAFallback title={mangaTitle} />
-          )}
-        </>
-        <div className="fixed left-[2.5%] top-20 hidden h-[85vh] w-[95vw] xl:left-auto xl:right-[calc((10vw)/2)] xl:top-[117px] xl:block xl:w-[25%] xl:overflow-scroll 2xl:right-[calc((100vw-1440px)/2)] 4k:right-[12vw]">
+        <div className="fixed left-[2.5%] top-20 h-fit w-[95vw] xl:left-auto xl:right-[calc((10vw)/2)] xl:top-[117px] xl:w-[25%] xl:overflow-scroll 2xl:right-[calc((100vw-1440px)/2)] 4k:right-[12vw]">
           <ControlsBox
             tags={tags}
             minimizeOnScroll
@@ -102,6 +66,40 @@ const MangaReader: ReactFC<IMangaReader> = async ({ params, searchParams }) => {
             currentChNum={currentChNum}
           />
         </div>
+        {pageData.length > 0 ? (
+          <div className="mt-32 w-full xl:mt-0 xl:w-[70%]">
+            {pageData.map((page, index) => {
+              const highResUrl = `${baseUrl}/data/${hash}/${page}`;
+              const lowResUrl = `${baseUrl}/data/${hash}/${pageDataSaver[index]}`;
+              return (
+                <Image
+                  unoptimized
+                  key={`${hash}_${page}`}
+                  src={highResUrl}
+                  placeholder="blur"
+                  blurDataURL={lowResUrl}
+                  alt={page}
+                  width={1000}
+                  height={700}
+                  className="w-full rounded-md"
+                />
+              );
+            })}
+            <ControlsBox
+              className="z-50 mt-5 xl:hidden"
+              tags={tags}
+              mangaId={mangaId}
+              totalCh={totalCh}
+              authors={authors}
+              artists={artists}
+              firstChNum={Number(firstChNum)}
+              mangaTitle={mangaTitle}
+              currentChNum={currentChNum}
+            />
+          </div>
+        ) : (
+          <ChapterNAFallback title={mangaTitle} />
+        )}
       </div>
     </LayoutWrapper>
   );

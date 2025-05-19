@@ -10,7 +10,7 @@ import { IChapterNAFallback } from './MangaReader.types';
 
 const ChapterNAFallback: ReactFC<IChapterNAFallback> = ({ title }) => {
   return (
-    <div className="flex h-[calc(100vh-245px)] flex-col items-center md:h-[calc(100vh-220px)] md:flex-row md:items-start xl:h-[calc(100vh-230px)] 2xl:h-[calc(100vh-170px)]">
+    <div className="mt-36 flex h-[calc(100vh-373px)] flex-col items-center sm:mt-32 md:h-[calc(100vh-364px)] md:flex-row md:items-start xl:h-[calc(100vh-374px)] 2xl:h-[calc(100vh-314px)]">
       <Image
         src={ImgNA}
         width={300}
