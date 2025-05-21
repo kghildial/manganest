@@ -7,7 +7,7 @@ import { useEffect, useMemo, useRef, useState, type FC as ReactFC } from 'react'
 import { Clock } from 'lucide-react';
 
 import { IChapterListing } from './MangaDetails.types';
-import { timeAgo } from '@/lib/utils';
+import { cn, timeAgo } from '@/lib/utils';
 import { IGetMangaFeedResponse } from '@/types/manga.types';
 import Loader from '@/widgets/Loader';
 
@@ -88,7 +88,7 @@ const ChapterListing: ReactFC<IChapterListing> = ({ mangaId, mangaTitle, initial
           </p>
         </motion.div>
       ))}
-      {hasMore && <Loader.Local ref={loader} className="h-20 w-20" />}
+      <Loader.Local ref={loader} className={cn('h-20 w-20', !hasMore ? 'hidden' : '')} />
     </AnimatePresence>
   );
 };

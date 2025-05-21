@@ -57,7 +57,7 @@ const ControlsBox: ReactFC<IMangaControlsBox> = ({
             width: isTablet ? 'calc(95vw - 16px)' : '95vw',
             maxHeight: 600,
           }
-        : { width: '100%', maxHeight: 600 },
+        : { width: '100%', maxHeight: 1000 },
     [midScrollMaximiseAnim, isTablet],
   );
 

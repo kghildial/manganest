@@ -14,10 +14,12 @@ const CreatorData: ReactFC<ICreatorData> = ({ title, description, authors, artis
 
   const creatorLimit = useMemo(() => 3, []);
   const descWordLimit = useMemo(() => 100, []);
+  const descWords = useMemo(() => description.split(' '), [description]);
   const descToShow = useMemo(() => {
-    const descWords = description.split(' ');
     if (descWords.length > descWordLimit) return descWords.slice(0, descWordLimit + 1).join(' ');
-  }, [description, descWordLimit]);
+
+    return description;
+  }, [description, descWordLimit, descWords]);
 
   return (
     <>
@@ -77,15 +79,20 @@ const CreatorData: ReactFC<ICreatorData> = ({ title, description, authors, artis
       )}
       {descToShow && descToShow !== '' && (
         <p className="mb-5 hidden font-body font-medium md:block">
-          {descToShow}...
-          <motion.span
-            whileTap={{ scale: 0.8 }}
-            transition={{ type: 'spring', stiffness: 300 }}
-            className="inline-block cursor-pointer text-foreground_tint_60 hover:text-accent"
-            onClick={() => setShowModal(true)}
-          >
-            &nbsp; Read More
-          </motion.span>
+          {descToShow}{' '}
+          {descWords.length > descWordLimit && (
+            <>
+              ...
+              <motion.span
+                whileTap={{ scale: 0.8 }}
+                transition={{ type: 'spring', stiffness: 300 }}
+                className="inline-block cursor-pointer text-foreground_tint_60 hover:text-accent"
+                onClick={() => setShowModal(true)}
+              >
+                &nbsp; Read More
+              </motion.span>
+            </>
+          )}
         </p>
       )}
     </>
