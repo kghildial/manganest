@@ -81,7 +81,7 @@ const Modal: ReactFC<IModal> = ({
             </Motion.Button>
             <Card
               className={cn(
-                'z-2 flex h-full w-[90vw] flex-col overflow-y-scroll p-5 xl:w-full xl:max-w-[70vw]',
+                'z-2 no-scrollbar flex h-full w-[90vw] flex-col overflow-y-scroll p-5 xl:w-full xl:max-w-[70vw]',
                 className,
               )}
             >

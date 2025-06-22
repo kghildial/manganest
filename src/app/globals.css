@@ -150,3 +150,14 @@ body {
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
 }
+
+/* Hide scrollbar but keep scroll functionality */
+.no-scrollbar {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}

@@ -8,11 +8,11 @@ import LayoutWrapper from '@/components/LayoutWrapper';
 import { getManga } from '@/lib/manga.server';
 
 const Home = async () => {
-  const oneYearAgo = new Date();
-  oneYearAgo.setMonth(oneYearAgo.getMonth() - 12);
+  const oneWeekAgo = new Date();
+  oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
 
-  const getTrendingNowMangas = async () => {
-    const topTrendingMangas = getManga({
+  const getTrendingNowManga = async () => {
+    const topTrendingManga = getManga({
       includes: ['cover_art', 'author', 'artist'],
       order: {
         followedCount: 'desc',
@@ -20,15 +20,15 @@ const Home = async () => {
       contentRating: ['safe', 'suggestive'],
       limit: 10,
       hasAvailableChapters: true,
-      createdAtSince: oneYearAgo.toISOString().split('.')[0],
+      createdAtSince: oneWeekAgo.toISOString().split('.')[0],
     });
 
-    const result = await topTrendingMangas;
+    const result = await topTrendingManga;
 
     return result.data;
   };
 
-  const topTrending = await getTrendingNowMangas();
+  const topTrending = await getTrendingNowManga();
 
   return (
     <LayoutWrapper className="flex flex-col">
