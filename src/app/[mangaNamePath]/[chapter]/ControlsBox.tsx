@@ -71,11 +71,11 @@ const ControlsBox: ReactFC<IMangaControlsBox> = ({
           return;
         }
 
-        if (window.pageYOffset >= 143 && !controlsState.minimize) {
+        if (window.scrollY >= 143 && !controlsState.minimize) {
           setControlsState({ minimize: true, isScrollTop: false });
         }
 
-        if (window.pageYOffset < 50) {
+        if (window.scrollY < 50) {
           if (didUserMinimizeAtStart.current) return;
           setControlsState({ minimize: false, isScrollTop: true });
         } else {
@@ -110,9 +110,9 @@ const ControlsBox: ReactFC<IMangaControlsBox> = ({
             <>
               <Motion.CardHeader exit={{ opacity: 0 }} className="w-full flex-row justify-between">
                 <div className="mb-3 flex flex-col pr-2">
-                  <CardTitle className="pr-6 font-heading text-2xl/7 font-medium xl:text-5xl xl:leading-[54px]">
+                  <CardTitle className="pr-6 font-heading text-2xl/7 font-medium xl:text-4xl xl:leading-[42px]">
                     <Motion.Link
-                      whileHover={{ scale: 1.1, translateX: 16 }}
+                      whileHover={{ scale: 1 }}
                       whileTap={{ scale: 0.9 }}
                       className="transition-colors hover:text-accent"
                       href={`/${mangaTitle}?id=${mangaId}`}
@@ -164,7 +164,11 @@ const ControlsBox: ReactFC<IMangaControlsBox> = ({
             <Grid2X2Plus
               size={40}
               className="rounded-md border border-foreground p-2"
-              onClick={() => setControlsState(prev => ({ ...prev, minimize: false }))}
+              onClick={e => {
+                e.preventDefault();
+                e.stopPropagation();
+                setControlsState(prev => ({ ...prev, minimize: false }));
+              }}
             />
           </motion.div>
         )}
