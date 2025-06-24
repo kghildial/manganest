@@ -10,8 +10,9 @@ const Footer = () => (
         className="text-foreground_tint_30 underline transition-colors hover:text-accent"
       >
         Kinshuk Ghildial
-      </Link>
-      . All rights reserved. <span className="hidden text-foreground_tint_60 xl:inline">·</span>{' '}
+      </Link>{' '}
+      <span className="hidden text-foreground_tint_60 xl:inline">·</span> All rights reserved{' '}
+      <span className="hidden text-foreground_tint_60 xl:inline">·</span>{' '}
       <br className="md:hidden" /> Powered by{' '}
       <Link
         href="https://mangadex.org"

@@ -27,8 +27,8 @@ const FullDetailsModal: ReactFC<IFullDetailsModal> = ({
       className="bg-background py-3"
       titleClassName="font-heading text-3xl xl:text-4xl font-normal"
     >
-      <div className="h-fit max-h-[300px] overflow-scroll">
-        <div className="h-full overflow-scroll">
+      <div className="no-scrollbar h-fit max-h-[300px] overflow-y-scroll">
+        <div className="no-scrollbar h-full overflow-y-scroll">
           <p className="font-body text-sm">{description}</p>
         </div>
       </div>

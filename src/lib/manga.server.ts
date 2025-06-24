@@ -17,6 +17,15 @@ import {
 import { createMangaQueryParams } from './manga';
 import { notFound } from 'next/navigation';
 
+/**
+ * The function `getManga` fetches manga data from an API based on the provided parameters.
+ * @param {IGetMangaParams} params - The `params` object in the `getManga` function likely contains
+ * information needed to fetch manga data, such as the manga ID or any specific query parameters. The
+ * exact structure of the `params` object would depend on the implementation of the
+ * `createMangaQueryParams` function and the requirements
+ * @returns The function `getManga` is returning a Promise that resolves to an `IGetMangaResponse`
+ * object.
+ */
 export async function getManga(params: IGetMangaParams): Promise<IGetMangaResponse> {
   if (!process.env.MANGADEX_BASE_API_URL) {
     throw new Error('MANGADEX_BASE_API_URL is not defined in the environment variables.');
@@ -44,6 +53,15 @@ export async function getManga(params: IGetMangaParams): Promise<IGetMangaRespon
   }
 }
 
+/**
+ * This TypeScript function fetches manga statistics using the MangaDex API based on the provided manga
+ * ID.
+ * @param {string} id - The `id` parameter in the `getMangaStats` function is a string that represents
+ * the unique identifier of a manga. This identifier is used to fetch statistics related to that
+ * specific manga from the MangaDex API.
+ * @returns The function `getMangaStats` is returning a Promise that resolves to an object of type
+ * `IGetMangaStatsResponse`.
+ */
 export async function getMangaStats(id: string): Promise<IGetMangaStatsResponse> {
   if (!process.env.MANGADEX_BASE_API_URL) {
     throw new Error('MANGADEX_BASE_API_URL is not defined in the environment variables.');
