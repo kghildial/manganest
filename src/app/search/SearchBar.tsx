@@ -1,6 +1,6 @@
 'use client';
 
-import { memo, useEffect, useMemo, useState, type FC as ReactFC } from 'react';
+import { memo, useEffect, useMemo, useRef, useState, type FC as ReactFC } from 'react';
 import { useImmerReducer } from 'use-immer';
 import { motion } from 'motion/react';
 import { Dot, Search as SearchIcon, SlidersHorizontal } from 'lucide-react';
@@ -16,12 +16,13 @@ import { filtersReducer } from './utils';
 
 const SearchBar: ReactFC<ISearchBar> = ({ filterTypes, handleSubmit, searchParamTag }) => {
   const { isMobile } = useResponsive();
+  const filtersChangedRef = useRef('');
 
   const [searchTerm, setSearchTerm] = useState('');
   const [filters, dispatch] = useImmerReducer(filtersReducer, {
     include: {},
     visible: false,
-    filtersChanged: false,
+    filtersChanged: '',
   });
 
   const isFiltersEmpty = useMemo(
@@ -39,10 +40,12 @@ const SearchBar: ReactFC<ISearchBar> = ({ filterTypes, handleSubmit, searchParam
   useEffect(() => {
     const { visible, filtersChanged } = filters;
 
-    if (!visible && filtersChanged) {
+    if (!visible && filtersChanged !== filtersChangedRef.current) {
+      filtersChangedRef.current = filtersChanged;
       handleSubmit({ searchTerm, filters: filters.include });
+      dispatch({ type: EFiltersAction.ResetFilterChangeFlag });
     }
-  }, [filters, handleSubmit, searchTerm]);
+  }, [filters, handleSubmit, searchTerm, dispatch]);
 
   return (
     <>

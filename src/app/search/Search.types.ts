@@ -12,7 +12,7 @@ export interface ISeach {
 export interface IFilters {
   visible: boolean;
   include: Record<string, string>;
-  filtersChanged: boolean;
+  filtersChanged: string;
 }
 
 type TFilterType = Record<'genres' | 'themes' | 'formats' | 'content', IMangaTag[]>;
@@ -52,6 +52,7 @@ export enum EFiltersAction {
   Exclude = 'EXCLUDE',
   Clear = 'CLEAR',
   Reset = 'RESET',
+  ResetFilterChangeFlag = 'RESET_FILTERS_FLAG',
 }
 
 export type TTag = {
