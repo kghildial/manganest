@@ -1,3 +1,42 @@
+# Manganest
+
+Manganest is designed to be a clean, ad-free manga reading platform that celebrates the medium and the people who make it — with a focus on zero distractions, thoughtful UI, and responsive performance.
+
+It is built as a full-stack manga reader from scratch — ideated and designed the UI & UX in Figma, developed the platform using Next.js, React Server Components , ShadCN, Tailwind, Framer Motion, and integrated a custom backend proxy layer for the MangaDex API.
+Focused on delivering a clean, minimal reading experience with SSR, and real-time content rendering.
+
+Live Preview:
+https://manganest.vercel.app
+
+# Glimpses:
+
+### Desktop:
+
+<div>
+  <a href="src/assets/images/docs/manganest_home_desktop.png"><img src="src/assets/images/docs/manganest_home_desktop.png" width="200" alt="Home Desktop"></a>
+  <a href="src/assets/images/docs/manganest_search_desktop.png"><img src="src/assets/images/docs/manganest_search_desktop.png" width="200" alt="Search Desktop"></a>
+  <a href="src/assets/images/docs/manganest_about_desktop.png"><img src="src/assets/images/docs/manganest_about_desktop.png" width="200" alt="About Desktop"></a>
+
+</div>
+
+### Mobile:
+
+<div>
+  <a href="src/assets/images/docs/manganest_home_mobile.png"><img src="src/assets/images/docs/manganest_home_mobile.png" width="200" alt="Home Mobile"></a>
+  <a href="src/assets/images/docs/manganest_search_mobile.png"><img src="src/assets/images/docs/manganest_search_mobile.png" width="200" alt="Search Mobile"></a>
+    <a href="src/assets/images/docs/manganest_about_mobile.png"><img src="src/assets/images/docs/manganest_about_mobile.png" width="200" alt="About Mobile"></a>
+</div>
+
+### Tablet:
+
+<div>
+  <a href="src/assets/images/docs/manganest_home_tablet.jpeg"><img src="src/assets/images/docs/manganest_home_tablet.jpeg" width="200" alt="Home Desktop"></a>
+</div>
+
+<br />
+<br />
+<br />
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
