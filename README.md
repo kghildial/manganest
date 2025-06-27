@@ -13,24 +13,24 @@ https://manganest.vercel.app
 ### Desktop:
 
 <div>
-  <a href="src/assets/images/docs/manganest_home_desktop.png"><img src="src/assets/images/docs/manganest_home_desktop.png" width="200" alt="Home Desktop"></a>
-  <a href="src/assets/images/docs/manganest_search_desktop.png"><img src="src/assets/images/docs/manganest_search_desktop.png" width="200" alt="Search Desktop"></a>
-  <a href="src/assets/images/docs/manganest_about_desktop.png"><img src="src/assets/images/docs/manganest_about_desktop.png" width="200" alt="About Desktop"></a>
+  <a target="_blank" href="src/assets/images/docs/manganest_home_desktop.png"><img src="src/assets/images/docs/manganest_home_desktop.png" width="200" alt="Home Desktop"></a>
+  <a target="_blank" href="src/assets/images/docs/manganest_search_desktop.png"><img src="src/assets/images/docs/manganest_search_desktop.png" width="200" alt="Search Desktop"></a>
+  <a target="_blank" href="src/assets/images/docs/manganest_about_desktop.png"><img src="src/assets/images/docs/manganest_about_desktop.png" width="200" alt="About Desktop"></a>
 
 </div>
 
 ### Mobile:
 
 <div>
-  <a href="src/assets/images/docs/manganest_home_mobile.png"><img src="src/assets/images/docs/manganest_home_mobile.png" width="200" alt="Home Mobile"></a>
-  <a href="src/assets/images/docs/manganest_search_mobile.png"><img src="src/assets/images/docs/manganest_search_mobile.png" width="200" alt="Search Mobile"></a>
-    <a href="src/assets/images/docs/manganest_about_mobile.png"><img src="src/assets/images/docs/manganest_about_mobile.png" width="200" alt="About Mobile"></a>
+  <a target="_blank" href="src/assets/images/docs/manganest_home_mobile.png"><img src="src/assets/images/docs/manganest_home_mobile.png" width="200" alt="Home Mobile"></a>
+  <a target="_blank" href="src/assets/images/docs/manganest_search_mobile.png"><img src="src/assets/images/docs/manganest_search_mobile.png" width="200" alt="Search Mobile"></a>
+  <a target="_blank" href="src/assets/images/docs/manganest_about_mobile.png"><img src="src/assets/images/docs/manganest_about_mobile.png" width="200" alt="About Mobile"></a>
 </div>
 
 ### Tablet:
 
 <div>
-  <a href="src/assets/images/docs/manganest_home_tablet.jpeg"><img src="src/assets/images/docs/manganest_home_tablet.jpeg" width="200" alt="Home Desktop"></a>
+  <a target="_blank" href="src/assets/images/docs/manganest_home_tablet.jpeg"><img src="src/assets/images/docs/manganest_home_tablet.jpeg" width="200" alt="Home Desktop"></a>
 </div>
 
 <br />
