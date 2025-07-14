@@ -111,6 +111,7 @@ export interface IGetMangaParams {
   updatedAtSince?: string;
   title?: string;
   includedTags?: string[];
+  excludedTags?: string[];
   includedTagsMode?: 'AND' | 'OR';
   excludedTagsMode?: 'AND' | 'OR';
 }

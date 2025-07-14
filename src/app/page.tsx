@@ -17,7 +17,7 @@ const Home = async () => {
       order: {
         followedCount: 'desc',
       },
-      contentRating: ['safe', 'suggestive'],
+      contentRating: ['safe'],
       limit: 10,
       hasAvailableChapters: true,
       createdAtSince: oneWeekAgo.toISOString().split('.')[0],
